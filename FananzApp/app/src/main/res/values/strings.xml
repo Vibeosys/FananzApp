@@ -13,4 +13,19 @@
     <string name="str_user_forgot_password_hint">Forgot password?</string>
     <string name="str_no_acc_hint">No account yet?</string>
     <string name="str_sign_in_subscriber_register">Use your registerd email address</string>
+    <string name="str_belly_dance">Belly Dancer</string>
+    <string name="str_first_artist">By Raqs Beledi</string>
+    <string name="str_price">Price</string>
+    <string name="str_aed">AED</string>
+    <string name="str_first_price">3000-5000</string>
+    <string name="show_details">SHOW DETAILS</string>
+    <string name="str_request_now">REQUEST NOW</string>
+    <string name="str_photographer">Photographer</string>
+    <string name="str_second_artist">By Ansel Adam</string>
+    <string name="str_second_price">1000-2000</string>
+    <string name="str_model">Model</string>
+    <string name="str_third_artist">By Miranda Kerr</string>
+    <string name="str_third_price">3000-5000</string>
+    <string name="search_items">Search</string>
+    <string name="str_filter">Filter</string>
 </resources>
