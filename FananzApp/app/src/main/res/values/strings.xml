@@ -5,4 +5,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="str_sign_in">Sign in</string>
+    <string name="str_sign_in_social">Sign in with social</string>
+    <string name="str_or">OR</string>
+    <string name="str_user_name_hint">Email</string>
+    <string name="str_user_password_hint">Password</string>
+    <string name="str_user_forgot_password_hint">Forgot password?</string>
+    <string name="str_no_acc_hint">No account yet?</string>
+    <string name="str_sign_in_subscriber_register">Use your registerd email address</string>
 </resources>
