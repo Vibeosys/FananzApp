@@ -13,4 +13,5 @@
     <color name="sign_in_btn">#f0c101</color>
     <color name="request_now_btn">#e62222</color>
     <color name="show_details_btn">#d1d1d1</color>
+    <color name="drawer_background">#dc252626</color>
 </resources>

@@ -28,4 +28,7 @@
     <string name="str_third_price">3000-5000</string>
     <string name="search_items">Search</string>
     <string name="str_filter">Filter</string>
+    <string name="my_profile">My Profile</string>
+    <string name="str_business_login">Business Login</string>
+    <string name="str_logout">Logout</string>
 </resources>
