@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="primaryText">#eb2f3031</color>
+    <color name="primaryText">#ef2f3031</color>
     <color name="primaryText2">#bf2f3031</color>
     <color name="accentText">#FF4081</color>
     <color name="secondaryText">#d863666b</color>
@@ -14,4 +14,5 @@
     <color name="request_now_btn">#e62222</color>
     <color name="show_details_btn">#d1d1d1</color>
     <color name="drawer_background">#dc252626</color>
+    <color name="hyperlinkColour">#dc3392ff</color>
 </resources>

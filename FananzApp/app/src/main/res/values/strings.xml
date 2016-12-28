@@ -11,7 +11,7 @@
     <string name="str_user_name_hint">Email</string>
     <string name="str_user_password_hint">Password</string>
     <string name="str_user_forgot_password_hint">Forgot password?</string>
-    <string name="str_no_acc_hint">No account yet?</string>
+    <string name="str_no_acc_hint">Register Now?</string>
     <string name="str_sign_in_subscriber_register">Use your registerd email address</string>
     <string name="str_belly_dance">Belly Dancer</string>
     <string name="str_first_artist">By Raqs Beledi</string>
@@ -31,4 +31,12 @@
     <string name="my_profile">My Profile</string>
     <string name="str_business_login">Business Login</string>
     <string name="str_logout">Logout</string>
+    <string name="str_taylor_swift">Taylor Swift</string>
+    <string name="str_singer">Singer</string>
+    <string name="str_facebook">www.facebook.artistpages.com</string>
+    <string name="str_youtube">www.youtube.com/artist</string>
+    <string name="str_details">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.</string>
+    <string name="str_request_services">Request Services For Singer Taylor Swift</string>
+    <string name="str_write_text_hint">Write some text</string>
+    <string name="str_submit">Submit</string>
 </resources>

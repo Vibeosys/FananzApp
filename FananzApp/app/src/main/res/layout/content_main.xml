@@ -120,6 +120,7 @@
                             android:background="@color/request_now_btn"
                             android:padding="14dp"
                             android:text="@string/str_request_now"
+                            android:onClick="requestNow"
                             android:textColor="@android:color/white"
                             android:textSize="18sp" />
                     </LinearLayout>

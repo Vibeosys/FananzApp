@@ -1,5 +1,6 @@
 package com.fananzapp;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,7 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
+import com.fananzapp.activities.ArtistDetailsActivity;
 import com.fananzapp.activities.CustomerLoginActivity;
 
 public class MainActivity extends AppCompatActivity
@@ -95,5 +98,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    public void showDetails(View v) {
+        startActivity(new Intent(getApplicationContext(), ArtistDetailsActivity.class));
+    }
+
+    public void requestNow(View v) {
+        Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_request_now);
+        dialog.show();
     }
 }
