@@ -19,6 +19,7 @@ public class CustomerLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_login);
         mTxtRegister = (TextView) findViewById(R.id.txt_register);
+        setTitle(getString(R.string.str_sign_in));
     }
 
     public void registerNow(View v) {

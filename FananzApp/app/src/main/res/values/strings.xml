@@ -11,7 +11,7 @@
     <string name="str_user_name_hint">Email</string>
     <string name="str_user_password_hint">Password</string>
     <string name="str_user_forgot_password_hint">Forgot password?</string>
-    <string name="str_no_acc_hint">Register Now?</string>
+    <string name="str_no_acc_hint">Register Now</string>
     <string name="str_sign_in_subscriber_register">Use your registerd email address</string>
     <string name="str_belly_dance">Belly Dancer</string>
     <string name="str_first_artist">By Raqs Beledi</string>
@@ -63,4 +63,5 @@
     <string name="str_freelance_fee">Freelance Fees per annum</string>
     <string name="str_freelance_fee_aed">AED 1000</string>
     <string name="str_name">Name</string>
+    <string name="str_dont_hav_an_acc_hint">Not Register yet?</string>
 </resources>

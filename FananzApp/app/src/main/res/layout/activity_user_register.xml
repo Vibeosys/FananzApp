@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/back_test"
     tools:context="com.fananzapp.activities.UserRegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/transWhiteLogin">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,14 +18,14 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:padding="4dp"
                 android:text="@string/str_register_now"
                 android:textColor="@color/primaryText"
-                android:textSize="20sp" />
+                android:textSize="20sp" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:paddingStart="5dp"
                     android:text="@string/str_first_name_hint"
@@ -69,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:paddingStart="5dp"
                     android:text="@string/str_last_name_hint"
@@ -102,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:paddingStart="5dp"
                     android:text="@string/str_user_email_hint"
@@ -135,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:paddingStart="5dp"
                     android:text="@string/str_user_phone_hint"
@@ -169,7 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:paddingStart="5dp"
                     android:text="@string/str_user_password_hint"
                     android:textColor="@color/primaryText"
@@ -202,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:paddingStart="5dp"
                     android:text="@string/str_user_confirm_password_hint"
                     android:textColor="@color/primaryText"
@@ -235,8 +236,8 @@
                     android:id="@+id/chk_terms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp" />
 
                 <TextView
                     android:id="@+id/txt_terms"
@@ -253,8 +254,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 

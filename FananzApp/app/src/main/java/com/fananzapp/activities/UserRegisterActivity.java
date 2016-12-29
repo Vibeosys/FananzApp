@@ -28,7 +28,7 @@ public class UserRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
-
+        setTitle(getResources().getString(R.string.str_register_now));
         chkTerms = (CheckBox) findViewById(R.id.chk_terms);
         mTxtTerms = (TextView) findViewById(R.id.txt_terms);
         mTxtTerms.setMovementMethod(LinkMovementMethod.getInstance());

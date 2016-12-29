@@ -18,21 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.CustomerLoginActivity" />
         <activity
-            android:name=".activities.CustomerLoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activities.SubscriberLoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:name=".activities.SubscriberLoginActivity" />
         <activity
             android:name=".activities.ArtistDetailsActivity"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".activities.UserRegisterActivity" />
         <activity
-            android:name=".activities.UserRegisterActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activities.SubscriberRegisterActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:name=".activities.SubscriberRegisterActivity"></activity>
     </application>
 
 </manifest>

@@ -17,4 +17,5 @@
     <color name="hyperlinkColour">#dc3392ff</color>
     <color name="closeBtnColour">#286090</color>
     <color name="greenBtnColour">#60b960</color>
+    <color name="transWhiteLogin">#9cffffff</color>
 </resources>

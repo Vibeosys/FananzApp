@@ -14,6 +14,7 @@ public class SubscriberLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscriber_login);
+
     }
 
     public void registerNow(View v) {
