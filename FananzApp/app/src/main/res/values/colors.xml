@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#f0c101</color>
 
     <color name="primaryText">#ef2f3031</color>
     <color name="primaryText2">#bf2f3031</color>
@@ -16,4 +16,5 @@
     <color name="drawer_background">#dc252626</color>
     <color name="hyperlinkColour">#dc3392ff</color>
     <color name="closeBtnColour">#286090</color>
+    <color name="greenBtnColour">#60b960</color>
 </resources>

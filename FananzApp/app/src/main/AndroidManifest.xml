@@ -29,6 +29,9 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activities.UserRegisterActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.SubscriberRegisterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 

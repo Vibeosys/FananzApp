@@ -50,4 +50,17 @@
     <string name="str_user_agreement"><![CDATA[I agree to Terms & Conditions.]]></string>
     <string name="str_terms_and_condition"><![CDATA[Terms & Conditions]]></string>
     <string name="str_close">Close</string>
+    <string name="corporate">Corporate</string>
+    <string name="freelance">Freelance</string>
+    <string name="str_corporate_fee">Corporate Fees per annum</string>
+    <string name="str_fee">AED 2000</string>
+    <string name="str_subscription_acc">Subscription Account</string>
+    <string name="str_business_name">Business Name</string>
+    <string name="str_name_of_representative">Name of Representative</string>
+    <string name="str_user_telephone_hint">Telephone No</string>
+    <string name="str_user_web_hint">Website Name</string>
+    <string name="str_country_of_residence">Country of Residence</string>
+    <string name="str_freelance_fee">Freelance Fees per annum</string>
+    <string name="str_freelance_fee_aed">AED 1000</string>
+    <string name="str_name">Name</string>
 </resources>

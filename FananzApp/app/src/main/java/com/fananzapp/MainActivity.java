@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 
 import com.fananzapp.activities.ArtistDetailsActivity;
 import com.fananzapp.activities.CustomerLoginActivity;
+import com.fananzapp.activities.SubscriberLoginActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -91,8 +92,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_business_login) {
+            Intent iLogin = new Intent(getApplicationContext(), SubscriberLoginActivity.class);
+            startActivity(iLogin);
+            finish();
 
         } else if (id == R.id.nav_logout) {
             Intent iLogin = new Intent(getApplicationContext(), CustomerLoginActivity.class);
