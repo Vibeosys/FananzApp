@@ -15,4 +15,5 @@
     <color name="show_details_btn">#d1d1d1</color>
     <color name="drawer_background">#dc252626</color>
     <color name="hyperlinkColour">#dc3392ff</color>
+    <color name="closeBtnColour">#286090</color>
 </resources>

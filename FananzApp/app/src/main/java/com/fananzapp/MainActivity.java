@@ -1,7 +1,9 @@
 package com.fananzapp;
 
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,12 +17,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.FrameLayout;
 
 import com.fananzapp.activities.ArtistDetailsActivity;
 import com.fananzapp.activities.CustomerLoginActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });*/
-
+        frameLayout = (FrameLayout) findViewById(R.id.frameLay);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -102,7 +106,16 @@ public class MainActivity extends AppCompatActivity
 
 
     public void showDetails(View v) {
-        startActivity(new Intent(getApplicationContext(), ArtistDetailsActivity.class));
+        getWindow().setExitTransition(null);
+        getWindow().setEnterTransition(null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options =
+                    ActivityOptions.makeSceneTransitionAnimation(this, frameLayout, frameLayout.getTransitionName());
+            startActivity(new Intent(this, ArtistDetailsActivity.class), options.toBundle());
+
+        } else {
+            startActivity(new Intent(this, ArtistDetailsActivity.class));
+        }
     }
 
     public void requestNow(View v) {

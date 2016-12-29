@@ -39,4 +39,15 @@
     <string name="str_request_services">Request Services For Singer Taylor Swift</string>
     <string name="str_write_text_hint">Write some text</string>
     <string name="str_submit">Submit</string>
+    <string name="str_register">Register</string>
+    <string name="str_register_now">Register Now</string>
+    <string name="str_first_name_hint">First Name</string>
+    <string name="str_last_name_hint">Last Name</string>
+    <string name="str_user_email_hint">Email</string>
+    <string name="str_user_phone_hint">Mobile No.</string>
+    <string name="str_user_confirm_password_hint">Confirm Password</string>
+    <string name="str_back">Back</string>
+    <string name="str_user_agreement"><![CDATA[I agree to Terms & Conditions.]]></string>
+    <string name="str_terms_and_condition"><![CDATA[Terms & Conditions]]></string>
+    <string name="str_close">Close</string>
 </resources>
