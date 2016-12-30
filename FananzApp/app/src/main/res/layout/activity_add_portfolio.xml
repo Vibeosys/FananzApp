@@ -32,9 +32,11 @@
                         android:orientation="horizontal">
 
                         <ImageView
+                            android:id="@+id/img1"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_margin="4dp"
+                            android:onClick="openGallery"
                             android:padding="3dp"
                             android:src="@drawable/default_img" />
 

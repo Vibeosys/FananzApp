@@ -80,4 +80,12 @@
     <string name="str_cancel">Cancel</string>
     <string name="str_update">Update</string>
     <string name="str_price_in_aed">(All prices in AED only)</string>
+    <string name="str_ok">Ok</string>
+    <string name="permission_title_rationale">Permission needed</string>
+    <string name="permission_read_storage_rationale">Storage read permission is needed to pick files.</string>
+    <string name="str_select_picture">Select Picture</string>
+    <string name="str_cannot_retrieve_selected_image">Cannot retrieve selected image</string>
+    <string name="str_unexpected_error">Unexpected error</string>
+    <string name="permission_write_storage_rationale">Storage write permission is needed to save the image.</string>
+    <string name="str_cannot_retrieve_cropped_image">Cannot retrieve cropped image</string>
 </resources>
