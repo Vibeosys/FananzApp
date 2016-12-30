@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 
 import com.fananzapp.activities.ArtistDetailsActivity;
 import com.fananzapp.activities.CustomerLoginActivity;
+import com.fananzapp.activities.PortfolioListActivity;
 import com.fananzapp.activities.SubscriberLoginActivity;
 
 public class MainActivity extends AppCompatActivity
@@ -101,6 +102,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_logout) {
             Intent iLogin = new Intent(getApplicationContext(), CustomerLoginActivity.class);
             startActivity(iLogin);
+            finish();
+        } else if (id == R.id.nav_portfolio) {
+            Intent intent = new Intent(getApplicationContext(), PortfolioListActivity.class);
+            startActivity(intent);
             finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

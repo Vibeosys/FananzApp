@@ -30,6 +30,7 @@
     <string name="str_filter">Filter</string>
     <string name="my_profile">My Profile</string>
     <string name="str_business_login">Business Login</string>
+    <string name="str_portfolio">Portfolio</string>
     <string name="str_logout">Logout</string>
     <string name="str_taylor_swift">Taylor Swift</string>
     <string name="str_singer">Singer</string>
@@ -64,4 +65,11 @@
     <string name="str_freelance_fee_aed">AED 1000</string>
     <string name="str_name">Name</string>
     <string name="str_dont_hav_an_acc_hint">Not Register yet?</string>
+    <string name="str_add_new_porfolie">Add Portfolio</string>
+    <string name="str_inactive">INACTIVE </string>
+    <string name="str_edit">MODIFY</string>
+    <string name="str_belly_dance_desc">Belly dance is an expressive dance which emphasizes complex
+        movements of the torso</string>
+    <string name="str_photo_desc">Photographers are artists with the camera, using a blend of
+        technical skills</string>
 </resources>
