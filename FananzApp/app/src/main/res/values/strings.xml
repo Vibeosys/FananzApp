@@ -72,4 +72,11 @@
         movements of the torso</string>
     <string name="str_photo_desc">Photographers are artists with the camera, using a blend of
         technical skills</string>
+    <string name="str_portfolio_fb_link">Facebook Link</string>
+    <string name="str_portfolio_you_link">Youtube Link</string>
+    <string name="str_portfolio_min_price">Minimum Price</string>
+    <string name="str_portfolio_max_price">Maximum Price</string>
+    <string name="str_portfolio_details">Details</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="str_update">Update</string>
 </resources>
