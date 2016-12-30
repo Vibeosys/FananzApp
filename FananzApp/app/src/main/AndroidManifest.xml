@@ -25,8 +25,12 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".activities.UserRegisterActivity" />
         <activity android:name=".activities.SubscriberRegisterActivity" />
-        <activity android:name=".activities.PortfolioListActivity"></activity>
-        <activity android:name=".activities.AddPortfolioActivity"></activity>
+        <activity
+            android:name=".activities.PortfolioListActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".activities.AddPortfolioActivity"
+            android:parentActivityName=".activities.PortfolioListActivity"></activity>
     </application>
 
 </manifest>
