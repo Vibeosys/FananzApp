@@ -13,8 +13,8 @@ import com.fananzapp.R;
  * Created by akshay on 30-12-2016.
  */
 public class BaseActivity extends AppCompatActivity {
-    protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
-    protected static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
+    public static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
+    public static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
 
     private AlertDialog mAlertDialog;
 
@@ -35,7 +35,7 @@ public class BaseActivity extends AppCompatActivity {
      * If the permission has been denied previously, a Dialog will prompt the user to grant the
      * permission, otherwise it is requested directly.
      */
-    protected void requestPermission(final String permission, String rationale, final int requestCode) {
+    public void requestPermission(final String permission, String rationale, final int requestCode) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
             showAlertDialog(getString(R.string.permission_title_rationale), rationale,
                     new DialogInterface.OnClickListener() {
@@ -61,11 +61,11 @@ public class BaseActivity extends AppCompatActivity {
      * @param onNegativeButtonClickListener - listener for negative button
      * @param negativeText                  - negative button text
      */
-    protected void showAlertDialog(@Nullable String title, @Nullable String message,
-                                   @Nullable DialogInterface.OnClickListener onPositiveButtonClickListener,
-                                   @NonNull String positiveText,
-                                   @Nullable DialogInterface.OnClickListener onNegativeButtonClickListener,
-                                   @NonNull String negativeText) {
+    public void showAlertDialog(@Nullable String title, @Nullable String message,
+                                @Nullable DialogInterface.OnClickListener onPositiveButtonClickListener,
+                                @NonNull String positiveText,
+                                @Nullable DialogInterface.OnClickListener onNegativeButtonClickListener,
+                                @NonNull String negativeText) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(message);

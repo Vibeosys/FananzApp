@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.fananzapp.R;
+import com.fananzapp.views.CroppedImageView;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -30,13 +31,14 @@ public class AddPortfolioActivity extends BaseActivity {
     private static final int REQUEST_SELECT_PICTURE = 0x01;
     private static final String SAMPLE_CROPPED_IMAGE_NAME = "SampleCropImage";
     private static final String TAG = AddPortfolioActivity.class.getSimpleName();
-    private ImageView imgView;
+    private CroppedImageView imgView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_portfolio);
-        imgView = (ImageView) findViewById(R.id.img1);
+        imgView = (CroppedImageView) findViewById(R.id.img1);
+        imgView.setBaseActivity(this);
     }
 
     public void openGallery(View v) {
