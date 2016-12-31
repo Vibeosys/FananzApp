@@ -55,7 +55,7 @@ public class SessionManager {
     private static boolean addOrUdateSharedPreferences() {
 
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
-
+        editor.putString(PropertyTypeConstants.PORTFOLIO_LIST, mPropertyFileReader.getPortfolioList());
         editor.apply();
         return true;
     }
@@ -80,5 +80,9 @@ public class SessionManager {
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
         editor.putLong(sharedPrefKey, sharedPrefValue);
         editor.apply();
+    }
+
+    public String getPortfolioListUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.PORTFOLIO_LIST,null);
     }
 }

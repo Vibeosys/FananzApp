@@ -47,4 +47,8 @@ public class PropertyFileReader {
         String versionNumber = mProperties.getProperty(PropertyTypeConstants.VERSION_NUMBER);
         return Float.valueOf(versionNumber);
     }
+
+    public String getPortfolioList() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.PORTFOLIO_LIST);
+    }
 }

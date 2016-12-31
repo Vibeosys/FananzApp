@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -31,14 +32,15 @@
         <activity android:name=".activities.SubscriberRegisterActivity" />
         <activity
             android:name=".activities.PortfolioListActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activities.AddPortfolioActivity"
-            android:parentActivityName=".activities.PortfolioListActivity"></activity>
+            android:parentActivityName=".activities.PortfolioListActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.SubscriptionActivity"></activity>
     </application>
 
 </manifest>

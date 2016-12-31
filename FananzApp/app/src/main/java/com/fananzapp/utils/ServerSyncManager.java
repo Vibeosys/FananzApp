@@ -14,7 +14,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.responsedata.BaseResponseDTO;
-import com.fananzapp.data.responsedata.ResponseErrorDTO;
 
 import org.json.JSONObject;
 
@@ -69,25 +68,25 @@ public class ServerSyncManager {
     private void uploadJsonToServer(String uploadJson, String uploadUrl,
                                     final int requestToken) {
         RequestQueue vollyRequest = Volley.newRequestQueue(mContext);
-
         JsonObjectRequest uploadRequest = new JsonObjectRequest(Request.Method.POST,
-                uploadUrl, uploadJson, new Response.Listener<JSONObject>() {
+                uploadUrl, new JSONObject(), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
+                Log.i(TAG, "## Response data" + response.toString());
                 BaseResponseDTO responseDTO = BaseResponseDTO.deserializeJson(response.toString());
-                ResponseErrorDTO errorDTO = ResponseErrorDTO.deserializeJson(responseDTO.getError());
                 if (responseDTO == null) {
                     Log.e(TAG, "Error to get the data from server");
                     return;
                 }
-                if (errorDTO.getErrorCode() == 110) {
+                if (responseDTO.getErrorCode() == 110) {
                     callToLogOut();
                     return;
                 }
-                if (errorDTO.getErrorCode() > 0) {
+                if (responseDTO.getErrorCode() > 0) {
                     if (mErrorReceived != null)
-                        mErrorReceived.onDataErrorReceived(errorDTO, requestToken);
+                        mErrorReceived.onDataErrorReceived(responseDTO.getErrorCode(), responseDTO.getMessage()
+                                , requestToken);
                     Log.e("Data Error", "Error to get the data");
                     return;
                 }
@@ -105,7 +104,7 @@ public class ServerSyncManager {
                     mErrorReceived.onVolleyErrorReceived(error, requestToken);
             }
         });
-        uploadRequest.setRetryPolicy(new DefaultRetryPolicy(20000,
+        uploadRequest.setRetryPolicy(new DefaultRetryPolicy(60000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         vollyRequest.add(uploadRequest);
@@ -120,6 +119,54 @@ public class ServerSyncManager {
         //finish();
     }
 
+    public void uploadGetDataToServer(int requestToken, String url) {
+        uploadJsonToServer(url, requestToken);
+    }
+
+    private void uploadJsonToServer(String url, final int requestToken) {
+        RequestQueue vollyRequest = Volley.newRequestQueue(mContext);
+        JsonObjectRequest uploadRequest = new JsonObjectRequest(1,
+                url, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i(TAG, "## Response data" + response.toString());
+                BaseResponseDTO responseDTO = BaseResponseDTO.deserializeJson(response.toString());
+                if (responseDTO == null) {
+                    Log.e(TAG, "Error to get the data from server");
+                    return;
+                }
+                if (responseDTO.getErrorCode() == 110) {
+                    callToLogOut();
+                    return;
+                }
+                if (responseDTO.getErrorCode() > 0) {
+                    if (mErrorReceived != null)
+                        mErrorReceived.onDataErrorReceived(responseDTO.getErrorCode(), responseDTO.getMessage()
+                                , requestToken);
+                    Log.e("Data Error", "Error to get the data");
+                    return;
+                }
+
+                if (mOnSuccessResultReceived != null) {
+                    mOnSuccessResultReceived.onResultReceived(responseDTO.getData(), requestToken);
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                if (mErrorReceived != null)
+                    mErrorReceived.onVolleyErrorReceived(error, requestToken);
+            }
+        });
+        uploadRequest.setRetryPolicy(new DefaultRetryPolicy(60000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        vollyRequest.add(uploadRequest);
+    }
+
 
     public interface OnSuccessResultReceived {
         void onResultReceived(@NonNull String data, int requestToken);
@@ -129,8 +176,7 @@ public class ServerSyncManager {
     public interface OnErrorResultReceived {
         void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken);
 
-        void onDataErrorReceived(ResponseErrorDTO errorDbDTO, int requestToken);
+        void onDataErrorReceived(int errorCode, String errorMessage, int requestToken);
     }
-
 
 }

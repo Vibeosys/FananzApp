@@ -6,5 +6,6 @@ package com.fananzapp.utils;
 public final class PropertyTypeConstants {
 
     public static final String API_ENDPOINT_URI = "api.endpoint.uri";
-    public static final String VERSION_NUMBER = "api.endpoint.version";
+    public static final String VERSION_NUMBER = "version.number";
+    public static final String PORTFOLIO_LIST ="api.endpoint.getportfolio" ;
 }

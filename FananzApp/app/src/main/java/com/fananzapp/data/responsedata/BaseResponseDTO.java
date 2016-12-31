@@ -13,23 +13,28 @@ import com.google.gson.JsonParseException;
 public class BaseResponseDTO extends BaseDTO {
 
     private static final String TAG = BaseResponseDTO.class.getSimpleName();
-    private String error;
+    private int errorCode;
+    private String message;
     private String data;
+
 
     public BaseResponseDTO() {
     }
 
-    public BaseResponseDTO(String error, String data) {
-        this.error = error;
-        this.data = data;
+    public int getErrorCode() {
+        return errorCode;
     }
 
-    public String getError() {
-        return error;
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getData() {
@@ -42,12 +47,12 @@ public class BaseResponseDTO extends BaseDTO {
 
     public static BaseResponseDTO deserializeJson(String serializedString) {
         Gson gson = new Gson();
-        BaseResponseDTO resonceDto = null;
+        BaseResponseDTO responseDTO = null;
         try {
-            resonceDto = gson.fromJson(serializedString, BaseResponseDTO.class);
+            responseDTO = gson.fromJson(serializedString, BaseResponseDTO.class);
         } catch (JsonParseException e) {
-            Log.d(TAG, "Exception in deserialization" + e.toString());
+            Log.d(TAG, "Exception in deserialization Base" + e.toString());
         }
-        return resonceDto;
+        return responseDTO;
     }
 }
