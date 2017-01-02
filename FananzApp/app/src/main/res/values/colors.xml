@@ -18,4 +18,5 @@
     <color name="closeBtnColour">#286090</color>
     <color name="greenBtnColour">#60b960</color>
     <color name="transWhiteLogin">#9cffffff</color>
+    <color name="white_overlay_8x">#a5ffffff</color>
 </resources>
