@@ -6,5 +6,5 @@ package com.fananzapp.utils;
 public class ServerRequestToken {
 
     public static final int REQUEST_PORTFOLIO_LIST = 100;
-
+    public static final int REQUEST_CATEGORY_TOKEN = 101;
 }

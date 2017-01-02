@@ -56,6 +56,7 @@ public class SessionManager {
 
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
         editor.putString(PropertyTypeConstants.PORTFOLIO_LIST, mPropertyFileReader.getPortfolioList());
+        editor.putString(PropertyTypeConstants.CATEGORY_LIST, mPropertyFileReader.getCategoryList());
         editor.apply();
         return true;
     }
@@ -84,5 +85,9 @@ public class SessionManager {
 
     public String getPortfolioListUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.PORTFOLIO_LIST,null);
+    }
+
+    public String getCategoryListUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.CATEGORY_LIST,null);
     }
 }

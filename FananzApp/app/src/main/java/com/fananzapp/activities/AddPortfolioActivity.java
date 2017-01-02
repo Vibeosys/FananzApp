@@ -14,9 +14,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.fananzapp.R;
+import com.fananzapp.adapters.CategorySpinnerAdapter;
+import com.fananzapp.adapters.SubcategorySpinnerAdapter;
+import com.fananzapp.data.responsedata.CategoryResponseDTO;
+import com.fananzapp.utils.ServerRequestToken;
+import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.views.CroppedImageView;
 import com.yalantis.ucrop.UCrop;
 
@@ -24,21 +31,33 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AddPortfolioActivity extends BaseActivity {
+public class AddPortfolioActivity extends BaseActivity implements ServerSyncManager.OnErrorResultReceived,
+        ServerSyncManager.OnSuccessResultReceived {
 
     private static final int REQUEST_SELECT_PICTURE = 0x01;
     private static final String SAMPLE_CROPPED_IMAGE_NAME = "SampleCropImage";
     private static final String TAG = AddPortfolioActivity.class.getSimpleName();
     private CroppedImageView imgView;
+    private ArrayList<CategoryResponseDTO> categoryResponseDTOs = new ArrayList<>();
+    private Spinner spnCategory, spnSubCategory;
+    private CategorySpinnerAdapter categorySpinnerAdapter;
+    private SubcategorySpinnerAdapter subcategorySpinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_portfolio);
         imgView = (CroppedImageView) findViewById(R.id.img1);
+        spnCategory = (Spinner) findViewById(R.id.spnCategory);
+        spnSubCategory = (Spinner) findViewById(R.id.spnSubCategory);
         imgView.setBaseActivity(this);
+        progressDialog.show();
+        mServerSyncManager.uploadGetDataToServer(ServerRequestToken.REQUEST_CATEGORY_TOKEN, mSessionManager.getCategoryListUrl());
+        mServerSyncManager.setOnStringErrorReceived(this);
+        mServerSyncManager.setOnStringResultReceived(this);
     }
 
     public void openGallery(View v) {
@@ -150,5 +169,28 @@ public class AddPortfolioActivity extends BaseActivity {
         outStream.close();
         imgView.setImageURI(Uri.fromFile(saveFile));
         // showNotification(saveFile);
+    }
+
+    @Override
+    public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onResultReceived(@NonNull String data, int requestToken) {
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestToken.REQUEST_CATEGORY_TOKEN:
+                categoryResponseDTOs = CategoryResponseDTO.deserializeToArray(data);
+                categorySpinnerAdapter = new CategorySpinnerAdapter(getApplicationContext(), categoryResponseDTOs);
+                spnCategory.setAdapter(categorySpinnerAdapter);
+                Log.d(TAG, "##" + categoryResponseDTOs);
+                break;
+        }
     }
 }
