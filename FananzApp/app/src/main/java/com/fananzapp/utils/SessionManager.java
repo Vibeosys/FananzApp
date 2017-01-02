@@ -57,6 +57,7 @@ public class SessionManager {
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
         editor.putString(PropertyTypeConstants.PORTFOLIO_LIST, mPropertyFileReader.getPortfolioList());
         editor.putString(PropertyTypeConstants.CATEGORY_LIST, mPropertyFileReader.getCategoryList());
+        editor.putString(PropertyTypeConstants.ADD_SUBSCRIBER, mPropertyFileReader.getAddSubscriber());
         editor.apply();
         return true;
     }
@@ -89,5 +90,9 @@ public class SessionManager {
 
     public String getCategoryListUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.CATEGORY_LIST,null);
+    }
+
+    public String addSubsriberUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.ADD_SUBSCRIBER,null);
     }
 }

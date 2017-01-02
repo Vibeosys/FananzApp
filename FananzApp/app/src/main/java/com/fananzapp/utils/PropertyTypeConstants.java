@@ -9,4 +9,5 @@ public final class PropertyTypeConstants {
     public static final String VERSION_NUMBER = "version.number";
     public static final String PORTFOLIO_LIST = "api.endpoint.getportfolio";
     public static final String CATEGORY_LIST = "api.endpoint.getcategory";
+    public static final String ADD_SUBSCRIBER = "api.endpoint.addsub";
 }

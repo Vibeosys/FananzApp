@@ -92,4 +92,6 @@
     <string name="please_wait">Please Wait</string>
     <string name="dlg_ok">Ok</string>
     <string name="str_modify">MODIFY</string>
+    <string name="str_nick_name">Nick Name</string>
+    <string name="facebook_app_id">369015673462835</string>
 </resources>

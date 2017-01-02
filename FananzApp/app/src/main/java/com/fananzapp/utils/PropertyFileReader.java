@@ -55,4 +55,8 @@ public class PropertyFileReader {
     public String getCategoryList() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.CATEGORY_LIST);
     }
+
+    public String getAddSubscriber() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.ADD_SUBSCRIBER);
+    }
 }

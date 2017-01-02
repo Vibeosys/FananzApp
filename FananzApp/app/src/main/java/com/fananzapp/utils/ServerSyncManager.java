@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
+import com.fananzapp.data.requestdata.UserRequestDTO;
 import com.fananzapp.data.responsedata.BaseResponseDTO;
 import com.google.gson.JsonObject;
 
@@ -57,11 +58,9 @@ public class ServerSyncManager {
 
     private String prepareUploadJsonFromData(BaseRequestDTO params) {
 
-       /* UserRequestDTO userRequestDTO = new UserRequestDTO(mSessionManager.getUserId(),
-                mSessionManager.getSubId(), mSessionManager.getUserName(),
-                mSessionManager.getUserPassword());
+        UserRequestDTO userRequestDTO = new UserRequestDTO();
         //get the values from session manager
-        params.setUser(userRequestDTO.serializeString());*/
+        params.setUser(userRequestDTO.serializeString());
         String uploadJson = params.serializeString();
         Log.i(TAG, "## request json" + uploadJson);
         return uploadJson;
