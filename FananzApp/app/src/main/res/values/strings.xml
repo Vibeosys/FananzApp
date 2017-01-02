@@ -89,4 +89,7 @@
     <string name="permission_write_storage_rationale">Storage write permission is needed to save the image.</string>
     <string name="str_cannot_retrieve_cropped_image">Cannot retrieve cropped image</string>
     <string name="str_subscribe">Subscribe</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="dlg_ok">Ok</string>
+    <string name="str_modify">MODIFY</string>
 </resources>

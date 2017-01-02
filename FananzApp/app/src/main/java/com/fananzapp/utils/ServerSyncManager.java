@@ -11,9 +11,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.responsedata.BaseResponseDTO;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -68,8 +70,14 @@ public class ServerSyncManager {
     private void uploadJsonToServer(String uploadJson, String uploadUrl,
                                     final int requestToken) {
         RequestQueue vollyRequest = Volley.newRequestQueue(mContext);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(uploadJson);
+        } catch (Exception e) {
+
+        }
         JsonObjectRequest uploadRequest = new JsonObjectRequest(Request.Method.POST,
-                uploadUrl, new JSONObject(), new Response.Listener<JSONObject>() {
+                uploadUrl, jsonObject, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -125,13 +133,13 @@ public class ServerSyncManager {
 
     private void uploadJsonToServer(String url, final int requestToken) {
         RequestQueue vollyRequest = Volley.newRequestQueue(mContext);
-        JsonObjectRequest uploadRequest = new JsonObjectRequest(1,
-                url, new Response.Listener<JSONObject>() {
+        StringRequest uploadRequest = new StringRequest(Request.Method.GET,
+                url, new Response.Listener<String>() {
 
             @Override
-            public void onResponse(JSONObject response) {
-                Log.i(TAG, "## Response data" + response.toString());
-                BaseResponseDTO responseDTO = BaseResponseDTO.deserializeJson(response.toString());
+            public void onResponse(String response) {
+                Log.i(TAG, "## Response data" + response);
+                BaseResponseDTO responseDTO = BaseResponseDTO.deserializeJson(response);
                 if (responseDTO == null) {
                     Log.e(TAG, "Error to get the data from server");
                     return;
