@@ -2,7 +2,6 @@ package com.fananzapp.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.android.volley.VolleyError;
 import com.fananzapp.R;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.SigninSubReqDTO;
-import com.fananzapp.fragments.CorporateRegFragment;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.google.gson.Gson;
@@ -75,7 +73,7 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
             BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
             baseRequestDTO.setData(serializedJsonString);
             mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_SIGN_IN_SUB,
-                    mSessionManager.addSignInSubUrl(), baseRequestDTO);
+                    mSessionManager.signInSubUrl(), baseRequestDTO);
         }
     }
 

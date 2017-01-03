@@ -99,4 +99,11 @@
     <string name="str_pass_empty">Please enter password</string>
     <string name="str_mob_empty">Please enter mobile number</string>
     <string name="str_check_box_not">Please accept terms and conditions</string>
+    <string name="str_next">Next</string>
+    <string name="str_fb_empty">Please enter facebook link</string>
+    <string name="str_you_empty">Please enter youtube link</string>
+    <string name="str_min_price_error">Please enter minimum price</string>
+    <string name="str_max_price_error">Please enter maximum price</string>
+    <string name="str_max_price_greater_error">Maximum price should be greater than minimum price</string>
+    <string name="str_portfolio_details_empty">Please enter details</string>
 </resources>

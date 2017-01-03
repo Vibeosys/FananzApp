@@ -13,9 +13,9 @@ public class SigninSubReqDTO extends BaseDTO {
     public SigninSubReqDTO() {
     }
 
-    public SigninSubReqDTO(String password, String emailId) {
-        this.password = password;
+    public SigninSubReqDTO(String emailId, String password) {
         this.emailId = emailId;
+        this.password = password;
     }
 
     public String getEmailId() {

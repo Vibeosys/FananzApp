@@ -59,6 +59,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.CATEGORY_LIST, mPropertyFileReader.getCategoryList());
         editor.putString(PropertyTypeConstants.ADD_SUBSCRIBER, mPropertyFileReader.getAddSubscriber());
         editor.putString(PropertyTypeConstants.SIGN_IN_SUBSCRIBER, mPropertyFileReader.getSignInSub());
+        editor.putString(PropertyTypeConstants.ADD_PORTFOLIO, mPropertyFileReader.addPortfolioUrl());
         editor.apply();
         return true;
     }
@@ -86,18 +87,22 @@ public class SessionManager {
     }
 
     public String getPortfolioListUrl() {
-        return mProjectSharedPref.getString(PropertyTypeConstants.PORTFOLIO_LIST,null);
+        return mProjectSharedPref.getString(PropertyTypeConstants.PORTFOLIO_LIST, null);
     }
 
     public String getCategoryListUrl() {
-        return mProjectSharedPref.getString(PropertyTypeConstants.CATEGORY_LIST,null);
+        return mProjectSharedPref.getString(PropertyTypeConstants.CATEGORY_LIST, null);
     }
 
     public String addSubsriberUrl() {
-        return mProjectSharedPref.getString(PropertyTypeConstants.ADD_SUBSCRIBER,null);
+        return mProjectSharedPref.getString(PropertyTypeConstants.ADD_SUBSCRIBER, null);
     }
 
-    public String addSignInSubUrl() {
-        return mProjectSharedPref.getString(PropertyTypeConstants.SIGN_IN_SUBSCRIBER,null);
+    public String signInSubUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SIGN_IN_SUBSCRIBER, null);
+    }
+
+    public String addPortfolioUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.ADD_PORTFOLIO, null);
     }
 }

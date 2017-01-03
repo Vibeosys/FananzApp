@@ -40,7 +40,7 @@ public class PortfolioListActivity extends BaseActivity implements ServerSyncMan
     }
 
     public void addPortFolio(View v) {
-        Intent addPortfolio = new Intent(getApplicationContext(), AddPortfolioActivity.class);
+        Intent addPortfolio = new Intent(getApplicationContext(), AddPortfolioDataActivity.class);
         startActivity(addPortfolio);
     }
 
