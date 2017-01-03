@@ -74,6 +74,12 @@ public class SessionManager {
         editor.apply();
     }
 
+    private static void setValuesInSharedPrefs(String sharedPrefKey, boolean sharedPrefValue) {
+        SharedPreferences.Editor editor = mProjectSharedPref.edit();
+        editor.putBoolean(sharedPrefKey, sharedPrefValue);
+        editor.apply();
+    }
+
     private static void setValuesInSharedPrefs(String sharedPrefKey, int sharedPrefValue) {
         SharedPreferences.Editor editor = mProjectSharedPref.edit();
         editor.putInt(sharedPrefKey, sharedPrefValue);
@@ -104,5 +110,50 @@ public class SessionManager {
 
     public String addPortfolioUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.ADD_PORTFOLIO, null);
+    }
+
+    public long getSubId() {
+        return mProjectSharedPref.getLong(PropertyTypeConstants.USER_SUB_ID, 0);
+    }
+
+    public String getEmail() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.USER_EMAIL, null);
+    }
+
+    public void setSubId(long subId) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_SUB_ID, subId);
+    }
+
+    public void setName(String name) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_NAME, name);
+    }
+
+
+    public void setNickName(String nickName) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_NICK_NAME, nickName);
+    }
+
+    public void setEmail(String email) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_EMAIL, email);
+    }
+
+    public void setSType(String SType) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_S_TYPE, SType);
+    }
+
+    public void setSubDate(String subDate) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_SUB_DATE, subDate);
+    }
+
+    public void setIsSubscribed(boolean isSubscribed) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_IS_SUBSCRIBED, isSubscribed);
+    }
+
+    public void setPassword(String password) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_PASSWORD, password);
+    }
+
+    public String getPassword() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.USER_PASSWORD, null);
     }
 }

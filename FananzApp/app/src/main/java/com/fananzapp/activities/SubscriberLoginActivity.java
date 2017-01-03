@@ -9,11 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.VolleyError;
+import com.fananzapp.MainActivity;
 import com.fananzapp.R;
+import com.fananzapp.data.SubscriberDTO;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.SigninSubReqDTO;
+import com.fananzapp.data.responsedata.SigninSubResDTO;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
+import com.fananzapp.utils.UserAuth;
 import com.google.gson.Gson;
 
 public class SubscriberLoginActivity extends BaseActivity implements View.OnClickListener,
@@ -22,6 +26,7 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
     private static final String TAG = SubscriberLoginActivity.class.getSimpleName();
     private EditText edtEmail, edtPass;
     Button btnSignIn;
+    String email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +57,8 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
     private void loginUser() {
         View focusView = null;
         boolean check = false;
-        String email = edtEmail.getText().toString();
-        String password = edtPass.getText().toString();
+        email = edtEmail.getText().toString();
+        password = edtPass.getText().toString();
         if (email.isEmpty()) {
             check = true;
             focusView = edtEmail;
@@ -80,11 +85,21 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
         progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestToken.REQUEST_SIGN_IN_SUB:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+        }
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
         progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestToken.REQUEST_SIGN_IN_SUB:
+                customAlterDialog(getString(R.string.str_login_err_title), errorMessage);
+                break;
+        }
     }
 
     @Override
@@ -93,6 +108,16 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
         switch (requestToken) {
             case ServerRequestToken.REQUEST_SIGN_IN_SUB:
                 Log.d(TAG, "## Success Login");
+                SigninSubResDTO signinSubResDTO = SigninSubResDTO.deserializeJson(data);
+                SubscriberDTO subscriberDTO = new SubscriberDTO(signinSubResDTO.getSubscriberId(),
+                        signinSubResDTO.getName(), signinSubResDTO.getNickName(), signinSubResDTO.getsType(),
+                        signinSubResDTO.getSubscriptionDate(), signinSubResDTO.isSubscribed());
+                subscriberDTO.setEmail(email);
+                subscriberDTO.setPassword(password);
+                UserAuth userAuth = new UserAuth();
+                userAuth.saveSubscriberInfo(subscriberDTO, getApplicationContext());
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
                 break;
         }
     }

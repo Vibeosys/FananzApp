@@ -106,4 +106,7 @@
     <string name="str_max_price_error">Please enter maximum price</string>
     <string name="str_max_price_greater_error">Maximum price should be greater than minimum price</string>
     <string name="str_portfolio_details_empty">Please enter details</string>
+    <string name="str_server_err_title">Server Error</string>
+    <string name="str_server_err_desc">Something went wrong on server try again</string>
+    <string name="str_login_err_title">Login Error</string>
 </resources>

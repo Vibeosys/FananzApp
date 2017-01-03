@@ -80,8 +80,14 @@ public class PortfolioAdapter extends BaseAdapter {
         viewHolder.txtMinMaxPrice.setText(maxMinPrice);
         mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)
                 .getImageLoader();
-        final String url = portfolioResponse.getCoverImageUrl();
-        if (url == "null" || url.isEmpty() || url == null || url.equals("") || url == "") {
+        String url = "";
+        try {
+            url = portfolioResponse.getCoverImageUrl();
+        } catch (NullPointerException e) {
+            url = "";
+        }
+
+        if (url == "null" || url == null || url.equals("") || url == "") {
             viewHolder.coverImg.setDefaultImageResId(R.drawable.default_img);
         } else if (TextUtils.isEmpty(url)) {
             viewHolder.coverImg.setImageResource(R.drawable.default_img);
