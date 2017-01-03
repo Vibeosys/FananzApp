@@ -16,6 +16,8 @@ import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,6 +40,8 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
     private TextView mTxtTerms;
     private EditText edtName, edtNickName, edtEmail, edtPh, edtMob, edtWeb, edtCountry, edtPass;
     private Button btnSubmit;
+    private CheckBox checkBox;
+    private boolean checkTerms = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,9 +62,12 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
         edtMob = (EditText) view.findViewById(R.id.edt_mob_no);
         edtWeb = (EditText) view.findViewById(R.id.edt_web_site);
         edtCountry = (EditText) view.findViewById(R.id.edt_country_of_residence);
+        checkBox = (CheckBox) view.findViewById(R.id.chk_terms);
         btnSubmit = (Button) view.findViewById(R.id.btn_submit);
         btnSubmit.setOnClickListener(this);
 
+        mServerSyncManager.setOnStringErrorReceived(this);
+        mServerSyncManager.setOnStringResultReceived(this);
         mTxtTerms.setMovementMethod(LinkMovementMethod.getInstance());
         SpannableStringBuilder ssWebsite = new SpannableStringBuilder(getString(R.string.str_user_agreement));
         ssWebsite.setSpan(new ClickableSpan() {
@@ -70,8 +77,13 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
             }
         }, 11, 30, 0);
         mTxtTerms.setText(ssWebsite, TextView.BufferType.SPANNABLE);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                checkTerms = b;
+            }
+        });
         return view;
-
     }
 
     private void showTermsDialog() {
@@ -109,6 +121,7 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void registerUser() {
+
         String strName = edtName.getText().toString();
         String strNickName = edtNickName.getText().toString();
         String strPassword = edtPass.getText().toString();
@@ -118,28 +131,58 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
         String strWeb = edtWeb.getText().toString();
         String strCountry = edtCountry.getText().toString();
 
-        RegisterSubscriberReq subscriberReq = new RegisterSubscriberReq(strName, strEmail, strPassword, ""
-                , SubscriberType.TYPE_FREELANCER, strPhone, strMob, strWeb, strCountry, strNickName);
-        Gson gson = new Gson();
-        String serializedJsonString = gson.toJson(subscriberReq);
-        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-        baseRequestDTO.setData(serializedJsonString);
-        mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_ADD_SUBSCRIBER,
-                mSessionManager.addSubsriberUrl(), baseRequestDTO);
+        View focusView = null;
+        boolean check = false;
+        if (strName.isEmpty()) {
+            edtName.setError(getString(R.string.str_name_empty_error));
+            focusView = edtName;
+            check = true;
+        } else if (strEmail.isEmpty()) {
+            focusView = edtEmail;
+            check = true;
+            edtEmail.setError(getString(R.string.str_email_empty));
+        } else if (strPassword.isEmpty()) {
+            focusView = edtPass;
+            check = true;
+            edtPass.setError(getString(R.string.str_pass_empty));
+        } else if (strMob.isEmpty()) {
+            focusView = edtMob;
+            check = true;
+            edtMob.setError(getString(R.string.str_mob_empty));
+        } else if (checkTerms) {
+            focusView = checkBox;
+            check = true;
+            checkBox.setError(getString(R.string.str_check_box_not));
+        }
+        if (check) {
+            focusView.requestFocus();
+        } else {
+            progressDialog.show();
+            RegisterSubscriberReq subscriberReq = new RegisterSubscriberReq(strName, strEmail, strPassword, ""
+                    , SubscriberType.TYPE_FREELANCER, strPhone, strMob, strWeb, strCountry, strNickName);
+            Gson gson = new Gson();
+            String serializedJsonString = gson.toJson(subscriberReq);
+            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+            baseRequestDTO.setData(serializedJsonString);
+            mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_ADD_SUBSCRIBER,
+                    mSessionManager.addSubsriberUrl(), baseRequestDTO);
+        }
+
     }
 
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
-
+        progressDialog.dismiss();
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
-
+        progressDialog.dismiss();
     }
 
     @Override
     public void onResultReceived(@NonNull String data, int requestToken) {
+        progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestToken.REQUEST_ADD_SUBSCRIBER:
                 Log.d(TAG, "## Success Register");

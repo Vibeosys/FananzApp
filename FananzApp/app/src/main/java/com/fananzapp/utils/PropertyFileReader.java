@@ -59,4 +59,8 @@ public class PropertyFileReader {
     public String getAddSubscriber() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.ADD_SUBSCRIBER);
     }
+
+    public String getSignInSub() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.SIGN_IN_SUBSCRIBER);
+    }
 }

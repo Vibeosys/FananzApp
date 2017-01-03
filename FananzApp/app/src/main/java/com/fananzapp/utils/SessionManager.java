@@ -58,6 +58,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.PORTFOLIO_LIST, mPropertyFileReader.getPortfolioList());
         editor.putString(PropertyTypeConstants.CATEGORY_LIST, mPropertyFileReader.getCategoryList());
         editor.putString(PropertyTypeConstants.ADD_SUBSCRIBER, mPropertyFileReader.getAddSubscriber());
+        editor.putString(PropertyTypeConstants.SIGN_IN_SUBSCRIBER, mPropertyFileReader.getSignInSub());
         editor.apply();
         return true;
     }
@@ -94,5 +95,9 @@ public class SessionManager {
 
     public String addSubsriberUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.ADD_SUBSCRIBER,null);
+    }
+
+    public String addSignInSubUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SIGN_IN_SUBSCRIBER,null);
     }
 }

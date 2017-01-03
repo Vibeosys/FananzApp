@@ -94,4 +94,9 @@
     <string name="str_modify">MODIFY</string>
     <string name="str_nick_name">Nick Name</string>
     <string name="facebook_app_id">369015673462835</string>
+    <string name="str_name_empty_error">Please enter your name</string>
+    <string name="str_email_empty">Please enter your email</string>
+    <string name="str_pass_empty">Please enter password</string>
+    <string name="str_mob_empty">Please enter mobile number</string>
+    <string name="str_check_box_not">Please accept terms and conditions</string>
 </resources>
