@@ -16,8 +16,10 @@ import com.fananzapp.adapters.CategorySpinnerAdapter;
 import com.fananzapp.adapters.SubcategorySpinnerAdapter;
 import com.fananzapp.data.requestdata.AddPortfolioDataReqDTO;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
+import com.fananzapp.data.requestdata.GetPortfolioDetailReqDTO;
 import com.fananzapp.data.requestdata.SigninSubReqDTO;
 import com.fananzapp.data.responsedata.CategoryResponseDTO;
+import com.fananzapp.data.responsedata.PortfolioDetailsResDTO;
 import com.fananzapp.data.responsedata.SubcategoryDTO;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
@@ -28,6 +30,8 @@ import java.util.ArrayList;
 public class AddPortfolioDataActivity extends BaseActivity implements ServerSyncManager.OnErrorResultReceived,
         ServerSyncManager.OnSuccessResultReceived, View.OnClickListener {
 
+    public static final String PORTFOLIO_DETAILS = "portfolioDetails";
+    public static final String PORTFOLIO_DETAILS_BUNDLE = "portfolioDetailsBundle";
     private static final String TAG = AddPortfolioDataActivity.class.getSimpleName();
     private ArrayList<CategoryResponseDTO> categoryResponseDTOs = new ArrayList<>();
     private Spinner spnCategory, spnSubCategory;
@@ -37,6 +41,7 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
     private Button btnNext;
     private int categoryId = 0;
     private int subCategoryId = 0;
+    private int portfolioId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,21 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            bundle = bundle.getBundle(PORTFOLIO_DETAILS_BUNDLE);
+            portfolioId = bundle.getInt(PORTFOLIO_DETAILS);
+            GetPortfolioDetailReqDTO getPortfolioReqDTO = new GetPortfolioDetailReqDTO(portfolioId);
+            Gson gson = new Gson();
+            String serializedJsonString = gson.toJson(getPortfolioReqDTO);
+            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+            baseRequestDTO.setData(serializedJsonString);
+            mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_DETAILS_PORTFOLIO,
+                    mSessionManager.getPortfolioDetailUrl(), baseRequestDTO);
+        } else {
+
+        }
+
         spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -67,8 +87,12 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
                             categoryResponseDTO.getSubCategories());
                     spnSubCategory.setAdapter(subcategorySpinnerAdapter);
                     spnSubCategory.setVisibility(View.VISIBLE);
+                    if (subCategoryId != 0) {
+                        spnSubCategory.setSelection(subcategorySpinnerAdapter.getPosition(subCategoryId));
+                    }
                 } else {
                     spnSubCategory.setVisibility(View.GONE);
+                    subCategoryId = 0;
                 }
             }
 
@@ -108,6 +132,9 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
             case ServerRequestToken.REQUEST_ADD_PORTFOLIO:
                 customAlterDialog(getString(R.string.str_add_portfolio_err_title), errorMessage);
                 break;
+            case ServerRequestToken.REQUEST_DETAILS_PORTFOLIO:
+                customAlterDialog(getString(R.string.str_portfolio_err_title), errorMessage);
+                break;
         }
     }
 
@@ -124,8 +151,12 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
             case ServerRequestToken.REQUEST_ADD_PORTFOLIO:
                 Log.d(TAG, "##" + data);
                 break;
+            case ServerRequestToken.REQUEST_DETAILS_PORTFOLIO:
+                showDetails(data);
+                break;
         }
     }
+
 
     @Override
     public void onClick(View view) {
@@ -196,6 +227,20 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
             baseRequestDTO.setData(serializedJsonString);
             mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_ADD_PORTFOLIO,
                     mSessionManager.addPortfolioUrl(), baseRequestDTO);
+        }
+    }
+
+    private void showDetails(String data) {
+        PortfolioDetailsResDTO portfolio = PortfolioDetailsResDTO.deserializeJson(data);
+        edtFbLink.setText(portfolio.getFbLink());
+        edtYouLink.setText(portfolio.getYoutubeLink());
+        edtMinPrice.setText(String.valueOf(portfolio.getMinPrice()));
+        edtMaxPrice.setText(String.valueOf(portfolio.getMaxPrice()));
+        edtDetails.setText(portfolio.getAboutUs());
+        int position = categorySpinnerAdapter.getPosition(portfolio.getCategoryId());
+        spnCategory.setSelection(position);
+        if (portfolio.getSubCategoryId() != 0) {
+            subCategoryId = portfolio.getSubCategoryId();
         }
     }
 }

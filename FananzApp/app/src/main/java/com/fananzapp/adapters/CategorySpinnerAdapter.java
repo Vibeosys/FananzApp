@@ -17,21 +17,21 @@ import java.util.List;
  */
 public class CategorySpinnerAdapter extends BaseAdapter {
     private Context mContext;
-    List<CategoryResponseDTO> ageDatas;
+    List<CategoryResponseDTO> categoryResponseDTOs;
 
-    public CategorySpinnerAdapter(Context mContext, List<CategoryResponseDTO> ageDatas) {
+    public CategorySpinnerAdapter(Context mContext, List<CategoryResponseDTO> categoryResponseDTOs) {
         this.mContext = mContext;
-        this.ageDatas = ageDatas;
+        this.categoryResponseDTOs = categoryResponseDTOs;
     }
 
     @Override
     public int getCount() {
-        return ageDatas.size();
+        return categoryResponseDTOs.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return ageDatas.get(position);
+        return categoryResponseDTOs.get(position);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class CategorySpinnerAdapter extends BaseAdapter {
 
         } else
             viewHolder = (ViewHolder) convertView.getTag();
-        CategoryResponseDTO categoryResponseDTO = ageDatas.get(position);
+        CategoryResponseDTO categoryResponseDTO = categoryResponseDTOs.get(position);
         viewHolder.spinnerChild.setText(categoryResponseDTO.getCategory());
 
         return row;
@@ -62,5 +62,16 @@ public class CategorySpinnerAdapter extends BaseAdapter {
 
     private class ViewHolder {
         TextView spinnerChild;
+    }
+
+    public int getPosition(int categoryId) {
+        int position = 0;
+        for (int i = 0; i < categoryResponseDTOs.size(); i++) {
+            if (categoryId == categoryResponseDTOs.get(i).getCategoryId()) {
+                position = i;
+                return position;
+            }
+        }
+        return position;
     }
 }

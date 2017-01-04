@@ -21,8 +21,8 @@ public class PortfolioDetailsResDTO extends BaseDTO {
     private String subCategory;
     private long subscriberId;
     private String subscriberName;
-    private double minPrice;
-    private double maxPrice;
+    private int minPrice;
+    private int maxPrice;
     private String fbLink;
     private String youtubeLink;
     private String aboutUs;
@@ -88,19 +88,19 @@ public class PortfolioDetailsResDTO extends BaseDTO {
         this.subscriberName = subscriberName;
     }
 
-    public double getMinPrice() {
+    public int getMinPrice() {
         return minPrice;
     }
 
-    public void setMinPrice(double minPrice) {
+    public void setMinPrice(int minPrice) {
         this.minPrice = minPrice;
     }
 
-    public double getMaxPrice() {
+    public int getMaxPrice() {
         return maxPrice;
     }
 
-    public void setMaxPrice(double maxPrice) {
+    public void setMaxPrice(int maxPrice) {
         this.maxPrice = maxPrice;
     }
 

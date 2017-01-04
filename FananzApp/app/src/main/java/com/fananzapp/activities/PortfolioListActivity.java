@@ -82,5 +82,10 @@ public class PortfolioListActivity extends BaseActivity implements ServerSyncMan
     @Override
     public void onModifyClickListener(PortfolioResponse portfolioResponse, int position) {
         Log.d(TAG, "## Modify click");
+        Bundle bundle = new Bundle();
+        bundle.putInt(AddPortfolioDataActivity.PORTFOLIO_DETAILS, portfolioResponse.getPortfolioId());
+        Intent iAddPort = new Intent(getApplicationContext(), AddPortfolioDataActivity.class);
+        iAddPort.putExtra(AddPortfolioDataActivity.PORTFOLIO_DETAILS_BUNDLE, bundle);
+        startActivity(iAddPort);
     }
 }

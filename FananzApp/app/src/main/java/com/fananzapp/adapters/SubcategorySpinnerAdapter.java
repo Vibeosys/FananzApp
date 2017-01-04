@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.fananzapp.R;
-import com.fananzapp.data.responsedata.CategoryResponseDTO;
 import com.fananzapp.data.responsedata.SubcategoryDTO;
 
 import java.util.List;
@@ -18,21 +17,21 @@ import java.util.List;
  */
 public class SubcategorySpinnerAdapter extends BaseAdapter {
     private Context mContext;
-    List<SubcategoryDTO> ageDatas;
+    List<SubcategoryDTO> subcategoryDTOs;
 
-    public SubcategorySpinnerAdapter(Context mContext, List<SubcategoryDTO> ageDatas) {
+    public SubcategorySpinnerAdapter(Context mContext, List<SubcategoryDTO> subcategoryDTOs) {
         this.mContext = mContext;
-        this.ageDatas = ageDatas;
+        this.subcategoryDTOs = subcategoryDTOs;
     }
 
     @Override
     public int getCount() {
-        return ageDatas.size();
+        return subcategoryDTOs.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return ageDatas.get(position);
+        return subcategoryDTOs.get(position);
     }
 
     @Override
@@ -55,7 +54,7 @@ public class SubcategorySpinnerAdapter extends BaseAdapter {
 
         } else
             viewHolder = (ViewHolder) convertView.getTag();
-        SubcategoryDTO subcategoryDTO = ageDatas.get(position);
+        SubcategoryDTO subcategoryDTO = subcategoryDTOs.get(position);
         viewHolder.spinnerChild.setText(subcategoryDTO.getSubCategory());
 
         return row;
@@ -63,5 +62,16 @@ public class SubcategorySpinnerAdapter extends BaseAdapter {
 
     private class ViewHolder {
         TextView spinnerChild;
+    }
+
+    public int getPosition(int subCategoryId) {
+        int position = 0;
+        for (int i = 0; i < subcategoryDTOs.size(); i++) {
+            if (subCategoryId == subcategoryDTOs.get(i).getSubCategoryId()) {
+                position = i;
+                return position;
+            }
+        }
+        return position;
     }
 }

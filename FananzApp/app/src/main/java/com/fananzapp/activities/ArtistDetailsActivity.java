@@ -84,7 +84,7 @@ public class ArtistDetailsActivity extends BaseActivity implements
         PortfolioDetailsResDTO portfolioDetailsResDTO = PortfolioDetailsResDTO.deserializeJson(data);
         txtArtistName.setText(portfolioDetailsResDTO.getSubscriberName());
         txtArtistCategory.setText(portfolioDetailsResDTO.getCategory());
-        String maxMinPrice = String.format("%.0f-%.0f", portfolioDetailsResDTO.getMinPrice(), portfolioDetailsResDTO.getMaxPrice());
+        String maxMinPrice = String.format("%d-%d", portfolioDetailsResDTO.getMinPrice(), portfolioDetailsResDTO.getMaxPrice());
         txtMinMaxPrice.setText(maxMinPrice);
         txtFbLink.setText(portfolioDetailsResDTO.getFbLink());
         txtYoutubeLink.setText(portfolioDetailsResDTO.getYoutubeLink());
