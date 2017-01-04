@@ -10,4 +10,5 @@ public class ServerRequestToken {
     public static final int REQUEST_ADD_SUBSCRIBER = 102;
     public static final int REQUEST_SIGN_IN_SUB = 103;
     public static final int REQUEST_ADD_PORTFOLIO = 104;
+    public static final int REQUEST_DETAILS_PORTFOLIO = 105;
 }

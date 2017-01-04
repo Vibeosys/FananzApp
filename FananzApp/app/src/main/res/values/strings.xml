@@ -109,4 +109,5 @@
     <string name="str_server_err_title">Server Error</string>
     <string name="str_server_err_desc">Something went wrong on server try again</string>
     <string name="str_login_err_title">Login Error</string>
+    <string name="str_show_details_err_title">Error</string>
 </resources>

@@ -23,10 +23,13 @@ import com.fananzapp.activities.ArtistDetailsActivity;
 import com.fananzapp.activities.CustomerLoginActivity;
 import com.fananzapp.activities.PortfolioListActivity;
 import com.fananzapp.activities.SubscriberLoginActivity;
+import com.fananzapp.fragments.PortfolioListFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    FrameLayout frameLayout;
+
+    private static final String PORFOLIO_LIST_FRAGMENT = "portfolioList";
+    private FrameLayout fragmentFrameLay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });*/
-        frameLayout = (FrameLayout) findViewById(R.id.frameLay);
+        fragmentFrameLay = (FrameLayout) findViewById(R.id.fragment_frame_lay);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -52,6 +55,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        PortfolioListFragment userListFragment = new PortfolioListFragment();
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_frame_lay, userListFragment, PORFOLIO_LIST_FRAGMENT).commit();
     }
 
     @Override
@@ -110,26 +117,5 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    public void showDetails(View v) {
-        getWindow().setExitTransition(null);
-        getWindow().setEnterTransition(null);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptions options =
-                    ActivityOptions.makeSceneTransitionAnimation(this, frameLayout, frameLayout.getTransitionName());
-            startActivity(new Intent(this, ArtistDetailsActivity.class), options.toBundle());
-
-        } else {
-            startActivity(new Intent(this, ArtistDetailsActivity.class));
-        }
-    }
-
-    public void requestNow(View v) {
-        Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_request_now);
-        dialog.show();
     }
 }

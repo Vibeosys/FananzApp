@@ -60,6 +60,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.ADD_SUBSCRIBER, mPropertyFileReader.getAddSubscriber());
         editor.putString(PropertyTypeConstants.SIGN_IN_SUBSCRIBER, mPropertyFileReader.getSignInSub());
         editor.putString(PropertyTypeConstants.ADD_PORTFOLIO, mPropertyFileReader.addPortfolioUrl());
+        editor.putString(PropertyTypeConstants.PORTFOLIO_DETAILS, mPropertyFileReader.getPortfolioDetailsUrl());
         editor.apply();
         return true;
     }
@@ -155,5 +156,9 @@ public class SessionManager {
 
     public String getPassword() {
         return mProjectSharedPref.getString(PropertyTypeConstants.USER_PASSWORD, null);
+    }
+
+    public String getPortfolioDetailUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.PORTFOLIO_DETAILS, null);
     }
 }
