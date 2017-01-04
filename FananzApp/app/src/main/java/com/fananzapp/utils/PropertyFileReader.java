@@ -80,4 +80,8 @@ public class PropertyFileReader {
     public String getSigninUserUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.SIGN_IN_USER);
     }
+
+    public String addUserUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.ADD_USER_URL);
+    }
 }

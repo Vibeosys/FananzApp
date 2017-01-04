@@ -15,6 +15,7 @@ public final class PropertyTypeConstants {
     public static final String PORTFOLIO_DETAILS = "api.endpoint.portfoliodetails";
     public static final String SUB_PORTFOLIO_LIST = "api.endpoint.subportfoliolist";
     public static final String SIGN_IN_USER = "api.endpoint.signinuser";
+    public static final String ADD_USER_URL = "api.endpoint.adduser";
 
     public static final String SUB_ID = "sub.id";
     public static final String SUB_EMAIL = "sub.email";
@@ -30,5 +31,6 @@ public final class PropertyTypeConstants {
     public static final String USER_L_NAME = "user.lname";
     public static final String USER_EMAIL = "user.email";
     public static final String USER_PASSWORD = "user.password";
+
 
 }

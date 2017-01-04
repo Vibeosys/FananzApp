@@ -63,6 +63,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.PORTFOLIO_DETAILS, mPropertyFileReader.getPortfolioDetailsUrl());
         editor.putString(PropertyTypeConstants.SUB_PORTFOLIO_LIST, mPropertyFileReader.getSubPortfolioListUrl());
         editor.putString(PropertyTypeConstants.SIGN_IN_USER, mPropertyFileReader.getSigninUserUrl());
+        editor.putString(PropertyTypeConstants.ADD_USER_URL, mPropertyFileReader.addUserUrl());
         editor.apply();
         return true;
     }
@@ -190,5 +191,9 @@ public class SessionManager {
 
     public void setUserPass(String userPass) {
         setValuesInSharedPrefs(PropertyTypeConstants.USER_PASSWORD, userPass);
+    }
+
+    public String addUserUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.ADD_USER_URL, null);
     }
 }

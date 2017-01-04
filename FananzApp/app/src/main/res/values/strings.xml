@@ -114,4 +114,5 @@
     <string name="str_get_category_err_title">Category Error</string>
     <string name="str_portfolio_list_err_title">No Portfolios</string>
     <string name="str_portfolio_err_title">Portfolio Error</string>
+    <string name="str_fname_empty_error">Please enter first name</string>
 </resources>
