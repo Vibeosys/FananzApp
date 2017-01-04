@@ -62,6 +62,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.ADD_PORTFOLIO, mPropertyFileReader.addPortfolioUrl());
         editor.putString(PropertyTypeConstants.PORTFOLIO_DETAILS, mPropertyFileReader.getPortfolioDetailsUrl());
         editor.putString(PropertyTypeConstants.SUB_PORTFOLIO_LIST, mPropertyFileReader.getSubPortfolioListUrl());
+        editor.putString(PropertyTypeConstants.SIGN_IN_USER, mPropertyFileReader.getSigninUserUrl());
         editor.apply();
         return true;
     }
@@ -115,48 +116,48 @@ public class SessionManager {
     }
 
     public long getSubId() {
-        return mProjectSharedPref.getLong(PropertyTypeConstants.USER_SUB_ID, 0);
+        return mProjectSharedPref.getLong(PropertyTypeConstants.SUB_ID, 0);
     }
 
     public String getEmail() {
-        return mProjectSharedPref.getString(PropertyTypeConstants.USER_EMAIL, null);
+        return mProjectSharedPref.getString(PropertyTypeConstants.SUB_EMAIL, null);
     }
 
     public void setSubId(long subId) {
-        setValuesInSharedPrefs(PropertyTypeConstants.USER_SUB_ID, subId);
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_ID, subId);
     }
 
     public void setName(String name) {
-        setValuesInSharedPrefs(PropertyTypeConstants.USER_NAME, name);
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_NAME, name);
     }
 
 
     public void setNickName(String nickName) {
-        setValuesInSharedPrefs(PropertyTypeConstants.USER_NICK_NAME, nickName);
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_NICK_NAME, nickName);
     }
 
     public void setEmail(String email) {
-        setValuesInSharedPrefs(PropertyTypeConstants.USER_EMAIL, email);
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_EMAIL, email);
     }
 
     public void setSType(String SType) {
-        setValuesInSharedPrefs(PropertyTypeConstants.USER_S_TYPE, SType);
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_S_TYPE, SType);
     }
 
     public void setSubDate(String subDate) {
-        setValuesInSharedPrefs(PropertyTypeConstants.USER_SUB_DATE, subDate);
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_SUB_DATE, subDate);
     }
 
     public void setIsSubscribed(boolean isSubscribed) {
-        setValuesInSharedPrefs(PropertyTypeConstants.USER_IS_SUBSCRIBED, isSubscribed);
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_IS_SUBSCRIBED, isSubscribed);
     }
 
     public void setPassword(String password) {
-        setValuesInSharedPrefs(PropertyTypeConstants.USER_PASSWORD, password);
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_PASSWORD, password);
     }
 
     public String getPassword() {
-        return mProjectSharedPref.getString(PropertyTypeConstants.USER_PASSWORD, null);
+        return mProjectSharedPref.getString(PropertyTypeConstants.SUB_PASSWORD, null);
     }
 
     public String getPortfolioDetailUrl() {
@@ -165,5 +166,29 @@ public class SessionManager {
 
     public String getSubPortfolioListUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.SUB_PORTFOLIO_LIST, null);
+    }
+
+    public String signInUserUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SIGN_IN_USER, null);
+    }
+
+    public void setUserId(long userId) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_ID, userId);
+    }
+
+    public void setUserFName(String userFName) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_F_NAME, userFName);
+    }
+
+    public void setUserLName(String userLName) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_L_NAME, userLName);
+    }
+
+    public void setUserEmail(String userEmail) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_EMAIL, userEmail);
+    }
+
+    public void setUserPass(String userPass) {
+        setValuesInSharedPrefs(PropertyTypeConstants.USER_PASSWORD, userPass);
     }
 }

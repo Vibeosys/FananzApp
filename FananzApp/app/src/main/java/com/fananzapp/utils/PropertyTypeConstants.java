@@ -14,15 +14,21 @@ public final class PropertyTypeConstants {
     public static final String ADD_PORTFOLIO = "api.endpoint.addportfolio";
     public static final String PORTFOLIO_DETAILS = "api.endpoint.portfoliodetails";
     public static final String SUB_PORTFOLIO_LIST = "api.endpoint.subportfoliolist";
+    public static final String SIGN_IN_USER = "api.endpoint.signinuser";
 
-    public static final String USER_SUB_ID = "user.id";
+    public static final String SUB_ID = "sub.id";
+    public static final String SUB_EMAIL = "sub.email";
+    public static final String SUB_NAME = "sub.name";
+    public static final String SUB_NICK_NAME = "sub.nickname";
+    public static final String SUB_S_TYPE = "sub.stype";
+    public static final String SUB_SUB_DATE = "sub.subdate";
+    public static final String SUB_IS_SUBSCRIBED = "sub.issubscribed";
+    public static final String SUB_PASSWORD = "sub.password";
+
+    public static final String USER_ID = "user.id";
+    public static final String USER_F_NAME = "user.fname";
+    public static final String USER_L_NAME = "user.lname";
     public static final String USER_EMAIL = "user.email";
-    public static final String USER_NAME = "user.name";
-    public static final String USER_NICK_NAME = "user.nickname";
-    public static final String USER_S_TYPE = "user.stype";
-    public static final String USER_SUB_DATE = "user.subdate";
-    public static final String USER_IS_SUBSCRIBED = "user.issubscribed";
     public static final String USER_PASSWORD = "user.password";
-
 
 }
