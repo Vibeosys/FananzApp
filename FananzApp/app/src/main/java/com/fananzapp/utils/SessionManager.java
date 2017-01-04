@@ -61,6 +61,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.SIGN_IN_SUBSCRIBER, mPropertyFileReader.getSignInSub());
         editor.putString(PropertyTypeConstants.ADD_PORTFOLIO, mPropertyFileReader.addPortfolioUrl());
         editor.putString(PropertyTypeConstants.PORTFOLIO_DETAILS, mPropertyFileReader.getPortfolioDetailsUrl());
+        editor.putString(PropertyTypeConstants.SUB_PORTFOLIO_LIST, mPropertyFileReader.getSubPortfolioListUrl());
         editor.apply();
         return true;
     }
@@ -160,5 +161,9 @@ public class SessionManager {
 
     public String getPortfolioDetailUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.PORTFOLIO_DETAILS, null);
+    }
+
+    public String getSubPortfolioListUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SUB_PORTFOLIO_LIST, null);
     }
 }

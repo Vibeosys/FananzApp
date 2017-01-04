@@ -71,4 +71,9 @@ public class PropertyFileReader {
     public String getPortfolioDetailsUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.PORTFOLIO_DETAILS);
     }
+
+
+    public String getSubPortfolioListUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.SUB_PORTFOLIO_LIST);
+    }
 }

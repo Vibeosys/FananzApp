@@ -14,7 +14,6 @@ import android.widget.ListView;
 import com.android.volley.VolleyError;
 import com.fananzapp.R;
 import com.fananzapp.activities.ArtistDetailsActivity;
-import com.fananzapp.adapters.PortfolioAdapter;
 import com.fananzapp.adapters.UserPortfolioListAdapter;
 import com.fananzapp.data.responsedata.PortfolioResponse;
 import com.fananzapp.utils.ServerRequestToken;

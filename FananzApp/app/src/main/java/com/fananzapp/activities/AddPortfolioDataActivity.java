@@ -94,11 +94,21 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
         progressDialog.dismiss();
+        customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
         progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestToken.REQUEST_CATEGORY_TOKEN:
+                customAlterDialog(getString(R.string.str_get_category_err_title), errorMessage);
+                recreate();
+                break;
+            case ServerRequestToken.REQUEST_ADD_PORTFOLIO:
+                customAlterDialog(getString(R.string.str_add_portfolio_err_title), errorMessage);
+                break;
+        }
     }
 
     @Override

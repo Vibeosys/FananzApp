@@ -13,6 +13,7 @@ public final class PropertyTypeConstants {
     public static final String SIGN_IN_SUBSCRIBER = "api.endpoint.signinsub";
     public static final String ADD_PORTFOLIO = "api.endpoint.addportfolio";
     public static final String PORTFOLIO_DETAILS = "api.endpoint.portfoliodetails";
+    public static final String SUB_PORTFOLIO_LIST = "api.endpoint.subportfoliolist";
 
     public static final String USER_SUB_ID = "user.id";
     public static final String USER_EMAIL = "user.email";
@@ -22,5 +23,6 @@ public final class PropertyTypeConstants {
     public static final String USER_SUB_DATE = "user.subdate";
     public static final String USER_IS_SUBSCRIBED = "user.issubscribed";
     public static final String USER_PASSWORD = "user.password";
+
 
 }

@@ -110,4 +110,7 @@
     <string name="str_server_err_desc">Something went wrong on server try again</string>
     <string name="str_login_err_title">Login Error</string>
     <string name="str_show_details_err_title">Error</string>
+    <string name="str_add_portfolio_err_title">Add Portfolio Error</string>
+    <string name="str_get_category_err_title">Category Error</string>
+    <string name="str_portfolio_list_err_title">No Portfolios</string>
 </resources>
