@@ -1,6 +1,7 @@
 package com.fananzapp.fragments;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,5 +27,19 @@ public class BaseFragment extends Fragment {
         mServerSyncManager = new ServerSyncManager(getActivity().getApplicationContext(), mSessionManager);
         progressDialog = DialogUtils.getProgressDialog(getContext());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    }
+
+    protected void customAlterDialog(String title, String message) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+        builder.setTitle("" + title);
+        builder.setMessage(message);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
     }
 }

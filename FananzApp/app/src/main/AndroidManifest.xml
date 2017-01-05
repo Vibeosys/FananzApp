@@ -54,7 +54,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".activities.AddPortfolioDataActivity"
-            android:parentActivityName=".activities.PortfolioListActivity"></activity>
+            android:parentActivityName=".activities.PortfolioListActivity" />
+        <activity android:name=".activities.FilterActivity"></activity>
     </application>
 
 </manifest>

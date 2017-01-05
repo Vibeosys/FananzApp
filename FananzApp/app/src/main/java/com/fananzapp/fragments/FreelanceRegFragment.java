@@ -1,6 +1,7 @@
 package com.fananzapp.fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,9 +21,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.fananzapp.R;
+import com.fananzapp.activities.SubscriberLoginActivity;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.RegisterSubscriberReq;
 import com.fananzapp.utils.ServerRequestToken;
@@ -173,11 +176,21 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
         progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestToken.REQUEST_ADD_SUBSCRIBER:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+        }
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
         progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestToken.REQUEST_ADD_SUBSCRIBER:
+                customAlterDialog(getString(R.string.str_register_err_title), errorMessage);
+                break;
+        }
     }
 
     @Override
@@ -186,6 +199,9 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
         switch (requestToken) {
             case ServerRequestToken.REQUEST_ADD_SUBSCRIBER:
                 Log.d(TAG, "## Success Register");
+                startActivity(new Intent(getContext(), SubscriberLoginActivity.class));
+                getActivity().finish();
+                Toast.makeText(getContext(), getString(R.string.str_sub_register_success), Toast.LENGTH_SHORT).show();
                 break;
         }
 

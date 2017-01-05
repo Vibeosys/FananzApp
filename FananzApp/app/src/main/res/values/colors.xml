@@ -19,4 +19,6 @@
     <color name="greenBtnColour">#60b960</color>
     <color name="transWhiteLogin">#9cffffff</color>
     <color name="white_overlay_8x">#a5ffffff</color>
+    <color name="dialog_color">#ffffff</color>
+    <color name="divider_colour1">#a8e7e6e5</color>
 </resources>

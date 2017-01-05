@@ -120,4 +120,13 @@
     <string name="str_welcome_to_fananz">Welcome to fananz</string>
     <string name="str_customer_login">Customer Login</string>
     <string name="str_login_emoty">Please login as user first</string>
+    <string name="str_sub_register_success">Register successfully</string>
+    <string name="str_register_err_title">Register Error</string>
+    <string name="str_sort">Sort By</string>
+    <string name="str_clear">CLEAR</string>
+    <string name="str_low">Low</string>
+    <string name="str_high">High</string>
+    <string name="btn_apply">Apply</string>
+    <string name="str_low_to_high">Priace: Low-to-High</string>
+    <string name="str_high_to_low">Priace: High-to-Low</string>
 </resources>

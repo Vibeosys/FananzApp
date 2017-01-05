@@ -8,6 +8,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Created by akshay on 02-01-2017.
@@ -141,4 +142,26 @@ public class PortfolioResponse extends BaseDTO {
 
         return portfolioResponses;
     }
+
+
+    public static class PriceComparator implements Comparator<PortfolioResponse> {
+        @Override
+        public int compare(PortfolioResponse p1, PortfolioResponse p2) {
+            double minPrice1 = p1.getMinPrice();
+            double minPrice2 = p2.getMinPrice();
+
+            if (minPrice1 == minPrice2)
+                return 0;
+            else if (minPrice1 > minPrice2)
+                return 1;
+            else
+                return -1;
+        }
+    }
+
+
+   /* @Override
+    public Comparator<PortfolioResponse> reversed() {
+        return null;
+    }*/
 }

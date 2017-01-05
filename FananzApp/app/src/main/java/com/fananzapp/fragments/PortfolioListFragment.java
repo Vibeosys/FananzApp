@@ -16,9 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.fananzapp.MainActivity;
 import com.fananzapp.R;
 import com.fananzapp.activities.ArtistDetailsActivity;
 import com.fananzapp.activities.CustomerLoginActivity;
+import com.fananzapp.activities.FilterActivity;
 import com.fananzapp.adapters.UserPortfolioListAdapter;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.GetPortfolioDetailReqDTO;
@@ -35,7 +37,7 @@ import java.util.ArrayList;
  * Created by akshay on 04-01-2017.
  */
 public class PortfolioListFragment extends BaseFragment implements ServerSyncManager.OnSuccessResultReceived,
-        ServerSyncManager.OnErrorResultReceived, UserPortfolioListAdapter.OnItemClick {
+        ServerSyncManager.OnErrorResultReceived, UserPortfolioListAdapter.OnItemClick, MainActivity.OnFilterClickListener {
     private ListView listPortfolio;
     private ArrayList<PortfolioResponse> portfolioResponses = new ArrayList<>();
     private UserPortfolioListAdapter adapter;
@@ -45,7 +47,8 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
         super.onCreate(savedInstanceState);
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
-
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.setFilterClickListener(this);
     }
 
     @Nullable
@@ -53,6 +56,7 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_portfolio_list, container, false);
+
         listPortfolio = (ListView) view.findViewById(R.id.listPortfolio);
         progressDialog.show();
         mServerSyncManager.uploadGetDataToServer(ServerRequestToken.REQUEST_PORTFOLIO_LIST,
@@ -137,5 +141,20 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
         baseRequestDTO.setData(serializedJsonString);
         mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_SEND_MESSAGE,
                 mSessionManager.sendMessageUrl(), baseRequestDTO);
+    }
+
+    @Override
+    public void onFilterClick() {
+        startActivityForResult(new Intent(getContext(), FilterActivity.class), MainActivity.FILTER_RESULT);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MainActivity.FILTER_RESULT) {
+            int selectedPrice = data.getIntExtra(FilterActivity.SELECTED_PRICE, 0);
+            int selectedSort = data.getIntExtra(FilterActivity.SELECTED_SORT, 0);
+            adapter.sortAdapter(selectedSort);
+        }
     }
 }

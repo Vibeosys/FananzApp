@@ -15,6 +15,8 @@ import com.fananzapp.data.responsedata.PortfolioResponse;
 import com.fananzapp.utils.CustomVolleyRequestQueue;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by akshay on 02-01-2017.
@@ -133,5 +135,14 @@ public class UserPortfolioListAdapter extends BaseAdapter {
 
     public void setOnItemClick(OnItemClick onItemClick) {
         this.onItemClick = onItemClick;
+    }
+
+    public void sortAdapter(int condition) {
+        if (condition == 1) {
+            Collections.sort(mData, Collections.reverseOrder(new PortfolioResponse.PriceComparator()));
+        } else {
+            Collections.sort(mData, new PortfolioResponse.PriceComparator());
+        }
+        notifyDataSetChanged();
     }
 }
