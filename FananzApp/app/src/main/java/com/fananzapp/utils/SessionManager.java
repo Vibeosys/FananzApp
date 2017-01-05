@@ -64,6 +64,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.SUB_PORTFOLIO_LIST, mPropertyFileReader.getSubPortfolioListUrl());
         editor.putString(PropertyTypeConstants.SIGN_IN_USER, mPropertyFileReader.getSigninUserUrl());
         editor.putString(PropertyTypeConstants.ADD_USER_URL, mPropertyFileReader.addUserUrl());
+        editor.putString(PropertyTypeConstants.SEND_MSG_URL, mPropertyFileReader.sendMessageUrl());
         editor.apply();
         return true;
     }
@@ -195,5 +196,37 @@ public class SessionManager {
 
     public String addUserUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.ADD_USER_URL, null);
+    }
+
+    public String sendMessageUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SEND_MSG_URL, null);
+    }
+
+    public void setUserType(int userType) {
+        setValuesInSharedPrefs(PropertyTypeConstants.APP_USER_TYPE, userType);
+    }
+
+    public int getUserType() {
+        return mProjectSharedPref.getInt(PropertyTypeConstants.APP_USER_TYPE, 0);
+    }
+
+    public long getUserId() {
+        return mProjectSharedPref.getLong(PropertyTypeConstants.USER_ID, 0);
+    }
+
+    public String getUserFName() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.USER_F_NAME, null);
+    }
+
+    public String getUserLName() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.USER_L_NAME, null);
+    }
+
+    public String getUserEmail() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.USER_EMAIL, null);
+    }
+
+    public String getUserPass() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.USER_PASSWORD, null);
     }
 }

@@ -35,6 +35,7 @@ import com.fananzapp.data.responsedata.SigninUserRespDTO;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.UserAuth;
+import com.fananzapp.utils.UserType;
 import com.google.gson.Gson;
 
 import org.json.JSONException;

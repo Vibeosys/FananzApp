@@ -20,16 +20,22 @@ import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.fananzapp.activities.ArtistDetailsActivity;
+import com.fananzapp.activities.BaseActivity;
 import com.fananzapp.activities.CustomerLoginActivity;
 import com.fananzapp.activities.PortfolioListActivity;
 import com.fananzapp.activities.SubscriberLoginActivity;
 import com.fananzapp.fragments.PortfolioListFragment;
+import com.fananzapp.fragments.SubscriberMainView;
+import com.fananzapp.utils.UserAuth;
+import com.fananzapp.utils.UserType;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String PORFOLIO_LIST_FRAGMENT = "portfolioList";
+    private static final String SUBSCRIBER_MAIN_FRAGMENT = "subMainView";
     private FrameLayout fragmentFrameLay;
+    private int userType = UserType.USER_OTHER;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });*/
+        userType = mSessionManager.getUserType();
         fragmentFrameLay = (FrameLayout) findViewById(R.id.fragment_frame_lay);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,9 +62,27 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        PortfolioListFragment userListFragment = new PortfolioListFragment();
-        getSupportFragmentManager().beginTransaction().
-                replace(R.id.fragment_frame_lay, userListFragment, PORFOLIO_LIST_FRAGMENT).commit();
+
+        if (userType == UserType.USER_SUBSCRIBER) {
+            navigationView.getMenu().clear(); //clear old inflated items.
+            navigationView.inflateMenu(R.menu.activity_main_subscriber);
+            SubscriberMainView subscriberMainView = new SubscriberMainView();
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_frame_lay, subscriberMainView, SUBSCRIBER_MAIN_FRAGMENT).commit();
+        } else if (userType == UserType.USER_CUSTOMER) {
+            navigationView.getMenu().clear(); //clear old inflated items.
+            navigationView.inflateMenu(R.menu.activity_main_user);
+            PortfolioListFragment userListFragment = new PortfolioListFragment();
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_frame_lay, userListFragment, PORFOLIO_LIST_FRAGMENT).commit();
+        } else if (userType == UserType.USER_OTHER) {
+            navigationView.getMenu().clear(); //clear old inflated items.
+            navigationView.inflateMenu(R.menu.activity_main_drawer);
+            PortfolioListFragment userListFragment = new PortfolioListFragment();
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_frame_lay, userListFragment, PORFOLIO_LIST_FRAGMENT).commit();
+        }
+
     }
 
     @Override
@@ -105,17 +129,23 @@ public class MainActivity extends AppCompatActivity
             Intent iLogin = new Intent(getApplicationContext(), SubscriberLoginActivity.class);
             startActivity(iLogin);
             finish();
-
         } else if (id == R.id.nav_logout) {
-            Intent iLogin = new Intent(getApplicationContext(), CustomerLoginActivity.class);
-            startActivity(iLogin);
-            finish();
+            callToLogOut();
         } else if (id == R.id.nav_portfolio) {
             Intent intent = new Intent(getApplicationContext(), PortfolioListActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_customer_login) {
+            Intent intent = new Intent(getApplicationContext(), CustomerLoginActivity.class);
+            startActivity(intent);
+            finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void callToLogOut() {
+        UserAuth.CleanAuthenticationInfo();
+        recreate();
     }
 }

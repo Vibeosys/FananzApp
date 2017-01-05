@@ -35,6 +35,27 @@ public class UserAuth {
         return true;
     }
 
+    public static boolean isUserLoggedIn() {
+        long subscriberId = SessionManager.Instance().getUserId();
+        //String theUserPhotoURL = SessionManager.Instance().getUserPhotoUrl();
+        if (subscriberId == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isAnyUserLogin() {
+        int userType = SessionManager.Instance().getUserType();
+        if (userType == UserType.USER_OTHER) {
+            return false;
+        } else if (userType == UserType.USER_SUBSCRIBER) {
+            return isSubscriberLoggedIn();
+        } else if (userType == UserType.USER_CUSTOMER) {
+            return isUserLoggedIn();
+        }
+        return true;
+    }
+
     public void saveSubscriberInfo(SubscriberDTO userInfo, final Context context) {
         if (userInfo == null)
             return;
@@ -52,6 +73,8 @@ public class UserAuth {
         theSessionManager.setSubDate(userInfo.getSubscriptionDate());
         theSessionManager.setIsSubscribed(userInfo.isIsSubscribed());
         theSessionManager.setPassword(userInfo.getPassword());
+        theSessionManager.setUserType(UserType.USER_SUBSCRIBER);
+
     }
 
     public static boolean CleanAuthenticationInfo() {
@@ -65,22 +88,24 @@ public class UserAuth {
         theSessionManager.setSubDate(null);
         theSessionManager.setIsSubscribed(false);
         theSessionManager.setPassword(null);
+        theSessionManager.setUserId(0);
+        theSessionManager.setUserFName(null);
+        theSessionManager.setUserLName(null);
+        theSessionManager.setUserEmail(null);
+        theSessionManager.setUserPass(null);
+        theSessionManager.setUserType(UserType.USER_OTHER);
         return true;
     }
 
     public void saveUserInfo(UserDTO subscriberDTO, Context context) {
         if (subscriberDTO == null)
             return;
-
-        if (subscriberDTO.getEmail() == null || subscriberDTO.getEmail() == "" ||
-                subscriberDTO.getFirstName() == null || subscriberDTO.getFirstName() == "")
-            return;
-
         SessionManager theSessionManager = SessionManager.getInstance(context);
         theSessionManager.setUserId(subscriberDTO.getUserId());
         theSessionManager.setUserFName(subscriberDTO.getFirstName());
         theSessionManager.setUserLName(subscriberDTO.getLastName());
         theSessionManager.setUserEmail(subscriberDTO.getEmail());
         theSessionManager.setUserPass(subscriberDTO.getPassword());
+        theSessionManager.setUserType(UserType.USER_CUSTOMER);
     }
 }

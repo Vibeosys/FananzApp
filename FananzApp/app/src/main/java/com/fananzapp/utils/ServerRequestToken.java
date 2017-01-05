@@ -14,4 +14,5 @@ public class ServerRequestToken {
     public static final int REQUEST_SUB_PORTFOLIO_LIST = 106;
     public static final int REQUEST_SIGN_IN_USER = 107;
     public static final int REQUEST_ADD_USER = 108;
+    public static final int REQUEST_SEND_MESSAGE = 109;
 }

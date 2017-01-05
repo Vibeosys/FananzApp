@@ -37,7 +37,7 @@
     <string name="str_facebook">www.facebook.artistpages.com</string>
     <string name="str_youtube">www.youtube.com/artist</string>
     <string name="str_details">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.</string>
-    <string name="str_request_services">Request Services For Singer Taylor Swift</string>
+    <string name="str_request_services">Request Services For </string>
     <string name="str_write_text_hint">Write some text</string>
     <string name="str_submit">Submit</string>
     <string name="str_register">Register</string>
@@ -115,4 +115,9 @@
     <string name="str_portfolio_list_err_title">No Portfolios</string>
     <string name="str_portfolio_err_title">Portfolio Error</string>
     <string name="str_fname_empty_error">Please enter first name</string>
+    <string name="str_msg_empty">Please enter the message</string>
+    <string name="str_request_send_success">Request send successfully</string>
+    <string name="str_welcome_to_fananz">Welcome to fananz</string>
+    <string name="str_customer_login">Customer Login</string>
+    <string name="str_login_emoty">Please login as user first</string>
 </resources>

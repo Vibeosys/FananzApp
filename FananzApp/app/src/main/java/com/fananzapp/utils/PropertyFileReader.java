@@ -84,4 +84,8 @@ public class PropertyFileReader {
     public String addUserUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.ADD_USER_URL);
     }
+
+    public String sendMessageUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.SEND_MSG_URL);
+    }
 }

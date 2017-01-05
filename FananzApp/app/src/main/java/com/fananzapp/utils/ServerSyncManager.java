@@ -14,6 +14,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
+import com.fananzapp.data.requestdata.CustomerReqDTO;
 import com.fananzapp.data.requestdata.UserRequestDTO;
 import com.fananzapp.data.responsedata.BaseResponseDTO;
 import com.google.gson.JsonObject;
@@ -58,13 +59,24 @@ public class ServerSyncManager {
 
     private String prepareUploadJsonFromData(BaseRequestDTO params) {
 
-        UserRequestDTO userRequestDTO = new UserRequestDTO(mSessionManager.getSubId(),
-                mSessionManager.getEmail(), mSessionManager.getPassword());
-        //get the values from session manager
-        params.setUser(userRequestDTO.serializeString());
-        String uploadJson = params.serializeString();
-        Log.i(TAG, "## request json" + uploadJson);
-        return uploadJson;
+        int userType = mSessionManager.getUserType();
+        if (userType == UserType.USER_SUBSCRIBER) {
+            UserRequestDTO userRequestDTO = new UserRequestDTO(mSessionManager.getSubId(),
+                    mSessionManager.getEmail(), mSessionManager.getPassword());
+            //get the values from session manager
+            params.setUser(userRequestDTO.serializeString());
+            String uploadJson = params.serializeString();
+            Log.i(TAG, "## request json" + uploadJson);
+            return uploadJson;
+        } else  {
+            CustomerReqDTO customerReqDTO = new CustomerReqDTO(mSessionManager.getUserId(),
+                    mSessionManager.getUserEmail());
+            //get the values from session manager
+            params.setUser(customerReqDTO.serializeString());
+            String uploadJson = params.serializeString();
+            Log.i(TAG, "## request json" + uploadJson);
+            return uploadJson;
+        }
     }
 
     private void uploadJsonToServer(String uploadJson, String uploadUrl,
