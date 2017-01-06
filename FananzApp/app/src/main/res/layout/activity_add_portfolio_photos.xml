@@ -9,21 +9,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.fananzapp.activities.AddPortfolioPhotosActivity">
 
+    <FrameLayout
+        android:id="@+id/fragment_frame_lay"
+        android:layout_width="match_parent"
+        android:layout_height="190dp" />
+
+    <FrameLayout
+        android:id="@+id/fragment_frame_lay1"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_below="@id/fragment_frame_lay" />
+
     <Button
         android:id="@+id/btn_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_send"
+        android:layout_toEndOf="@+id/btn_send"
         android:text="Upload" />
 
     <ImageView
         android:id="@+id/img"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/btn_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_upload"
+        android:layout_below="@+id/fragment_frame_lay"
+        android:layout_marginTop="102dp"
+        android:layout_toEndOf="@+id/img"
         android:text="Send" />
 </RelativeLayout>

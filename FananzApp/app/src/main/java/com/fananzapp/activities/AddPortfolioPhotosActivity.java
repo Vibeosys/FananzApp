@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
@@ -26,6 +27,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.fananzapp.R;
+import com.fananzapp.fragments.PortfolioListFragment;
+import com.fananzapp.fragments.UploadImageFragment;
 import com.fananzapp.utils.BaseVolleyRequest;
 import com.fananzapp.utils.MultipartUtility;
 
@@ -50,6 +53,7 @@ public class AddPortfolioPhotosActivity extends BaseActivity {
     public static final String TAG = "ImageVerifyActivity";
     private Uri imageUri;
     String youFilePath = "No Pic";
+    private FrameLayout fragmentFrameLay, fragmentFrameLay1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,14 @@ public class AddPortfolioPhotosActivity extends BaseActivity {
         btnUpload = (Button) findViewById(R.id.btn_upload);
         btnSend = (Button) findViewById(R.id.btn_send);
         img = (ImageView) findViewById(R.id.img);
+        fragmentFrameLay = (FrameLayout) findViewById(R.id.fragment_frame_lay);
+        fragmentFrameLay = (FrameLayout) findViewById(R.id.fragment_frame_lay1);
+        UploadImageFragment upl = new UploadImageFragment();
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_frame_lay, upl, "Upload").commit();
+        UploadImageFragment upl1 = new UploadImageFragment();
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_frame_lay1, upl1, "Upload").commit();
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
