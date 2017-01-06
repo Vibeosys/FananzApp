@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.fananzapp.activities.AddPortfolioPhotosActivity;
 import com.fananzapp.activities.BaseActivity;
 import com.fananzapp.activities.CustomerLoginActivity;
 import com.fananzapp.activities.FilterActivity;
@@ -133,7 +134,7 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_logout) {
             callToLogOut();
         } else if (id == R.id.nav_portfolio) {
-            Intent intent = new Intent(getApplicationContext(), PortfolioListActivity.class);
+            Intent intent = new Intent(getApplicationContext(), AddPortfolioPhotosActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_customer_login) {
             Intent intent = new Intent(getApplicationContext(), CustomerLoginActivity.class);
