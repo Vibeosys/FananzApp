@@ -130,4 +130,9 @@
     <string name="str_low_to_high">Priace: Low-to-High</string>
     <string name="str_high_to_low">Priace: High-to-Low</string>
     <string name="str_upload">Upload</string>
+    <string name="str_delete">DELETE</string>
+    <string name="str_update_btn">UPDATE</string>
+    <string name="str_upload_btn">UPLOAD</string>
+    <string name="str_cover_image">Cover Image</string>
+    <string name="str_tap_on_img">Tap on image to change it</string>
 </resources>

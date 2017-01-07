@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.android.volley.VolleyError;
@@ -14,6 +15,8 @@ import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.responsedata.PortfolioResponse;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
+import com.fananzapp.utils.SubscriberType;
+import com.fananzapp.utils.UserType;
 
 import java.util.ArrayList;
 
@@ -24,19 +27,24 @@ public class PortfolioListActivity extends BaseActivity implements ServerSyncMan
     private ListView listPortfolio;
     private SubPortfolioAdapter adapter;
     private ArrayList<PortfolioResponse> portfolioResponses = new ArrayList<>();
+    private LinearLayout addPortfolioLay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio_list);
         listPortfolio = (ListView) findViewById(R.id.listPortfolio);
-
+        addPortfolioLay = (LinearLayout) findViewById(R.id.addPortfolioLay);
         progressDialog.show();
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
         BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        if (mSessionManager.getSType().equals(SubscriberType.TYPE_FREELANCER)) {
+            addPortfolioLay.setVisibility(View.GONE);
+        }
         mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_SUB_PORTFOLIO_LIST,
                 mSessionManager.getSubPortfolioListUrl(), baseRequestDTO);
+
     }
 
     public void addPortFolio(View v) {

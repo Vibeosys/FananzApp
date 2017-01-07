@@ -17,6 +17,9 @@ public final class PropertyTypeConstants {
     public static final String SIGN_IN_USER = "api.endpoint.signinuser";
     public static final String ADD_USER_URL = "api.endpoint.adduser";
     public static final String SEND_MSG_URL = "api.endpoint.sendmessage";
+    public static final String GET_PHOTOS_URL = "api.endpoint.getphotos";
+    public static final String UPLOAD_PHOTOS = "api.endpoint.uploadphotos";
+    public static final String CHANGE_PHOTOS = "api.endpoint.changephotos";
 
     public static final String SUB_ID = "sub.id";
     public static final String SUB_EMAIL = "sub.email";

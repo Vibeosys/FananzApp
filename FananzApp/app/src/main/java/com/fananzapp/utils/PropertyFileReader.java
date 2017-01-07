@@ -88,4 +88,16 @@ public class PropertyFileReader {
     public String sendMessageUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.SEND_MSG_URL);
     }
+
+    public String getPhotosUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.GET_PHOTOS_URL);
+    }
+
+    public String getUploadPhotoUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.UPLOAD_PHOTOS);
+    }
+
+    public String getChangePhotoUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.CHANGE_PHOTOS);
+    }
 }

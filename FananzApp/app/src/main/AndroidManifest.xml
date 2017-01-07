@@ -56,8 +56,12 @@
         <activity
             android:name=".activities.AddPortfolioDataActivity"
             android:parentActivityName=".activities.PortfolioListActivity" />
-        <activity android:name=".activities.FilterActivity" />
-        <activity android:name=".activities.AddPortfolioPhotosActivity"></activity>
+        <activity
+            android:name=".activities.FilterActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".activities.AddPortfolioPhotosActivity"
+            android:parentActivityName=".activities.PortfolioListActivity"></activity>
     </application>
 
 </manifest>

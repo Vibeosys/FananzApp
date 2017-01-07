@@ -36,4 +36,12 @@ public class DialogUtils {
 
         return builder.create();
     }
+
+    public static ProgressDialog getFragmentDialog(Context context) {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setMax(100);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        return progressDialog;
+    }
 }

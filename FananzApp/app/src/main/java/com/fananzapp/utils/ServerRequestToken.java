@@ -15,4 +15,6 @@ public class ServerRequestToken {
     public static final int REQUEST_SIGN_IN_USER = 107;
     public static final int REQUEST_ADD_USER = 108;
     public static final int REQUEST_SEND_MESSAGE = 109;
+    public static final int REQUEST_PORT_PHOTOS = 110;
+
 }

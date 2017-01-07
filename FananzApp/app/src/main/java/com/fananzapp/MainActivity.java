@@ -134,7 +134,7 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_logout) {
             callToLogOut();
         } else if (id == R.id.nav_portfolio) {
-            Intent intent = new Intent(getApplicationContext(), AddPortfolioPhotosActivity.class);
+            Intent intent = new Intent(getApplicationContext(), PortfolioListActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_customer_login) {
             Intent intent = new Intent(getApplicationContext(), CustomerLoginActivity.class);

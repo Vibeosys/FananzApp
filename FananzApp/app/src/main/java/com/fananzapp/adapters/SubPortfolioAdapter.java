@@ -62,6 +62,7 @@ public class SubPortfolioAdapter extends BaseAdapter {
             viewHolder.btnInactive = (TextView) row.findViewById(R.id.btnInactive);
             viewHolder.btnModify = (TextView) row.findViewById(R.id.btnModify);
             viewHolder.coverImg = (NetworkImageView) row.findViewById(R.id.coverImg1);
+            viewHolder.coverImg.setImageResource(R.drawable.default_img);
             row.setTag(viewHolder);
 
         } else
@@ -77,28 +78,28 @@ public class SubPortfolioAdapter extends BaseAdapter {
         viewHolder.txtMinMaxPrice.setText(maxMinPrice);
         mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)
                 .getImageLoader();
-        String url = "";
-        try {
-            url = portfolioResponse.getCoverImageUrl();
-        } catch (NullPointerException e) {
-            url = "";
-        }
 
-        if (url == "null" || url == null || url.equals("") || url == "") {
-            viewHolder.coverImg.setDefaultImageResId(R.drawable.default_img);
-        } else if (TextUtils.isEmpty(url)) {
-            viewHolder.coverImg.setImageResource(R.drawable.default_img);
-        } else if (url != null && !url.isEmpty()) {
-            try {
-                mImageLoader.get(url, ImageLoader.getImageListener(viewHolder.coverImg,
-                        R.drawable.default_img, R.drawable.default_img));
-                viewHolder.coverImg.setImageUrl(url, mImageLoader);
-            } catch (Exception e) {
+        try {
+            String url = portfolioResponse.getCoverImageUrl();
+            if (url == "null" || url == null || url.equals("") || url == "") {
+                viewHolder.coverImg.setDefaultImageResId(R.drawable.default_img);
+            } else if (TextUtils.isEmpty(url)) {
+                viewHolder.coverImg.setImageResource(R.drawable.default_img);
+            } else if (url != null && !url.isEmpty()) {
+                try {
+                    mImageLoader.get(url, ImageLoader.getImageListener(viewHolder.coverImg,
+                            R.drawable.default_img, R.drawable.default_img));
+                    viewHolder.coverImg.setImageUrl(url, mImageLoader);
+                } catch (Exception e) {
+                    viewHolder.coverImg.setImageResource(R.drawable.default_img);
+                }
+            } else {
                 viewHolder.coverImg.setImageResource(R.drawable.default_img);
             }
-        } else {
-            viewHolder.coverImg.setImageResource(R.drawable.default_img);
+        } catch (NullPointerException e) {
+            viewHolder.coverImg.setDefaultImageResId(R.drawable.default_img);
         }
+
         viewHolder.btnInactive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

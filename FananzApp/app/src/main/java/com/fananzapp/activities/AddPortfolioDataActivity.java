@@ -1,5 +1,6 @@
 package com.fananzapp.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,12 +19,14 @@ import com.fananzapp.data.requestdata.AddPortfolioDataReqDTO;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.GetPortfolioDetailReqDTO;
 import com.fananzapp.data.requestdata.SigninSubReqDTO;
+import com.fananzapp.data.responsedata.AddPortfolioResDTO;
 import com.fananzapp.data.responsedata.CategoryResponseDTO;
 import com.fananzapp.data.responsedata.PortfolioDetailsResDTO;
 import com.fananzapp.data.responsedata.SubcategoryDTO;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
@@ -150,6 +153,10 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
                 break;
             case ServerRequestToken.REQUEST_ADD_PORTFOLIO:
                 Log.d(TAG, "##" + data);
+                AddPortfolioResDTO addPortfolioResDTO = AddPortfolioResDTO.deserializeJson(data);
+                Intent intent = new Intent(getApplicationContext(), AddPortfolioPhotosActivity.class);
+                intent.putExtra(AddPortfolioPhotosActivity.PORTFOLIO_ID, addPortfolioResDTO.getPortfolioId());
+                startActivity(intent);
                 break;
             case ServerRequestToken.REQUEST_DETAILS_PORTFOLIO:
                 showDetails(data);
