@@ -68,6 +68,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.GET_PHOTOS_URL, mPropertyFileReader.getPhotosUrl());
         editor.putString(PropertyTypeConstants.UPLOAD_PHOTOS, mPropertyFileReader.getUploadPhotoUrl());
         editor.putString(PropertyTypeConstants.CHANGE_PHOTOS, mPropertyFileReader.getChangePhotoUrl());
+        editor.putString(PropertyTypeConstants.UPDATE_PORTFOLIO, mPropertyFileReader.getUpdatePortfolio());
         editor.apply();
         return true;
     }
@@ -247,5 +248,9 @@ public class SessionManager {
 
     public String changePhotos() {
         return mProjectSharedPref.getString(PropertyTypeConstants.CHANGE_PHOTOS, null);
+    }
+
+    public String updatePortfolioUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.UPDATE_PORTFOLIO, null);
     }
 }

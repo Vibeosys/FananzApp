@@ -17,4 +17,5 @@ public class ServerRequestToken {
     public static final int REQUEST_SEND_MESSAGE = 109;
     public static final int REQUEST_PORT_PHOTOS = 110;
 
+    public static final int REQUEST_UPDATE_PORTFOLIO = 111;
 }

@@ -135,4 +135,8 @@
     <string name="str_upload_btn">UPLOAD</string>
     <string name="str_cover_image">Cover Image</string>
     <string name="str_tap_on_img">Tap on image to change it</string>
+    <string name="str_want_to_update_photos">Do you want to update photos?</string>
+    <string name="str_yes">YES</string>
+    <string name="str_no">NO</string>
+    <string name="str_update_photos">Photo update</string>
 </resources>

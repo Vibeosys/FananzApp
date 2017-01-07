@@ -7,13 +7,13 @@ import com.fananzapp.data.BaseDTO;
  */
 public class GetPortfolioDetailReqDTO extends BaseDTO {
 
-    private int portfolioId;
+    private long portfolioId;
 
-    public GetPortfolioDetailReqDTO(int portfolioId) {
+    public GetPortfolioDetailReqDTO(long portfolioId) {
         this.portfolioId = portfolioId;
     }
 
-    public int getPortfolioId() {
+    public long getPortfolioId() {
         return portfolioId;
     }
 

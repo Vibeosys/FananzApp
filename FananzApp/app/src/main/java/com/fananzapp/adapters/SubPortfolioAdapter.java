@@ -50,6 +50,8 @@ public class SubPortfolioAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup viewGroup) {
         View row = convertView;
         ViewHolder viewHolder = null;
+        mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)
+                .getImageLoader();
         if (row == null) {
 
             LayoutInflater theLayoutInflator = (LayoutInflater) mContext.getSystemService
@@ -65,8 +67,11 @@ public class SubPortfolioAdapter extends BaseAdapter {
             viewHolder.coverImg.setImageResource(R.drawable.default_img);
             row.setTag(viewHolder);
 
-        } else
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder.coverImg.setImageUrl(null, mImageLoader);
+        }
+        viewHolder.coverImg.setImageResource(R.drawable.default_img);
         final PortfolioResponse portfolioResponse = mData.get(position);
         String category = portfolioResponse.getCategory();
         String subCategory = portfolioResponse.getSubcategory();
@@ -76,8 +81,7 @@ public class SubPortfolioAdapter extends BaseAdapter {
         viewHolder.txtCategory.setText(category);
         viewHolder.txtSubcategory.setText(subCategory);
         viewHolder.txtMinMaxPrice.setText(maxMinPrice);
-        mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)
-                .getImageLoader();
+
 
         try {
             String url = portfolioResponse.getCoverImageUrl();

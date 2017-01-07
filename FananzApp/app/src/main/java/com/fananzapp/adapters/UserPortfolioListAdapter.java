@@ -52,6 +52,8 @@ public class UserPortfolioListAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup viewGroup) {
         View row = convertView;
         ViewHolder viewHolder = null;
+        mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)
+                .getImageLoader();
         if (row == null) {
 
             LayoutInflater theLayoutInflator = (LayoutInflater) mContext.getSystemService
@@ -66,8 +68,10 @@ public class UserPortfolioListAdapter extends BaseAdapter {
             viewHolder.coverImg = (NetworkImageView) row.findViewById(R.id.coverImg1);
             row.setTag(viewHolder);
 
-        } else
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder.coverImg.setImageUrl(null, mImageLoader);
+        }
         final PortfolioResponse portfolioResponse = mData.get(position);
         String category = portfolioResponse.getCategory();
         String artistName = portfolioResponse.getSubscriberName();
@@ -77,14 +81,8 @@ public class UserPortfolioListAdapter extends BaseAdapter {
         viewHolder.txtCategory.setText(category);
         viewHolder.txtArtistName.setText(artistName);
         viewHolder.txtMinMaxPrice.setText(maxMinPrice);
-        mImageLoader = CustomVolleyRequestQueue.getInstance(mContext)
-                .getImageLoader();
-        String url = "";
-        try {
-            url = portfolioResponse.getCoverImageUrl();
-        } catch (NullPointerException e) {
-            url = "";
-        }
+
+        String url = portfolioResponse.getCoverImageUrl();
 
         if (url == "null" || url == null || url.equals("") || url == "") {
             viewHolder.coverImg.setDefaultImageResId(R.drawable.default_img);

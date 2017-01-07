@@ -100,4 +100,8 @@ public class PropertyFileReader {
     public String getChangePhotoUrl() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.CHANGE_PHOTOS);
     }
+
+    public String getUpdatePortfolio() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.UPDATE_PORTFOLIO);
+    }
 }

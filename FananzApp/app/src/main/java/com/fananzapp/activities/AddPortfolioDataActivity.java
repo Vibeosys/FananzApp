@@ -1,7 +1,9 @@
 package com.fananzapp.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import com.fananzapp.data.requestdata.AddPortfolioDataReqDTO;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.GetPortfolioDetailReqDTO;
 import com.fananzapp.data.requestdata.SigninSubReqDTO;
+import com.fananzapp.data.requestdata.UpdatePortfolioReqDTO;
 import com.fananzapp.data.responsedata.AddPortfolioResDTO;
 import com.fananzapp.data.responsedata.CategoryResponseDTO;
 import com.fananzapp.data.responsedata.PortfolioDetailsResDTO;
@@ -44,7 +47,7 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
     private Button btnNext;
     private int categoryId = 0;
     private int subCategoryId = 0;
-    private int portfolioId = 0;
+    private long portfolioId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +72,7 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
         if (bundle != null) {
             bundle = bundle.getBundle(PORTFOLIO_DETAILS_BUNDLE);
             portfolioId = bundle.getInt(PORTFOLIO_DETAILS);
-            GetPortfolioDetailReqDTO getPortfolioReqDTO = new GetPortfolioDetailReqDTO(portfolioId);
-            Gson gson = new Gson();
-            String serializedJsonString = gson.toJson(getPortfolioReqDTO);
-            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-            baseRequestDTO.setData(serializedJsonString);
-            mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_DETAILS_PORTFOLIO,
-                    mSessionManager.getPortfolioDetailUrl(), baseRequestDTO);
+
         } else {
 
         }
@@ -150,6 +147,16 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
                 categorySpinnerAdapter = new CategorySpinnerAdapter(getApplicationContext(), categoryResponseDTOs);
                 spnCategory.setAdapter(categorySpinnerAdapter);
                 Log.d(TAG, "##" + categoryResponseDTOs);
+                if (portfolioId != 0) {
+                    progressDialog.show();
+                    GetPortfolioDetailReqDTO getPortfolioReqDTO = new GetPortfolioDetailReqDTO(portfolioId);
+                    Gson gson = new Gson();
+                    String serializedJsonString = gson.toJson(getPortfolioReqDTO);
+                    BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+                    baseRequestDTO.setData(serializedJsonString);
+                    mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_DETAILS_PORTFOLIO,
+                            mSessionManager.getPortfolioDetailUrl(), baseRequestDTO);
+                }
                 break;
             case ServerRequestToken.REQUEST_ADD_PORTFOLIO:
                 Log.d(TAG, "##" + data);
@@ -161,7 +168,36 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
             case ServerRequestToken.REQUEST_DETAILS_PORTFOLIO:
                 showDetails(data);
                 break;
+            case ServerRequestToken.REQUEST_UPDATE_PORTFOLIO:
+                showConfirmDialog();
+                break;
         }
+    }
+
+    private void showConfirmDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_update_photos);
+        dialog.setTitle(getString(R.string.str_update_photos));
+        Button btnNo = (Button) dialog.findViewById(R.id.btn_no);
+        Button btnYes = (Button) dialog.findViewById(R.id.btn_yes);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                Intent intent = new Intent(getApplicationContext(), AddPortfolioPhotosActivity.class);
+                intent.putExtra(AddPortfolioPhotosActivity.PORTFOLIO_ID, portfolioId);
+                startActivity(intent);
+            }
+        });
+        dialog.show();
     }
 
 
@@ -225,15 +261,29 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
         if (check) {
             focusView.requestFocus();
         } else {
-            progressDialog.show();
-            AddPortfolioDataReqDTO addPortfolioDataReqDTO = new AddPortfolioDataReqDTO(categoryId, subCategoryId,
-                    strFbLink, strYouLink, strDetails, minPrice, maxPrice);
-            Gson gson = new Gson();
-            String serializedJsonString = gson.toJson(addPortfolioDataReqDTO);
-            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-            baseRequestDTO.setData(serializedJsonString);
-            mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_ADD_PORTFOLIO,
-                    mSessionManager.addPortfolioUrl(), baseRequestDTO);
+            if (portfolioId == 0) {
+                progressDialog.show();
+                AddPortfolioDataReqDTO addPortfolioDataReqDTO = new AddPortfolioDataReqDTO(categoryId, subCategoryId,
+                        strFbLink, strYouLink, strDetails, minPrice, maxPrice);
+                Gson gson = new Gson();
+                String serializedJsonString = gson.toJson(addPortfolioDataReqDTO);
+                BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+                baseRequestDTO.setData(serializedJsonString);
+                mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_ADD_PORTFOLIO,
+                        mSessionManager.addPortfolioUrl(), baseRequestDTO);
+            } else {
+                progressDialog.show();
+                UpdatePortfolioReqDTO addPortfolioDataReqDTO = new UpdatePortfolioReqDTO(portfolioId,
+                        categoryId, subCategoryId, strFbLink, strYouLink, strDetails, minPrice,
+                        maxPrice, 1);
+                Gson gson = new Gson();
+                String serializedJsonString = gson.toJson(addPortfolioDataReqDTO);
+                BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+                baseRequestDTO.setData(serializedJsonString);
+                mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_UPDATE_PORTFOLIO,
+                        mSessionManager.updatePortfolioUrl(), baseRequestDTO);
+            }
+
         }
     }
 
