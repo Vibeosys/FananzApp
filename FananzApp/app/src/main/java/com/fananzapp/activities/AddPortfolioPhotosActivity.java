@@ -107,6 +107,24 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
                 getSupportFragmentManager().beginTransaction().
                         replace(R.id.frame_img1, image1, "img1").commit();
 
+            } else {
+                UploadImageFragment image2 = new UploadImageFragment();
+                Bundle bundleImg2 = new Bundle();
+                bundleImg2.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
+                bundleImg2.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
+                bundleImg2.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
+                image2.setArguments(bundleImg2);
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.frame_img2, image2, "img2").commit();
+
+                UploadImageFragment image3 = new UploadImageFragment();
+                Bundle bundleImg3 = new Bundle();
+                bundleImg3.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
+                bundleImg3.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
+                bundleImg3.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
+                image3.setArguments(bundleImg3);
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.frame_img3, image3, "img3").commit();
             }
             if (images.size() >= 2) {
                 UploadImageFragment image2 = new UploadImageFragment();
@@ -117,6 +135,15 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
                 getSupportFragmentManager().beginTransaction().
                         replace(R.id.frame_img2, image2, "img2").commit();
 
+            } else {
+                UploadImageFragment image3 = new UploadImageFragment();
+                Bundle bundleImg3 = new Bundle();
+                bundleImg3.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
+                bundleImg3.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
+                bundleImg3.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
+                image3.setArguments(bundleImg3);
+                getSupportFragmentManager().beginTransaction().
+                        replace(R.id.frame_img3, image3, "img3").commit();
             }
             if (images.size() > 3) {
                 UploadImageFragment image3 = new UploadImageFragment();
@@ -139,6 +166,7 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.frame_cover, coverImage, "Upload").commit();
             UploadImageFragment image1 = new UploadImageFragment();
+
             Bundle bundleImg1 = new Bundle();
             bundleImg1.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
             bundleImg1.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
@@ -146,6 +174,7 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
             image1.setArguments(bundleImg1);
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.frame_img1, image1, "img1").commit();
+
             UploadImageFragment image2 = new UploadImageFragment();
             Bundle bundleImg2 = new Bundle();
             bundleImg2.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
@@ -154,6 +183,7 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
             image2.setArguments(bundleImg2);
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.frame_img2, image2, "img2").commit();
+
             UploadImageFragment image3 = new UploadImageFragment();
             Bundle bundleImg3 = new Bundle();
             bundleImg3.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);

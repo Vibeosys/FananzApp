@@ -21,12 +21,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.fananzapp.R;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.CustomerReqDTO;
+import com.fananzapp.data.requestdata.DeletePhotoReqDTO;
 import com.fananzapp.data.requestdata.SigninSubReqDTO;
+import com.fananzapp.data.requestdata.SigninUserReqDTO;
 import com.fananzapp.data.requestdata.UpdatePhotosReqDTO;
 import com.fananzapp.data.requestdata.UploadPhotosReqDTO;
 import com.fananzapp.data.requestdata.UserRequestDTO;
@@ -35,6 +38,7 @@ import com.fananzapp.utils.CustomVolleyRequestQueue;
 import com.fananzapp.utils.DialogUtils;
 import com.fananzapp.utils.MultipartUtility;
 import com.fananzapp.utils.ServerRequestToken;
+import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.UserType;
 import com.google.gson.Gson;
 
@@ -45,7 +49,8 @@ import java.io.File;
 /**
  * Created by akshay on 06-01-2017.
  */
-public class UploadImageFragment extends BaseFragment implements View.OnClickListener {
+public class UploadImageFragment extends BaseFragment implements View.OnClickListener,
+        ServerSyncManager.OnSuccessResultReceived, ServerSyncManager.OnErrorResultReceived {
 
     private static final String TAG = UploadImageFragment.class.getSimpleName();
     public static final String IMAGE_DATA = "imageData";
@@ -83,6 +88,8 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
         btnUpload.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
         img.setOnClickListener(this);
+        mServerSyncManager.setOnStringErrorReceived(this);
+        mServerSyncManager.setOnStringResultReceived(this);
         isNewData = bundle.getBoolean(IS_NEW_DATA);
         if (isNewData) {
             portId = bundle.getLong(PORTFOLIO_ID);
@@ -161,7 +168,14 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
 
                 break;
             case R.id.btnDelete:
-
+                progressDialog.show();
+                DeletePhotoReqDTO deletePhotoReqDTO = new DeletePhotoReqDTO(imgData.getPhotoId());
+                Gson gson = new Gson();
+                String serializedJsonString = gson.toJson(deletePhotoReqDTO);
+                BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+                baseRequestDTO.setData(serializedJsonString);
+                mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_DELETE_PHOTO,
+                        mSessionManager.deletePhotoUrl(), baseRequestDTO);
                 break;
         }
     }
@@ -213,6 +227,27 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
                 img.setImageURI(selectedImageUri);
 
             }
+        }
+    }
+
+    @Override
+    public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onResultReceived(@NonNull String data, int requestToken) {
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestToken.REQUEST_DELETE_PHOTO:
+                Toast.makeText(getContext(), getString(R.string.str_photo_delete_success), Toast.LENGTH_SHORT).show();
+                img.setImageResource(R.drawable.default_img);
+                break;
         }
     }
 

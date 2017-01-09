@@ -140,4 +140,12 @@
     <string name="str_no">NO</string>
     <string name="str_update_photos">Photo update</string>
     <string name="str_paypal_client_id">AfzYXpuZS4hsZIRRiE1uWoXXKuHHahsFdiD4OlqdEY6RPyxRIRyow3u1CxI8HMlH0roGqq0V4ri9bNQy</string>
+    <string name="str_subscribe_message">Subscribe for corporate</string>
+    <string name="str_subscribe_later">Later</string>
+    <string name="str_corporate_annual_fee">Do you want to subscrinbe annual membership worth AED 2000</string>
+    <string name="str_subscription_error">Subscription error</string>
+    <string name="str_subscription_msg">Server is unable to generate subscription try again later</string>
+    <string name="str_success_pay">Your subscription is successfull, Login with email and password</string>
+    <string name="str_photo_delete_success">Photo deleted successfully</string>
+    <string name="str_fre_annual_fee">Do you want to subscrinbe annual membership worth AED 1000</string>
 </resources>

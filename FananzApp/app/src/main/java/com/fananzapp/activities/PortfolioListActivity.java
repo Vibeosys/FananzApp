@@ -64,6 +64,9 @@ public class PortfolioListActivity extends BaseActivity implements ServerSyncMan
         switch (requestToken) {
             case ServerRequestToken.REQUEST_SUB_PORTFOLIO_LIST:
                 customAlterDialog(getString(R.string.str_portfolio_list_err_title), errorMessage);
+                if (mSessionManager.getSType().equals(SubscriberType.TYPE_FREELANCER)) {
+                    addPortfolioLay.setVisibility(View.VISIBLE);
+                }
                 break;
         }
     }
@@ -74,9 +77,17 @@ public class PortfolioListActivity extends BaseActivity implements ServerSyncMan
         progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestToken.REQUEST_SUB_PORTFOLIO_LIST:
+
                 portfolioResponses = PortfolioResponse.deserializeToArray(data);
                 adapter = new SubPortfolioAdapter(portfolioResponses, getApplicationContext());
                 adapter.setOnItemClick(this);
+                if (mSessionManager.getSType().equals(SubscriberType.TYPE_FREELANCER)) {
+                    if (portfolioResponses.size() > 0) {
+                        addPortfolioLay.setVisibility(View.GONE);
+                    } else {
+                        addPortfolioLay.setVisibility(View.VISIBLE);
+                    }
+                }
                 listPortfolio.setAdapter(adapter);
                 break;
         }

@@ -21,6 +21,9 @@ public final class PropertyTypeConstants {
     public static final String UPLOAD_PHOTOS = "api.endpoint.uploadphotos";
     public static final String CHANGE_PHOTOS = "api.endpoint.changephotos";
     public static final String UPDATE_PORTFOLIO = "api.endpoint.updateportfolio";
+    public static final String INIT_PAYMENT = "api.endpoint.initpayment";
+    public static final String VERIFY_PAYMENT = "api.endpoint.verifypay";
+    public static final String DELETE_PHOTO = "api.endpoint.deletephoto";
 
     public static final String SUB_ID = "sub.id";
     public static final String SUB_EMAIL = "sub.email";

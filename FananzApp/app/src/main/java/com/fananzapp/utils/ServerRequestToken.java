@@ -18,4 +18,7 @@ public class ServerRequestToken {
     public static final int REQUEST_PORT_PHOTOS = 110;
 
     public static final int REQUEST_UPDATE_PORTFOLIO = 111;
+    public static final int REQUEST_INITIALIZE_PAYMENT = 112;
+    public static final int REQUEST_VERIFY_PAY = 113;
+    public static final int REQUEST_DELETE_PHOTO = 114;
 }

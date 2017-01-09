@@ -1,6 +1,7 @@
 package com.fananzapp.fragments;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,8 +27,12 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.fananzapp.R;
 import com.fananzapp.activities.SubscriberLoginActivity;
+import com.fananzapp.activities.SubscriberRegisterActivity;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.RegisterSubscriberReq;
+import com.fananzapp.data.requestdata.UserRequestDTO;
+import com.fananzapp.data.responsedata.InitializePaymentResDTO;
+import com.fananzapp.data.responsedata.RegisterSubResDTO;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.SubscriberType;
@@ -45,10 +50,16 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
     private Button btnSubmit;
     private CheckBox checkBox;
     private boolean checkTerms = false;
+    private SubscriberRegisterActivity activity;
+
+    private String email, password;
+    private long subId;
+    private UserRequestDTO userRequestDTO;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = (SubscriberRegisterActivity) getActivity();
     }
 
     @Nullable
@@ -127,8 +138,8 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
 
         String strName = edtName.getText().toString();
         String strNickName = edtNickName.getText().toString();
-        String strPassword = edtPass.getText().toString();
-        String strEmail = edtEmail.getText().toString();
+        password = edtPass.getText().toString();
+        email = edtEmail.getText().toString();
         String strPhone = edtPh.getText().toString();
         String strMob = edtMob.getText().toString();
         String strWeb = edtWeb.getText().toString();
@@ -140,11 +151,11 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
             edtName.setError(getString(R.string.str_name_empty_error));
             focusView = edtName;
             check = true;
-        } else if (strEmail.isEmpty()) {
+        } else if (email.isEmpty()) {
             focusView = edtEmail;
             check = true;
             edtEmail.setError(getString(R.string.str_email_empty));
-        } else if (strPassword.isEmpty()) {
+        } else if (password.isEmpty()) {
             focusView = edtPass;
             check = true;
             edtPass.setError(getString(R.string.str_pass_empty));
@@ -161,7 +172,7 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
             focusView.requestFocus();
         } else {
             progressDialog.show();
-            RegisterSubscriberReq subscriberReq = new RegisterSubscriberReq(strName, strEmail, strPassword, ""
+            RegisterSubscriberReq subscriberReq = new RegisterSubscriberReq(strName, email, password, ""
                     , SubscriberType.TYPE_FREELANCER, strPhone, strMob, strWeb, strCountry, strNickName);
             Gson gson = new Gson();
             String serializedJsonString = gson.toJson(subscriberReq);
@@ -180,6 +191,9 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
             case ServerRequestToken.REQUEST_ADD_SUBSCRIBER:
                 customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
                 break;
+            case ServerRequestToken.REQUEST_INITIALIZE_PAYMENT:
+                customSubAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
         }
     }
 
@@ -190,6 +204,9 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
             case ServerRequestToken.REQUEST_ADD_SUBSCRIBER:
                 customAlterDialog(getString(R.string.str_register_err_title), errorMessage);
                 break;
+            case ServerRequestToken.REQUEST_INITIALIZE_PAYMENT:
+                customSubAlterDialog(getString(R.string.str_subscription_error), getString(R.string.str_subscription_msg));
+                break;
         }
     }
 
@@ -199,11 +216,63 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
         switch (requestToken) {
             case ServerRequestToken.REQUEST_ADD_SUBSCRIBER:
                 Log.d(TAG, "## Success Register");
-                startActivity(new Intent(getContext(), SubscriberLoginActivity.class));
-                getActivity().finish();
+                RegisterSubResDTO registerSubResDTO = RegisterSubResDTO.deserializeJson(data);
+                subId = registerSubResDTO.getSubscriberId();
+                showSubDialog();
                 Toast.makeText(getContext(), getString(R.string.str_sub_register_success), Toast.LENGTH_SHORT).show();
+                break;
+            case ServerRequestToken.REQUEST_INITIALIZE_PAYMENT:
+                InitializePaymentResDTO paymentResDTO = InitializePaymentResDTO.deserializeJson(data);
+                activity.subscribeNow(paymentResDTO, userRequestDTO);
                 break;
         }
 
+    }
+
+    public void showSubDialog() {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_subscription_user);
+        TextView txtSubDesc = (TextView) dialog.findViewById(R.id.txt_subscription_desc);
+        Button btnSubscribeLater = (Button) dialog.findViewById(R.id.btn_subscribe_later);
+        Button btnSubscribe = (Button) dialog.findViewById(R.id.btn_subscribe);
+        txtSubDesc.setText(getString(R.string.str_fre_annual_fee));
+        btnSubscribeLater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                Intent iLogin = new Intent(getContext(), SubscriberLoginActivity.class);
+                startActivity(iLogin);
+                getActivity().finish();
+            }
+        });
+        btnSubscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                progressDialog.show();
+                userRequestDTO = new UserRequestDTO(subId, email, password);
+                Gson gson = new Gson();
+                String serializedJsonString = gson.toJson(userRequestDTO);
+                BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+                baseRequestDTO.setUser(serializedJsonString);
+                mServerSyncManager.uploadSubToServer(ServerRequestToken.REQUEST_INITIALIZE_PAYMENT,
+                        mSessionManager.initPaymentUrl(), baseRequestDTO);
+            }
+        });
+        dialog.show();
+    }
+
+    protected void customSubAlterDialog(String title, String message) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+        builder.setTitle("" + title);
+        builder.setMessage(message);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showSubDialog();
+            }
+        });
+        builder.show();
     }
 }

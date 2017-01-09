@@ -104,4 +104,16 @@ public class PropertyFileReader {
     public String getUpdatePortfolio() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.UPDATE_PORTFOLIO);
     }
+
+    public String initPayUrl() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.INIT_PAYMENT);
+    }
+
+    public String verifyPayment() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.VERIFY_PAYMENT);
+    }
+
+    public String deletePhoto() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.DELETE_PHOTO);
+    }
 }

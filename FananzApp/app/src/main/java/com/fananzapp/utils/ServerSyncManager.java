@@ -48,6 +48,11 @@ public class ServerSyncManager {
         Log.i(TAG, "##" + url);
         uploadJsonToServer(uploadJson, url, requestToken);
     }
+    public void uploadSubToServer(int requestToken, String url, BaseRequestDTO params) {
+        String uploadJson = params.serializeString();
+        Log.i(TAG, "##" + url);
+        uploadJsonToServer(uploadJson, url, requestToken);
+    }
 
     public void setOnStringResultReceived(OnSuccessResultReceived stringResultReceived) {
         mOnSuccessResultReceived = stringResultReceived;

@@ -69,6 +69,9 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.UPLOAD_PHOTOS, mPropertyFileReader.getUploadPhotoUrl());
         editor.putString(PropertyTypeConstants.CHANGE_PHOTOS, mPropertyFileReader.getChangePhotoUrl());
         editor.putString(PropertyTypeConstants.UPDATE_PORTFOLIO, mPropertyFileReader.getUpdatePortfolio());
+        editor.putString(PropertyTypeConstants.INIT_PAYMENT, mPropertyFileReader.initPayUrl());
+        editor.putString(PropertyTypeConstants.VERIFY_PAYMENT, mPropertyFileReader.verifyPayment());
+        editor.putString(PropertyTypeConstants.DELETE_PHOTO, mPropertyFileReader.deletePhoto());
         editor.apply();
         return true;
     }
@@ -238,7 +241,7 @@ public class SessionManager {
         return mProjectSharedPref.getString(PropertyTypeConstants.GET_PHOTOS_URL, null);
     }
 
-    public Object getSType() {
+    public String getSType() {
         return mProjectSharedPref.getString(PropertyTypeConstants.SUB_S_TYPE, null);
     }
 
@@ -252,5 +255,21 @@ public class SessionManager {
 
     public String updatePortfolioUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.UPDATE_PORTFOLIO, null);
+    }
+
+    public String initPaymentUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.INIT_PAYMENT, null);
+    }
+
+    public String verifyPayUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.VERIFY_PAYMENT, null);
+    }
+
+    public String deletePhotoUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.DELETE_PHOTO, null);
+    }
+
+    public boolean getIsSubscribed() {
+        return mProjectSharedPref.getBoolean(PropertyTypeConstants.SUB_IS_SUBSCRIBED, false);
     }
 }

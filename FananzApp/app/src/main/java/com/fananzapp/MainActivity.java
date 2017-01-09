@@ -17,6 +17,7 @@ import com.fananzapp.activities.CustomerLoginActivity;
 import com.fananzapp.activities.FilterActivity;
 import com.fananzapp.activities.PortfolioListActivity;
 import com.fananzapp.activities.SubscriberLoginActivity;
+import com.fananzapp.activities.SubscriptionActivity;
 import com.fananzapp.fragments.PortfolioListFragment;
 import com.fananzapp.fragments.SubscriberMainView;
 import com.fananzapp.utils.UserAuth;
@@ -134,8 +135,15 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_logout) {
             callToLogOut();
         } else if (id == R.id.nav_portfolio) {
-            Intent intent = new Intent(getApplicationContext(), PortfolioListActivity.class);
-            startActivity(intent);
+            if (mSessionManager.getIsSubscribed()) {
+                Intent intent = new Intent(getApplicationContext(), PortfolioListActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(getApplicationContext(), SubscriptionActivity.class);
+                intent.putExtra(SubscriptionActivity.STYPE, mSessionManager.getSType());
+                startActivity(intent);
+            }
+
         } else if (id == R.id.nav_customer_login) {
             Intent intent = new Intent(getApplicationContext(), CustomerLoginActivity.class);
             startActivity(intent);
