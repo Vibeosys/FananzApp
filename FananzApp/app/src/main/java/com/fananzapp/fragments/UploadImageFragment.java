@@ -160,6 +160,9 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
                 }
 
                 break;
+            case R.id.btnDelete:
+
+                break;
         }
     }
 

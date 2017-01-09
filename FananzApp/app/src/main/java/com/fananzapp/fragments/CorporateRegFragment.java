@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.fananzapp.R;
 import com.fananzapp.activities.SubscriberLoginActivity;
+import com.fananzapp.activities.SubscriptionActivity;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.RegisterSubscriberReq;
 import com.fananzapp.utils.ServerRequestToken;
@@ -190,7 +191,7 @@ public class CorporateRegFragment extends BaseFragment implements View.OnClickLi
         switch (requestToken) {
             case ServerRequestToken.REQUEST_ADD_SUBSCRIBER:
                 Log.d(TAG, "## Success Register");
-                startActivity(new Intent(getContext(), SubscriberLoginActivity.class));
+                startActivity(new Intent(getContext(), SubscriptionActivity.class));
                 getActivity().finish();
                 Toast.makeText(getContext(), getString(R.string.str_sub_register_success), Toast.LENGTH_SHORT).show();
                 break;

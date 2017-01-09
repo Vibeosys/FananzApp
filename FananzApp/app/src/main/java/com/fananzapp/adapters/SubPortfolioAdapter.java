@@ -81,7 +81,7 @@ public class SubPortfolioAdapter extends BaseAdapter {
         viewHolder.txtCategory.setText(category);
         viewHolder.txtSubcategory.setText(subCategory);
         viewHolder.txtMinMaxPrice.setText(maxMinPrice);
-
+        //int isActive=portfolioResponse.
 
         try {
             String url = portfolioResponse.getCoverImageUrl();

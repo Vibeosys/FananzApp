@@ -1,13 +1,14 @@
 package com.fananzapp;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.facebook.FacebookSdk;
 
 /**
  * Created by akshay on 03-01-2017.
  */
-public class FananzAppApplication extends Application {
+public class FananzAppApplication extends MultiDexApplication {
 
     @Override
     public void onCreate() {

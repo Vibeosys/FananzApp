@@ -10,6 +10,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -17,16 +18,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-   /* repositories {
+   repositories {
         mavenCentral()
         mavenLocal()
         flatDir {
             dirs 'libs'
         }
-    }*/
-   /* dependencies {
-        compile(name: 'paypal-here-sdk', ext: 'aar')
-    }*/
+    }
+   dependencies {
+       compile 'com.paypal.sdk:paypal-android-sdk:2.15.1'
+        //compile(name: 'paypal-here-sdk', ext: 'aar')
+    }
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
 }
 
 dependencies {
@@ -50,4 +56,5 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.7.0'
     //add multipart file to server
     compile 'org.apache.commons:commons-collections4:4.1'
+    compile 'com.android.support:multidex:1.0.0'
 }
