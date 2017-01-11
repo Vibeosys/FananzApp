@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.fananzapp.MainActivity;
@@ -26,8 +27,9 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
 
     private static final String TAG = SubscriberLoginActivity.class.getSimpleName();
     private EditText edtEmail, edtPass;
-    Button btnSignIn;
-    String email, password;
+    private Button btnSignIn;
+    private String email, password;
+    private TextView txtForgotPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,9 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
         edtEmail = (EditText) findViewById(R.id.edt_email);
         edtPass = (EditText) findViewById(R.id.edt_pass);
         btnSignIn = (Button) findViewById(R.id.btn_sign_in);
+        txtForgotPass = (TextView) findViewById(R.id.txtForgotPass);
         btnSignIn.setOnClickListener(this);
+        txtForgotPass.setOnClickListener(this);
         mServerSyncManager.setOnStringResultReceived(this);
         mServerSyncManager.setOnStringErrorReceived(this);
     }
@@ -51,6 +55,9 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
         switch (id) {
             case R.id.btn_sign_in:
                 loginUser();
+                break;
+            case R.id.txtForgotPass:
+                startActivity(new Intent(getApplicationContext(), ForgotPassSubActivity.class));
                 break;
         }
     }

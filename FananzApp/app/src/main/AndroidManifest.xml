@@ -62,7 +62,19 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activities.AddPortfolioPhotosActivity"
-            android:parentActivityName=".activities.PortfolioListActivity"></activity>
+            android:parentActivityName=".activities.PortfolioListActivity" />
+        <activity
+            android:name=".activities.UserProfileActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".activities.SubscriberProfileActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".activities.ForgotPassSubActivity"
+            android:parentActivityName=".activities.SubscriberLoginActivity" />
+        <activity
+            android:name=".activities.ForgotPassUserActivity"
+            android:parentActivityName=".activities.CustomerLoginActivity"></activity>
     </application>
 
 </manifest>

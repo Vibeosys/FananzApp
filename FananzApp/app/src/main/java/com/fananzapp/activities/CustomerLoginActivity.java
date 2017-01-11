@@ -49,7 +49,7 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
         ServerSyncManager.OnSuccessResultReceived, ServerSyncManager.OnErrorResultReceived {
 
     private static final String TAG = CustomerLoginActivity.class.getSimpleName();
-    private TextView mTxtRegister;
+    private TextView mTxtRegister, txtForgotPass;
     ImageView fbImg;
     CallbackManager callbackManager;
     private EditText edtEmail, edtPass;
@@ -66,9 +66,11 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
         edtEmail = (EditText) findViewById(R.id.edt_email);
         edtPass = (EditText) findViewById(R.id.edt_pass);
         btnSignIn = (Button) findViewById(R.id.btn_sign_in);
+        txtForgotPass = (TextView) findViewById(R.id.txtForgotPass);
 
         btnSignIn.setOnClickListener(this);
         fbImg.setOnClickListener(this);
+        txtForgotPass.setOnClickListener(this);
         mServerSyncManager.setOnStringResultReceived(this);
         mServerSyncManager.setOnStringErrorReceived(this);
 
@@ -105,6 +107,9 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.btn_sign_in:
                 loginUser();
+                break;
+            case R.id.txtForgotPass:
+                startActivity(new Intent(getApplicationContext(), ForgotPassUserActivity.class));
                 break;
         }
     }

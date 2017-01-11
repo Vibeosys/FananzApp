@@ -1,0 +1,68 @@
+package com.fananzapp.activities;
+
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+
+import com.android.volley.VolleyError;
+import com.fananzapp.R;
+import com.fananzapp.data.requestdata.BaseRequestDTO;
+import com.fananzapp.data.requestdata.ForgotPasswordReqDTO;
+import com.fananzapp.utils.ServerRequestToken;
+import com.fananzapp.utils.ServerSyncManager;
+import com.google.gson.Gson;
+
+public class ForgotPassUserActivity extends BaseActivity implements
+        ServerSyncManager.OnErrorResultReceived, ServerSyncManager.OnSuccessResultReceived {
+    EditText edtMail;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_forgot_pass_user);
+        edtMail = (EditText) findViewById(R.id.edt_email);
+        mServerSyncManager.setOnStringErrorReceived(this);
+        mServerSyncManager.setOnStringResultReceived(this);
+    }
+
+    public void sendMailUser(View v) {
+        String email = edtMail.getText().toString();
+        if (email.isEmpty()) {
+            edtMail.requestFocus();
+            edtMail.setError(getString(R.string.str_email_empty));
+        } else {
+            progressDialog.show();
+            ForgotPasswordReqDTO forgotPasswordReqDTO = new ForgotPasswordReqDTO(email);
+            Gson gson = new Gson();
+            String serializedJsonString = gson.toJson(forgotPasswordReqDTO);
+            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+            baseRequestDTO.setData(serializedJsonString);
+            mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_USER_FORGOT_PASS,
+                    mSessionManager.forgotUserPass(), baseRequestDTO);
+        }
+    }
+
+    @Override
+    public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
+        progressDialog.dismiss();
+        customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+    }
+
+    @Override
+    public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
+        progressDialog.dismiss();
+        customAlterDialog(getString(R.string.str_forgot_pass_error), errorMessage);
+    }
+
+    @Override
+    public void onResultReceived(@NonNull String data, int requestToken) {
+        progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestToken.REQUEST_SUB_FORGOT_PASS:
+                customAlterDialog(getString(R.string.str_forgot_pass_title), getString(R.string.str_forgot_pass_success));
+                break;
+        }
+    }
+}

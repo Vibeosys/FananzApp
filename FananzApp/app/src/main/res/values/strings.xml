@@ -151,4 +151,11 @@
     <string name="str_pass_confirm_incorrect">Password are not match</string>
     <string name="str_active">Active</string>
     <string name="str_inactive_error_response">Error</string>
+    <string name="str_first_name">Name</string>
+    <string name="str_btn_save">Save</string>
+    <string name="str_btn_send_email">Send Mail</string>
+    <string name="str_forgot_msg">You will receive your credentials,if your email id matches with registered email id</string>
+    <string name="str_forgot_pass_success">Please check your email for password</string>
+    <string name="str_forgot_pass_title">Password Send</string>
+    <string name="str_forgot_pass_error">Error To Send Mail</string>
 </resources>

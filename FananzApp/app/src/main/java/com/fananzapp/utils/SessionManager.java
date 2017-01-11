@@ -73,6 +73,8 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.VERIFY_PAYMENT, mPropertyFileReader.verifyPayment());
         editor.putString(PropertyTypeConstants.DELETE_PHOTO, mPropertyFileReader.deletePhoto());
         editor.putString(PropertyTypeConstants.INACTIVE_PORTFOLIO, mPropertyFileReader.inactivePort());
+        editor.putString(PropertyTypeConstants.FORGOT_SUB_PASS, mPropertyFileReader.forgotPassSub());
+        editor.putString(PropertyTypeConstants.FORGOT_USER_PASS, mPropertyFileReader.forgotPassUser());
         editor.apply();
         return true;
     }
@@ -148,6 +150,10 @@ public class SessionManager {
 
     public void setNickName(String nickName) {
         setValuesInSharedPrefs(PropertyTypeConstants.SUB_NICK_NAME, nickName);
+    }
+
+    public String getNickName() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SUB_NICK_NAME, null);
     }
 
     public void setEmail(String email) {
@@ -280,5 +286,13 @@ public class SessionManager {
 
     public String inactivePortUrl() {
         return mProjectSharedPref.getString(PropertyTypeConstants.INACTIVE_PORTFOLIO, null);
+    }
+
+    public String forgotSubPass() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.FORGOT_SUB_PASS, null);
+    }
+
+    public String forgotUserPass() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.FORGOT_USER_PASS, null);
     }
 }

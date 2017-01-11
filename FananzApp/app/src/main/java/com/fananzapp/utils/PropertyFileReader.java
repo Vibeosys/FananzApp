@@ -120,4 +120,12 @@ public class PropertyFileReader {
     public String inactivePort() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.INACTIVE_PORTFOLIO);
     }
+
+    public String forgotPassSub() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.FORGOT_SUB_PASS);
+    }
+
+    public String forgotPassUser() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.FORGOT_USER_PASS);
+    }
 }
