@@ -45,9 +45,15 @@
                     android:textColor="@color/primaryText2"
                     android:textSize="16sp" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/divider_colour1" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="6dp">
 
@@ -55,7 +61,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/str_price"
+                        android:text="@string/str_charges"
                         android:textColor="@color/primaryText2"
                         android:textSize="16sp" />
 
@@ -86,23 +92,120 @@
 
                 </LinearLayout>
 
-                <com.fananzapp.views.LatoTextView
-                    android:id="@+id/txtFbLink"
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_view"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:text="@string/str_facebook"
-                    android:textColor="@color/hyperlinkColour"
-                    android:textSize="16sp" />
+                    android:layout_margin="4dp"
+                    android:background="@android:color/white">
 
-                <com.fananzapp.views.LatoTextView
-                    android:id="@+id/txtYoutubeLink"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.fananzapp.views.LatoTextView
+                            android:id="@+id/txtFbLink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/str_facebook"
+                            android:textColor="@color/hyperlinkColour"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginTop="2dp"
+                                android:paddingStart="5dp"
+                                android:text="@string/str_portfolio_facebook"
+                                android:textColor="@color/primaryText"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginTop="2dp"
+                                android:paddingStart="5dp"
+                                android:src="@drawable/facebook_img" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:background="@android:color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.fananzapp.views.LatoTextView
+                            android:id="@+id/txtYoutubeLink"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="@string/str_youtube"
+                            android:textColor="@color/hyperlinkColour"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginTop="2dp"
+                                android:paddingStart="5dp"
+                                android:text="@string/str_portfolio_you_tube"
+                                android:textColor="@color/primaryText"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginTop="2dp"
+                                android:paddingStart="5dp"
+                                android:src="@drawable/youtube_img" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:text="@string/str_youtube"
-                    android:textColor="@color/hyperlinkColour"
-                    android:textSize="16sp" />
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="2dp"
+                    android:paddingStart="5dp"
+                    android:text="@string/str_about_us"
+                    android:textColor="@color/primaryText"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/divider_colour1" />
 
                 <com.fananzapp.views.LatoTextView
                     android:id="@+id/txtArtistDetails"

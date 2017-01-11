@@ -85,8 +85,10 @@ public class SubPortfolioAdapter extends BaseAdapter {
 
         if (isActive == 0) {
             viewHolder.btnInactive.setText(mContext.getString(R.string.str_active));
+            viewHolder.btnInactive.setTextColor(mContext.getColor(R.color.greenBtnColour));
         } else if (isActive == 1) {
             viewHolder.btnInactive.setText(mContext.getString(R.string.str_inactive));
+            viewHolder.btnInactive.setTextColor(mContext.getColor(R.color.request_now_btn));
         }
         try {
             String url = portfolioResponse.getCoverImageUrl();

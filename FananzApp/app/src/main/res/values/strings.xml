@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Fananz App</string>
+    <string name="app_name">Fananz</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -66,7 +66,7 @@
     <string name="str_name">Name</string>
     <string name="str_dont_hav_an_acc_hint">Not Register yet?</string>
     <string name="str_add_new_porfolie">Add Portfolio</string>
-    <string name="str_inactive">INACTIVE </string>
+    <string name="str_inactive">INACTIVATE </string>
     <string name="str_edit">MODIFY</string>
     <string name="str_belly_dance_desc">Belly dance is an expressive dance which emphasizes complex
         movements of the torso</string>
@@ -149,7 +149,7 @@
     <string name="str_photo_delete_success">Photo deleted successfully</string>
     <string name="str_fre_annual_fee">Do you want to subscrinbe annual membership worth AED 1000</string>
     <string name="str_pass_confirm_incorrect">Password are not match</string>
-    <string name="str_active">Active</string>
+    <string name="str_active">ATIVATE</string>
     <string name="str_inactive_error_response">Error</string>
     <string name="str_first_name">Name</string>
     <string name="str_btn_save">Save</string>
@@ -165,4 +165,8 @@
     <string name="str_forgot_pass_title1">Forgot Password</string>
     <string name="str_login">Login</string>
     <string name="str_request_send_fail">Request is not send try again</string>
+    <string name="str_charges">Charges in</string>
+    <string name="str_portfolio_you_tube">YOUTUBE</string>
+    <string name="str_portfolio_facebook">FACEBOOK</string>
+    <string name="str_about_us">About us</string>
 </resources>

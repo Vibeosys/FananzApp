@@ -77,7 +77,7 @@ public class UserPortfolioListAdapter extends BaseAdapter {
         String artistName = portfolioResponse.getSubscriberName();
         double maxPrice = portfolioResponse.getMaxPrice();
         double minPrice = portfolioResponse.getMinPrice();
-        String maxMinPrice = String.format("%.0f-%.0f", minPrice, maxPrice);
+        String maxMinPrice = String.format("%.0f - %.0f", minPrice, maxPrice);
         viewHolder.txtCategory.setText(category);
         viewHolder.txtArtistName.setText(artistName);
         viewHolder.txtMinMaxPrice.setText(maxMinPrice);
