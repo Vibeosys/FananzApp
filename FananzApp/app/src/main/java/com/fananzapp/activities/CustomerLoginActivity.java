@@ -28,10 +28,12 @@ import com.fananzapp.R;
 import com.fananzapp.data.SubscriberDTO;
 import com.fananzapp.data.UserDTO;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
+import com.fananzapp.data.requestdata.RegisterUserReqDTO;
 import com.fananzapp.data.requestdata.SigninSubReqDTO;
 import com.fananzapp.data.requestdata.SigninUserReqDTO;
 import com.fananzapp.data.responsedata.SigninSubResDTO;
 import com.fananzapp.data.responsedata.SigninUserRespDTO;
+import com.fananzapp.data.responsedata.UserRegReqDTO;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.UserAuth;
@@ -52,7 +54,7 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
     CallbackManager callbackManager;
     private EditText edtEmail, edtPass;
     Button btnSignIn;
-    String email, password;
+    String email, password, firstname, lastname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +137,18 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    public static void LogoutFacebook() {
+        try {
+            LoginManager.getInstance().logOut();
+            Log.d("FBLOGIN", "Log out");
+
+        } catch (FacebookException e) {
+            e.printStackTrace();
+            Log.d(TAG, "Facebook logout exception");
+        }
+
+    }
+
     private void getTheDetails(LoginResult loginResult) {
         GraphRequest request = GraphRequest.newMeRequest(
                 loginResult.getAccessToken(),
@@ -142,41 +156,33 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         Log.d("LoginActivity", "##" + object.toString());
-                       /* try {
+                        try {
                             email = object.getString("email");
-                            name = object.getString("name");
-                            gender = object.getString("gender");
-                            AccessToken fbAccessToken = AccessToken.getCurrentAccessToken();
-                            token = null;
-                            if (fbAccessToken != null) {
-                                token = fbAccessToken.getToken();
-                            }
-                            JSONObject picture = object.getJSONObject("picture");
-
-                            if (picture != null) {
-                                JSONObject pictureData = picture.getJSONObject("data");
-                                if (pictureData != null) {
-                                    profileImg = pictureData.getString("url");
-                                }
-                            }
-                            dob = object.getString("birthday");
-                            if (!TextUtils.isEmpty(dob)) {
-                                DateUtils dateUtils = new DateUtils();
-                                formattedDob = dateUtils.convertFbDateToSwedish(dob);
-                            }
-                            mSessionManager.setToken(token);
-
+                            firstname = object.getString("first_name");
+                            lastname = object.getString("last_name");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        callToRegister(name, email, gender, profileImg, formattedDob, token);*/
+                        callToRegister(firstname, email, lastname);
                     }
                 });
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,birthday,picture.type(large){url,height,width,is_silhouette},gender,email");
+        parameters.putString("fields", "id,first_name,last_name,email");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    private void callToRegister(String firstname, String email, String lastname) {
+        progressDialog.show();
+        RegisterUserReqDTO registerUserReqDTO = new RegisterUserReqDTO(firstname,
+                lastname, email, "", 1, "");
+        Gson gson = new Gson();
+        String serializedJsonString = gson.toJson(registerUserReqDTO);
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        baseRequestDTO.setData(serializedJsonString);
+        mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_ADD_USER,
+                mSessionManager.addUserUrl(), baseRequestDTO);
     }
 
     @Override
@@ -184,6 +190,9 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
         progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestToken.REQUEST_SIGN_IN_USER:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+            case ServerRequestToken.REQUEST_ADD_USER:
                 customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
                 break;
         }
@@ -194,6 +203,9 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
         progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestToken.REQUEST_SIGN_IN_USER:
+                customAlterDialog(getString(R.string.str_login_err_title), errorMessage);
+                break;
+            case ServerRequestToken.REQUEST_ADD_USER:
                 customAlterDialog(getString(R.string.str_login_err_title), errorMessage);
                 break;
         }
@@ -208,11 +220,29 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
                 SigninUserRespDTO signinUserRespDTO = SigninUserRespDTO.deserializeJson(data);
                 UserDTO subscriberDTO = new UserDTO(signinUserRespDTO.getUserId(),
                         signinUserRespDTO.getFirstName(), signinUserRespDTO.getLastName());
+                subscriberDTO.setEmail(email);
+                subscriberDTO.setPassword(password);
                 UserAuth userAuth = new UserAuth();
                 userAuth.saveUserInfo(subscriberDTO, getApplicationContext());
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 break;
+            case ServerRequestToken.REQUEST_ADD_USER:
+                UserRegReqDTO registerSubResDTO = UserRegReqDTO.deserializeJson(data);
+                UserDTO userDTO = new UserDTO(registerSubResDTO.getUserId(),
+                        firstname, lastname);
+                userDTO.setEmail(email);
+                userDTO.setPassword(password);
+                UserAuth auth = new UserAuth();
+                auth.saveUserInfo(userDTO, getApplicationContext());
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

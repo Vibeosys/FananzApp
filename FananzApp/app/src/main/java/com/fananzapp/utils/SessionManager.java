@@ -140,6 +140,10 @@ public class SessionManager {
         setValuesInSharedPrefs(PropertyTypeConstants.SUB_NAME, name);
     }
 
+    public String getName() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SUB_NAME, null);
+    }
+
 
     public void setNickName(String nickName) {
         setValuesInSharedPrefs(PropertyTypeConstants.SUB_NICK_NAME, nickName);

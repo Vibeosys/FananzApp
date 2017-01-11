@@ -9,7 +9,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.fananzapp.activities.AddPortfolioPhotosActivity;
 import com.fananzapp.activities.BaseActivity;
@@ -32,6 +34,7 @@ public class MainActivity extends BaseActivity
     private FrameLayout fragmentFrameLay;
     private int userType = UserType.USER_OTHER;
     private OnFilterClickListener onFilterClickListener;
+    private TextView mNavigationUserEmailId, mNavigationUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,21 +60,28 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
+        View headerView = navigationView.getHeaderView(0);
+        mNavigationUserEmailId = (TextView) headerView.findViewById(R.id.userEmailId);
+        mNavigationUserName = (TextView) headerView.findViewById(R.id.userName);
         if (userType == UserType.USER_SUBSCRIBER) {
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_main_subscriber);
+            mNavigationUserEmailId.setText("" + mSessionManager.getEmail());
+            mNavigationUserName.setText("" + mSessionManager.getName());
             SubscriberMainView subscriberMainView = new SubscriberMainView();
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment_frame_lay, subscriberMainView, SUBSCRIBER_MAIN_FRAGMENT).commit();
         } else if (userType == UserType.USER_CUSTOMER) {
+            mNavigationUserEmailId.setText("" + mSessionManager.getUserEmail());
+            mNavigationUserName.setText("" + mSessionManager.getUserFName() + " " + mSessionManager.getUserLName());
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_main_user);
             PortfolioListFragment userListFragment = new PortfolioListFragment();
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment_frame_lay, userListFragment, PORFOLIO_LIST_FRAGMENT).commit();
         } else if (userType == UserType.USER_OTHER) {
+            mNavigationUserEmailId.setText("");
+            mNavigationUserName.setText("");
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_main_drawer);
             PortfolioListFragment userListFragment = new PortfolioListFragment();

@@ -41,6 +41,7 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
     private ListView listPortfolio;
     private ArrayList<PortfolioResponse> portfolioResponses = new ArrayList<>();
     private UserPortfolioListAdapter adapter;
+    private TextView noPortfolio;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
         View view = inflater.inflate(R.layout.fragment_portfolio_list, container, false);
 
         listPortfolio = (ListView) view.findViewById(R.id.listPortfolio);
+        noPortfolio = (TextView) view.findViewById(R.id.no_portfolio);
         progressDialog.show();
         mServerSyncManager.uploadGetDataToServer(ServerRequestToken.REQUEST_PORTFOLIO_LIST,
                 mSessionManager.getPortfolioListUrl());
@@ -67,11 +69,22 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
         progressDialog.dismiss();
+        customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
     }
 
     @Override
     public void onDataErrorReceived(int errorCode, String errorMessage, int requestToken) {
         progressDialog.dismiss();
+        switch (requestToken) {
+            case ServerRequestToken.REQUEST_PORTFOLIO_LIST:
+                noPortfolio.setVisibility(View.VISIBLE);
+                noPortfolio.setText(errorMessage);
+                listPortfolio.setVisibility(View.GONE);
+                break;
+            case ServerRequestToken.REQUEST_SEND_MESSAGE:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+        }
     }
 
     @Override

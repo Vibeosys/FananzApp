@@ -19,12 +19,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.fananzapp.R;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.RegisterSubscriberReq;
 import com.fananzapp.data.requestdata.RegisterUserReqDTO;
+import com.fananzapp.data.responsedata.RegisterSubResDTO;
+import com.fananzapp.data.responsedata.UserRegReqDTO;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.SubscriberType;
@@ -109,7 +112,7 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
         String strPassword = edtPass.getText().toString();
         String strEmail = edtEmail.getText().toString();
         String strMob = edtMob.getText().toString();
-
+        String strConfirmPass = edtConfirmPass.getText().toString();
         View focusView = null;
         boolean check = false;
         if (strFName.isEmpty()) {
@@ -128,6 +131,14 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
             focusView = edtMob;
             check = true;
             edtMob.setError(getString(R.string.str_mob_empty));
+        } else if (strConfirmPass.equals(strPassword)) {
+            focusView = edtConfirmPass;
+            check = true;
+            edtConfirmPass.setError(getString(R.string.str_pass_confirm_incorrect));
+        }
+
+        if (check) {
+            focusView.requestFocus();
         } else {
             progressDialog.show();
             RegisterUserReqDTO registerUserReqDTO = new RegisterUserReqDTO(strFName,
@@ -157,6 +168,9 @@ public class UserRegisterActivity extends BaseActivity implements View.OnClickLi
         switch (requestToken) {
             case ServerRequestToken.REQUEST_ADD_USER:
                 Log.d(TAG, "## Success Register");
+                UserRegReqDTO registerSubResDTO = UserRegReqDTO.deserializeJson(data);
+                startActivity(new Intent(getApplicationContext(), CustomerLoginActivity.class));
+                Toast.makeText(getApplicationContext(), getString(R.string.str_sub_register_success), Toast.LENGTH_SHORT).show();
                 break;
         }
     }
