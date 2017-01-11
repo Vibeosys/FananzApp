@@ -25,6 +25,7 @@ public class PortfolioResponse extends BaseDTO {
     private double minPrice;
     private double maxPrice;
     private String coverImageUrl;
+    private int isActive;
 
     public PortfolioResponse() {
     }
@@ -113,6 +114,14 @@ public class PortfolioResponse extends BaseDTO {
 
     public void setCoverImageUrl(String coverImageUrl) {
         this.coverImageUrl = coverImageUrl;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
 
     public static PortfolioResponse deserializeJson(String serializedString) {

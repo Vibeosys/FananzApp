@@ -81,8 +81,13 @@ public class SubPortfolioAdapter extends BaseAdapter {
         viewHolder.txtCategory.setText(category);
         viewHolder.txtSubcategory.setText(subCategory);
         viewHolder.txtMinMaxPrice.setText(maxMinPrice);
-        //int isActive=portfolioResponse.
+        int isActive = portfolioResponse.getIsActive();
 
+        if (isActive == 0) {
+            viewHolder.btnInactive.setText(mContext.getString(R.string.str_active));
+        } else if (isActive == 1) {
+            viewHolder.btnInactive.setText(mContext.getString(R.string.str_inactive));
+        }
         try {
             String url = portfolioResponse.getCoverImageUrl();
             if (url == "null" || url == null || url.equals("") || url == "") {

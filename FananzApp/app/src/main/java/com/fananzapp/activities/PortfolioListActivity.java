@@ -12,11 +12,14 @@ import com.android.volley.VolleyError;
 import com.fananzapp.R;
 import com.fananzapp.adapters.SubPortfolioAdapter;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
+import com.fananzapp.data.requestdata.InactivePortfolioReqSTO;
+import com.fananzapp.data.requestdata.RegisterUserReqDTO;
 import com.fananzapp.data.responsedata.PortfolioResponse;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.SubscriberType;
 import com.fananzapp.utils.UserType;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -68,6 +71,9 @@ public class PortfolioListActivity extends BaseActivity implements ServerSyncMan
                     addPortfolioLay.setVisibility(View.VISIBLE);
                 }
                 break;
+            case ServerRequestToken.REQUEST_INACTIVE_PORTFOLIO:
+                customAlterDialog(getString(R.string.str_inactive_error_response), errorMessage);
+                break;
         }
     }
 
@@ -90,12 +96,24 @@ public class PortfolioListActivity extends BaseActivity implements ServerSyncMan
                 }
                 listPortfolio.setAdapter(adapter);
                 break;
+            case ServerRequestToken.REQUEST_INACTIVE_PORTFOLIO:
+                recreate();
+                break;
         }
     }
 
     @Override
     public void onInactiveClickListener(PortfolioResponse portfolioResponse, int position) {
         Log.d(TAG, "## Inactive click");
+        int isActive = (portfolioResponse.getIsActive() == 0) ? 1 : 0;
+        InactivePortfolioReqSTO inactivePortfolioReqSTO = new InactivePortfolioReqSTO(portfolioResponse.getPortfolioId(), isActive);
+        progressDialog.show();
+        Gson gson = new Gson();
+        String serializedJsonString = gson.toJson(inactivePortfolioReqSTO);
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        baseRequestDTO.setData(serializedJsonString);
+        mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_INACTIVE_PORTFOLIO,
+                mSessionManager.inactivePortUrl(), baseRequestDTO);
     }
 
     @Override

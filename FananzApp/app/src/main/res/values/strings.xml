@@ -149,4 +149,6 @@
     <string name="str_photo_delete_success">Photo deleted successfully</string>
     <string name="str_fre_annual_fee">Do you want to subscrinbe annual membership worth AED 1000</string>
     <string name="str_pass_confirm_incorrect">Password are not match</string>
+    <string name="str_active">Active</string>
+    <string name="str_inactive_error_response">Error</string>
 </resources>

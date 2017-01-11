@@ -21,4 +21,5 @@ public class ServerRequestToken {
     public static final int REQUEST_INITIALIZE_PAYMENT = 112;
     public static final int REQUEST_VERIFY_PAY = 113;
     public static final int REQUEST_DELETE_PHOTO = 114;
+    public static final int REQUEST_INACTIVE_PORTFOLIO = 115;
 }

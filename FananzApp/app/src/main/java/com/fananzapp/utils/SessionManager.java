@@ -72,6 +72,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.INIT_PAYMENT, mPropertyFileReader.initPayUrl());
         editor.putString(PropertyTypeConstants.VERIFY_PAYMENT, mPropertyFileReader.verifyPayment());
         editor.putString(PropertyTypeConstants.DELETE_PHOTO, mPropertyFileReader.deletePhoto());
+        editor.putString(PropertyTypeConstants.INACTIVE_PORTFOLIO, mPropertyFileReader.inactivePort());
         editor.apply();
         return true;
     }
@@ -275,5 +276,9 @@ public class SessionManager {
 
     public boolean getIsSubscribed() {
         return mProjectSharedPref.getBoolean(PropertyTypeConstants.SUB_IS_SUBSCRIBED, false);
+    }
+
+    public String inactivePortUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.INACTIVE_PORTFOLIO, null);
     }
 }

@@ -116,4 +116,8 @@ public class PropertyFileReader {
     public String deletePhoto() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.DELETE_PHOTO);
     }
+
+    public String inactivePort() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.INACTIVE_PORTFOLIO);
+    }
 }
