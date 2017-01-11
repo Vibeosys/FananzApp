@@ -19,7 +19,9 @@ import com.fananzapp.activities.CustomerLoginActivity;
 import com.fananzapp.activities.FilterActivity;
 import com.fananzapp.activities.PortfolioListActivity;
 import com.fananzapp.activities.SubscriberLoginActivity;
+import com.fananzapp.activities.SubscriberProfileActivity;
 import com.fananzapp.activities.SubscriptionActivity;
+import com.fananzapp.activities.UserProfileActivity;
 import com.fananzapp.fragments.PortfolioListFragment;
 import com.fananzapp.fragments.SubscriberMainView;
 import com.fananzapp.utils.UserAuth;
@@ -136,8 +138,12 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profile) {
-
+        if (id == R.id.nav_sub_profile) {
+            Intent iLogin = new Intent(getApplicationContext(), SubscriberProfileActivity.class);
+            startActivity(iLogin);
+        } else if (id == R.id.nav_user_profile) {
+            Intent iLogin = new Intent(getApplicationContext(), UserProfileActivity.class);
+            startActivity(iLogin);
         } else if (id == R.id.nav_business_login) {
             Intent iLogin = new Intent(getApplicationContext(), SubscriberLoginActivity.class);
             startActivity(iLogin);

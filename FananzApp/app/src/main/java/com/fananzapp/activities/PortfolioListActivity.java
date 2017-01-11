@@ -36,6 +36,7 @@ public class PortfolioListActivity extends BaseActivity implements ServerSyncMan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio_list);
+        setTitle(getString(R.string.str_portfolio));
         listPortfolio = (ListView) findViewById(R.id.listPortfolio);
         addPortfolioLay = (LinearLayout) findViewById(R.id.addPortfolioLay);
         progressDialog.show();

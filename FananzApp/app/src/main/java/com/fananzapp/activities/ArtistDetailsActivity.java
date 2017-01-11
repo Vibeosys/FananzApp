@@ -89,7 +89,7 @@ public class ArtistDetailsActivity extends BaseActivity implements
         txtFbLink.setText(portfolioDetailsResDTO.getFbLink());
         txtYoutubeLink.setText(portfolioDetailsResDTO.getYoutubeLink());
         txtArtistDetails.setText(portfolioDetailsResDTO.getAboutUs());
-
+        setTitle(portfolioDetailsResDTO.getSubscriberName());
         try {
             HashMap<String, String> file_maps = new HashMap<String, String>();
             String[] photos = portfolioDetailsResDTO.getPhotos();

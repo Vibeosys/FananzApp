@@ -128,4 +128,8 @@ public class PropertyFileReader {
     public String forgotPassUser() {
         return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.FORGOT_USER_PASS);
     }
+
+    public String updateProfile() {
+        return getEndPointUri() + mProperties.getProperty(PropertyTypeConstants.UPDATE_SUB_PROFILE);
+    }
 }

@@ -46,6 +46,7 @@ public class SubscriptionActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscription);
+        setTitle(getString(R.string.str_subscribe));
         String stype = getIntent().getExtras().getString(STYPE);
         TextView txtSubDesc = (TextView) findViewById(R.id.txt_subscription_desc);
         Button btnSubscribeLater = (Button) findViewById(R.id.btn_subscribe_later);

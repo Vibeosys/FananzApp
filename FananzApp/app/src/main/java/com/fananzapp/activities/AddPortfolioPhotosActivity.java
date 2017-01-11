@@ -31,6 +31,7 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_portfolio_photos);
+        setTitle(getString(R.string.str_add_portfolio_title));
         frameCover = (FrameLayout) findViewById(R.id.frame_cover);
         frameImg1 = (FrameLayout) findViewById(R.id.frame_img1);
         frameImg2 = (FrameLayout) findViewById(R.id.frame_img2);

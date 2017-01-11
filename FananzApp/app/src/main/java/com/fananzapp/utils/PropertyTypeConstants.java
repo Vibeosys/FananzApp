@@ -27,6 +27,7 @@ public final class PropertyTypeConstants {
     public static final String INACTIVE_PORTFOLIO = "api.endpoint.inactiveport";
     public static final String FORGOT_SUB_PASS = "api.endpoint.forgotpasssub";
     public static final String FORGOT_USER_PASS = "api.endpoint.forgotpassuser";
+    public static final String UPDATE_SUB_PROFILE = "api.endpoint.updateprofile";
 
     public static final String SUB_ID = "sub.id";
     public static final String SUB_EMAIL = "sub.email";
@@ -36,6 +37,10 @@ public final class PropertyTypeConstants {
     public static final String SUB_SUB_DATE = "sub.subdate";
     public static final String SUB_IS_SUBSCRIBED = "sub.issubscribed";
     public static final String SUB_PASSWORD = "sub.password";
+    public static final String SUB_TEL_NO = "sub.telno";
+    public static final String SUB_MOB_NO = "sub.mobno";
+    public static final String SUB_WEB_URL = "sub.weburl";
+    public static final String SUB_COUNTRY = "sub.country";
 
     public static final String USER_ID = "user.id";
     public static final String USER_F_NAME = "user.fname";

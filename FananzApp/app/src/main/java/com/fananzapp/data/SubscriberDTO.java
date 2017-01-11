@@ -13,15 +13,24 @@ public class SubscriberDTO {
     private boolean mIsSubscribed;
     private String mEmail;
     private String mPassword;
+    private String telNo;
+    private String mobileNo;
+    private String websiteUrl;
+    private String country;
 
-    public SubscriberDTO(long mSubscriberId, String mName, String mNickName,
-                         String mSType, String mSubscriptionDate, boolean mIsSubscribed) {
+    public SubscriberDTO(long mSubscriberId, String mName, String mNickName, String mSType,
+                         String mSubscriptionDate, boolean mIsSubscribed, String telNo,
+                         String mobileNo, String websiteUrl, String country) {
         this.mSubscriberId = mSubscriberId;
         this.mName = mName;
         this.mNickName = mNickName;
         this.mSType = mSType;
         this.mSubscriptionDate = mSubscriptionDate;
         this.mIsSubscribed = mIsSubscribed;
+        this.telNo = telNo;
+        this.mobileNo = mobileNo;
+        this.websiteUrl = websiteUrl;
+        this.country = country;
     }
 
     public long getSubscriberId() {
@@ -86,5 +95,37 @@ public class SubscriberDTO {
 
     public void setPassword(String mPassword) {
         this.mPassword = mPassword;
+    }
+
+    public String getTelNo() {
+        return telNo;
+    }
+
+    public void setTelNo(String telNo) {
+        this.telNo = telNo;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public String getWebsiteUrl() {
+        return websiteUrl;
+    }
+
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

@@ -25,6 +25,7 @@ import com.fananzapp.adapters.UserPortfolioListAdapter;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.GetPortfolioDetailReqDTO;
 import com.fananzapp.data.requestdata.SendMessageReqDTO;
+import com.fananzapp.data.responsedata.PortfolioReqResDTO;
 import com.fananzapp.data.responsedata.PortfolioResponse;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
@@ -98,8 +99,14 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
                 listPortfolio.setAdapter(adapter);
                 break;
             case ServerRequestToken.REQUEST_SEND_MESSAGE:
-                Toast.makeText(getContext(), getString(R.string.str_request_send_success),
-                        Toast.LENGTH_SHORT).show();
+                PortfolioReqResDTO portfolioReqResDTO = PortfolioReqResDTO.deserializeJson(data);
+                if (portfolioReqResDTO.isEmailSuccess()) {
+                    Toast.makeText(getContext(), getString(R.string.str_request_send_success),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.str_request_send_fail),
+                            Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -122,7 +129,7 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
             Button btnSubmit = (Button) dialog.findViewById(R.id.btn_submit);
             String artistName = portfolioResponse.getSubscriberName();
             String categoryName = portfolioResponse.getCategory();
-            txtArtistName.setText(getString(R.string.str_request_services) + "" + categoryName + " " + artistName);
+            txtArtistName.setText(getString(R.string.str_request_services) + " " + categoryName + " " + artistName);
             btnSubmit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -74,6 +74,10 @@ public class UserAuth {
         theSessionManager.setIsSubscribed(userInfo.isIsSubscribed());
         theSessionManager.setPassword(userInfo.getPassword());
         theSessionManager.setUserType(UserType.USER_SUBSCRIBER);
+        theSessionManager.setTelNo(userInfo.getTelNo());
+        theSessionManager.setMobNo(userInfo.getMobileNo());
+        theSessionManager.setWebUrl(userInfo.getWebsiteUrl());
+        theSessionManager.setCountry(userInfo.getCountry());
 
     }
 

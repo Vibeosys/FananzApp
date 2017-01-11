@@ -35,6 +35,7 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subscriber_login);
+        setTitle(getString(R.string.str_login));
         edtEmail = (EditText) findViewById(R.id.edt_email);
         edtPass = (EditText) findViewById(R.id.edt_pass);
         btnSignIn = (Button) findViewById(R.id.btn_sign_in);
@@ -119,7 +120,9 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
                 SigninSubResDTO signinSubResDTO = SigninSubResDTO.deserializeJson(data);
                 SubscriberDTO subscriberDTO = new SubscriberDTO(signinSubResDTO.getSubscriberId(),
                         signinSubResDTO.getName(), signinSubResDTO.getNickName(), signinSubResDTO.getsType(),
-                        signinSubResDTO.getSubscriptionDate(), signinSubResDTO.isSubscribed());
+                        signinSubResDTO.getSubscriptionDate(), signinSubResDTO.isSubscribed(),
+                        signinSubResDTO.getTelNo(), signinSubResDTO.getMobileNo(), signinSubResDTO.getWebsiteUrl(),
+                        signinSubResDTO.getCountry());
                 subscriberDTO.setEmail(email);
                 subscriberDTO.setPassword(password);
                 UserAuth userAuth = new UserAuth();

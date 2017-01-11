@@ -190,6 +190,31 @@
                     android:layout_marginTop="4dp"
                     android:background="@android:color/darker_gray" />
 
+                <EditText
+                    android:id="@+id/edt_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableRight="@drawable/ic_create_black_24dp"
+                    android:padding="4dp"
+                    android:singleLine="false"
+                    android:text="1234567890"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="@string/str_user_web_hint"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/darker_gray" />
+
                 <LinearLayout
                     android:id="@+id/nick_view"
                     android:layout_width="match_parent"

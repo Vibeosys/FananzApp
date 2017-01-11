@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/nav_sub_profile"
             android:icon="@drawable/ic_user_24_white"
             android:title="@string/my_profile" />
         <item

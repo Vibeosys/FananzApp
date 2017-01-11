@@ -22,6 +22,7 @@ public class ForgotPassUserActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_pass_user);
+        setTitle(getString(R.string.str_forgot_pass_title1));
         edtMail = (EditText) findViewById(R.id.edt_email);
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);

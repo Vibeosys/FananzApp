@@ -17,6 +17,10 @@ public class SigninSubResDTO extends BaseDTO {
     private String sType;
     private String subscriptionDate;
     private boolean isSubscribed;
+    private String telNo;
+    private String mobileNo;
+    private String websiteUrl;
+    private String country;
 
     public SigninSubResDTO() {
     }
@@ -67,6 +71,38 @@ public class SigninSubResDTO extends BaseDTO {
 
     public void setSubscribed(boolean subscribed) {
         isSubscribed = subscribed;
+    }
+
+    public String getTelNo() {
+        return telNo;
+    }
+
+    public void setTelNo(String telNo) {
+        this.telNo = telNo;
+    }
+
+    public String getMobileNo() {
+        return mobileNo;
+    }
+
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
+    }
+
+    public String getWebsiteUrl() {
+        return websiteUrl;
+    }
+
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public static SigninSubResDTO deserializeJson(String serializedString) {

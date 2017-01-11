@@ -75,6 +75,7 @@ public class SessionManager {
         editor.putString(PropertyTypeConstants.INACTIVE_PORTFOLIO, mPropertyFileReader.inactivePort());
         editor.putString(PropertyTypeConstants.FORGOT_SUB_PASS, mPropertyFileReader.forgotPassSub());
         editor.putString(PropertyTypeConstants.FORGOT_USER_PASS, mPropertyFileReader.forgotPassUser());
+        editor.putString(PropertyTypeConstants.UPDATE_SUB_PROFILE, mPropertyFileReader.updateProfile());
         editor.apply();
         return true;
     }
@@ -294,5 +295,41 @@ public class SessionManager {
 
     public String forgotUserPass() {
         return mProjectSharedPref.getString(PropertyTypeConstants.FORGOT_USER_PASS, null);
+    }
+
+    public void setTelNo(String telNo) {
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_TEL_NO, telNo);
+    }
+
+    public String getTelNo() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SUB_TEL_NO, null);
+    }
+
+    public void setMobNo(String mobNo) {
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_MOB_NO, mobNo);
+    }
+
+    public String getMobNo() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SUB_MOB_NO, null);
+    }
+
+    public void setWebUrl(String webUrl) {
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_WEB_URL, webUrl);
+    }
+
+    public String getWebUrl() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SUB_WEB_URL, null);
+    }
+
+    public void setCountry(String country) {
+        setValuesInSharedPrefs(PropertyTypeConstants.SUB_COUNTRY, country);
+    }
+
+    public String getCountry() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.SUB_COUNTRY, null);
+    }
+
+    public String updateSubProfile() {
+        return mProjectSharedPref.getString(PropertyTypeConstants.UPDATE_SUB_PROFILE, null);
     }
 }

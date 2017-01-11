@@ -158,4 +158,11 @@
     <string name="str_forgot_pass_success">Please check your email for password</string>
     <string name="str_forgot_pass_title">Password Send</string>
     <string name="str_forgot_pass_error">Error To Send Mail</string>
+    <string name="str_update_profile_err">Error to update profile</string>
+    <string name="str_update_profile_success">Profile updated</string>
+    <string name="str_profile_updated">Subscriber profile updated successfully</string>
+    <string name="str_add_portfolio_title">Add Portfolio</string>
+    <string name="str_forgot_pass_title1">Forgot Password</string>
+    <string name="str_login">Login</string>
+    <string name="str_request_send_fail">Request is not send try again</string>
 </resources>

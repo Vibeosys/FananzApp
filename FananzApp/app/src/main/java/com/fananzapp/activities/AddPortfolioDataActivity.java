@@ -53,6 +53,7 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_portfolio_data);
+        setTitle(getString(R.string.str_add_portfolio_title));
         spnCategory = (Spinner) findViewById(R.id.spnCategory);
         spnSubCategory = (Spinner) findViewById(R.id.spnSubCategory);
         edtFbLink = (EditText) findViewById(R.id.edt_fb_link);

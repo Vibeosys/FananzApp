@@ -51,6 +51,7 @@ public class AddPortfolioActivity extends BaseActivity implements ServerSyncMana
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_portfolio);
+        setTitle(getString(R.string.str_add_portfolio_title));
         imgView = (CroppedImageView) findViewById(R.id.img1);
         spnCategory = (Spinner) findViewById(R.id.spnCategory);
         spnSubCategory = (Spinner) findViewById(R.id.spnSubCategory);
