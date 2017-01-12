@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_test"
     android:gravity="center"
     tools:context="com.fananzapp.activities.CustomerLoginActivity">
 
@@ -15,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="28dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -126,6 +125,32 @@
                     android:text="@string/str_sign_in" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:text="@string/str_dont_hav_an_acc_hint"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txt_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="registerNow"
+                    android:paddingStart="5dp"
+                    android:text="@string/str_no_acc_hint"
+                    android:textColor="@color/hyperlinkColour"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -160,36 +185,9 @@
                 android:id="@+id/fbImg"
                 android:layout_width="match_parent"
                 android:layout_height="77dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:padding="8dp"
+                android:layout_marginTop="12dp"
                 android:src="@drawable/facebook_btn_img" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|center"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="5dp"
-                    android:text="@string/str_dont_hav_an_acc_hint"
-                    android:textColor="@color/secondaryText"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txt_register"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="registerNow"
-                    android:paddingStart="5dp"
-                    android:text="@string/str_no_acc_hint"
-                    android:textColor="@color/hyperlinkColour"
-                    android:textSize="14sp" />
-            </LinearLayout>
 
         </LinearLayout>
 

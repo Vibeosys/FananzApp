@@ -86,7 +86,7 @@ public class SubscriptionActivity extends BaseActivity implements
         config = new PayPalConfiguration()
                 // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
                 // or live (ENVIRONMENT_PRODUCTION)
-                .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+                .environment(initializeDTO.getEnvironment())
                 .clientId(this.initializeDTO.getClientId());
 
         Intent intent = new Intent(this, PayPalService.class);

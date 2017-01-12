@@ -22,6 +22,7 @@ public class PortfolioResponse extends BaseDTO {
     private String category;
     private int subcategoryId;
     private String subcategory;
+    private String subCategory;
     private double minPrice;
     private double maxPrice;
     private String coverImageUrl;
@@ -122,6 +123,14 @@ public class PortfolioResponse extends BaseDTO {
 
     public void setIsActive(int isActive) {
         this.isActive = isActive;
+    }
+
+    public String getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
     }
 
     public static PortfolioResponse deserializeJson(String serializedString) {

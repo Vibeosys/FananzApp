@@ -36,6 +36,7 @@ import com.fananzapp.data.responsedata.RegisterSubResDTO;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.SubscriberType;
+import com.fananzapp.utils.Validator;
 import com.google.gson.Gson;
 
 /**
@@ -155,6 +156,10 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
             focusView = edtEmail;
             check = true;
             edtEmail.setError(getString(R.string.str_email_empty));
+        } else if (!Validator.isValidMail(email)) {
+            focusView = edtEmail;
+            check = true;
+            edtEmail.setError(getString(R.string.str_email_wrong));
         } else if (password.isEmpty()) {
             focusView = edtPass;
             check = true;
@@ -163,7 +168,17 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
             focusView = edtMob;
             check = true;
             edtMob.setError(getString(R.string.str_mob_empty));
-        } else if (checkTerms) {
+        } else if (!Validator.isValidPhone(strMob)) {
+            focusView = edtMob;
+            check = true;
+            edtMob.setError(getString(R.string.str_mob_wrong));
+        } else if (!strPhone.isEmpty()) {
+            if (!Validator.isValidTel(strPhone)) {
+                focusView = edtPh;
+                check = true;
+                edtPh.setError(getString(R.string.str_ph_invalid));
+            }
+        } else if (!checkTerms) {
             focusView = checkBox;
             check = true;
             checkBox.setError(getString(R.string.str_check_box_not));
@@ -232,6 +247,7 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
     public void showSubDialog() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_subscription_user);
+        dialog.setTitle(getString(R.string.str_subscribe));
         TextView txtSubDesc = (TextView) dialog.findViewById(R.id.txt_subscription_desc);
         Button btnSubscribeLater = (Button) dialog.findViewById(R.id.btn_subscribe_later);
         Button btnSubscribe = (Button) dialog.findViewById(R.id.btn_subscribe);

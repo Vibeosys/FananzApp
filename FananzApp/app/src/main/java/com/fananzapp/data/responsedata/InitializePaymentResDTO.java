@@ -17,6 +17,7 @@ public class InitializePaymentResDTO extends BaseDTO {
     private double amount;
     private String currency;
     private String amountDesc;
+    private String environment;
 
     public InitializePaymentResDTO() {
     }
@@ -63,6 +64,14 @@ public class InitializePaymentResDTO extends BaseDTO {
 
     public void setAmountDesc(String amountDesc) {
         this.amountDesc = amountDesc;
+    }
+
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(String environment) {
+        this.environment = environment;
     }
 
     public static InitializePaymentResDTO deserializeJson(String serializedString) {

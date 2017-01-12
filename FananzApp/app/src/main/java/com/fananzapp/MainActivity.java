@@ -147,7 +147,6 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_business_login) {
             Intent iLogin = new Intent(getApplicationContext(), SubscriberLoginActivity.class);
             startActivity(iLogin);
-            finish();
         } else if (id == R.id.nav_logout) {
             callToLogOut();
         } else if (id == R.id.nav_portfolio) {
@@ -163,7 +162,6 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_customer_login) {
             Intent intent = new Intent(getApplicationContext(), CustomerLoginActivity.class);
             startActivity(intent);
-            finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

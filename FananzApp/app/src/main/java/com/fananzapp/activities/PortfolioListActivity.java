@@ -59,7 +59,15 @@ public class PortfolioListActivity extends BaseActivity implements ServerSyncMan
     @Override
     public void onVolleyErrorReceived(@NonNull VolleyError error, int requestToken) {
         progressDialog.dismiss();
-        customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+        switch (requestToken) {
+            case ServerRequestToken.REQUEST_SUB_PORTFOLIO_LIST:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+            case ServerRequestToken.REQUEST_SEND_MESSAGE:
+                customAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
+                break;
+        }
+
     }
 
     @Override

@@ -74,7 +74,7 @@ public class SubPortfolioAdapter extends BaseAdapter {
         viewHolder.coverImg.setImageResource(R.drawable.default_img);
         final PortfolioResponse portfolioResponse = mData.get(position);
         String category = portfolioResponse.getCategory();
-        String subCategory = portfolioResponse.getSubcategory();
+        String subCategory = portfolioResponse.getSubCategory();
         double maxPrice = portfolioResponse.getMaxPrice();
         double minPrice = portfolioResponse.getMinPrice();
         String maxMinPrice = String.format("%.0f-%.0f", minPrice, maxPrice);
@@ -85,10 +85,10 @@ public class SubPortfolioAdapter extends BaseAdapter {
 
         if (isActive == 0) {
             viewHolder.btnInactive.setText(mContext.getString(R.string.str_active));
-            viewHolder.btnInactive.setTextColor(mContext.getColor(R.color.greenBtnColour));
+            viewHolder.btnInactive.setTextColor(mContext.getResources().getColor(R.color.greenBtnColour));
         } else if (isActive == 1) {
             viewHolder.btnInactive.setText(mContext.getString(R.string.str_inactive));
-            viewHolder.btnInactive.setTextColor(mContext.getColor(R.color.request_now_btn));
+            viewHolder.btnInactive.setTextColor(mContext.getResources().getColor(R.color.request_now_btn));
         }
         try {
             String url = portfolioResponse.getCoverImageUrl();

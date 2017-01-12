@@ -127,9 +127,10 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
             TextView txtArtistName = (TextView) dialog.findViewById(R.id.txtArtistName);
             final EditText edtMessage = (EditText) dialog.findViewById(R.id.edt_write_text);
             Button btnSubmit = (Button) dialog.findViewById(R.id.btn_submit);
+            Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
             String artistName = portfolioResponse.getSubscriberName();
             String categoryName = portfolioResponse.getCategory();
-            txtArtistName.setText(getString(R.string.str_request_services) + " " + categoryName + " " + artistName);
+            txtArtistName.setText("For " + categoryName + " By " + artistName);
             btnSubmit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -141,6 +142,12 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
                         dialog.dismiss();
                         callToMessage(message, portfolioResponse.getPortfolioId());
                     }
+                }
+            });
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
                 }
             });
             dialog.show();
@@ -172,9 +179,14 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MainActivity.FILTER_RESULT) {
+            adapter.setData(portfolioResponses);
             int selectedPrice = data.getIntExtra(FilterActivity.SELECTED_PRICE, 0);
             int selectedSort = data.getIntExtra(FilterActivity.SELECTED_SORT, 0);
+            if (selectedPrice > 1000) {
+                adapter.filterAdapter(selectedPrice);
+            }
             adapter.sortAdapter(selectedSort);
+
         }
     }
 }

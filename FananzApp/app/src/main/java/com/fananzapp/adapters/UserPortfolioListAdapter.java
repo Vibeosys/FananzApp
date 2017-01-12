@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -63,9 +64,11 @@ public class UserPortfolioListAdapter extends BaseAdapter {
             viewHolder.txtCategory = (TextView) row.findViewById(R.id.txtCategory);
             viewHolder.txtArtistName = (TextView) row.findViewById(R.id.txtArtistName);
             viewHolder.txtMinMaxPrice = (TextView) row.findViewById(R.id.txtMinMaxPrice);
+            viewHolder.txtSubCategory = (TextView) row.findViewById(R.id.txtSubCategory);
             viewHolder.btnShowDetails = (TextView) row.findViewById(R.id.btn_show_details);
             viewHolder.btnRequestNow = (TextView) row.findViewById(R.id.btn_request_now);
             viewHolder.coverImg = (NetworkImageView) row.findViewById(R.id.coverImg1);
+            viewHolder.subLay = (LinearLayout) row.findViewById(R.id.subLay);
             row.setTag(viewHolder);
 
         } else {
@@ -79,9 +82,15 @@ public class UserPortfolioListAdapter extends BaseAdapter {
         double minPrice = portfolioResponse.getMinPrice();
         String maxMinPrice = String.format("%.0f - %.0f", minPrice, maxPrice);
         viewHolder.txtCategory.setText(category);
+        viewHolder.txtCategory.setText(category);
         viewHolder.txtArtistName.setText(artistName);
         viewHolder.txtMinMaxPrice.setText(maxMinPrice);
-
+       /* if (portfolioResponse.getSubcategory().isEmpty()) {
+            viewHolder.subLay.setVisibility(View.GONE);
+        } else {
+            viewHolder.subLay.setVisibility(View.VISIBLE);
+            viewHolder.txtSubCategory.setText(portfolioResponse.getSubcategory());
+        }*/
         String url = portfolioResponse.getCoverImageUrl();
 
         if (url == "null" || url == null || url.equals("") || url == "") {
@@ -122,7 +131,8 @@ public class UserPortfolioListAdapter extends BaseAdapter {
     private class ViewHolder {
         TextView txtCategory, txtArtistName, txtMinMaxPrice;
         NetworkImageView coverImg;
-        TextView btnShowDetails, btnRequestNow;
+        TextView btnShowDetails, btnRequestNow, txtSubCategory;
+        LinearLayout subLay;
     }
 
     public interface OnItemClick {
@@ -141,6 +151,26 @@ public class UserPortfolioListAdapter extends BaseAdapter {
         } else {
             Collections.sort(mData, new PortfolioResponse.PriceComparator());
         }
+        notifyDataSetChanged();
+    }
+
+    public void filterAdapter(int selectedPrice) {
+        ArrayList<PortfolioResponse> filterData = new ArrayList<>();
+        for (PortfolioResponse portfolioResponse : this.mData) {
+            if (portfolioResponse.getMaxPrice() <= selectedPrice) {
+                filterData.add(portfolioResponse);
+            }
+        }
+        this.mData = filterData;
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<PortfolioResponse> getData() {
+        return mData;
+    }
+
+    public void setData(ArrayList<PortfolioResponse> mData) {
+        this.mData = mData;
         notifyDataSetChanged();
     }
 }
