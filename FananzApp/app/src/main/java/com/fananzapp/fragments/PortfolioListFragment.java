@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
     private ListView listPortfolio;
     private ArrayList<PortfolioResponse> portfolioResponses = new ArrayList<>();
     private UserPortfolioListAdapter adapter;
-    private TextView noPortfolio;
+    private ImageView noPortfolio;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
         View view = inflater.inflate(R.layout.fragment_portfolio_list, container, false);
 
         listPortfolio = (ListView) view.findViewById(R.id.listPortfolio);
-        noPortfolio = (TextView) view.findViewById(R.id.no_portfolio);
+        noPortfolio = (ImageView) view.findViewById(R.id.no_portfolio);
         progressDialog.show();
         mServerSyncManager.uploadGetDataToServer(ServerRequestToken.REQUEST_PORTFOLIO_LIST,
                 mSessionManager.getPortfolioListUrl());
@@ -79,7 +80,7 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
         switch (requestToken) {
             case ServerRequestToken.REQUEST_PORTFOLIO_LIST:
                 noPortfolio.setVisibility(View.VISIBLE);
-                noPortfolio.setText(errorMessage);
+                //noPortfolio.setText(errorMessage);
                 listPortfolio.setVisibility(View.GONE);
                 break;
             case ServerRequestToken.REQUEST_SEND_MESSAGE:

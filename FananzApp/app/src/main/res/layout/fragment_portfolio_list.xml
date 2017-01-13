@@ -4,15 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.fananzapp.views.LatoBoldTextView
+    <ImageView
         android:id="@+id/no_portfolio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="6dp"
-        android:text="@string/str_welcome_to_fananz"
-        android:textColor="@color/primaryText"
-        android:textSize="32sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/no_portfolio_back"
         android:visibility="gone" />
 
     <ListView
