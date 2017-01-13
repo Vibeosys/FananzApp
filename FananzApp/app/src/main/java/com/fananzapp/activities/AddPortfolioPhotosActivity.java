@@ -117,6 +117,7 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(UploadImageFragment.IMAGE_DATA, images.get(position));
                 bundle.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
+                bundle.putBoolean(UploadImageFragment.IS_COVER_IMG, true);
                 coverImage.setArguments(bundle);
                 fragmentTransaction.add(R.id.frame_cover, coverImage, "Upload");
                 images.remove(position);
@@ -127,7 +128,7 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
             Bundle bundleImg3 = new Bundle();
             bundleImg3.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
             bundleImg3.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
-            bundleImg3.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
+            bundleImg3.putBoolean(UploadImageFragment.IS_COVER_IMG, true);
             image3.setArguments(bundleImg3);
             fragmentTransaction.add(R.id.frame_cover, image3, "Upload");
         }

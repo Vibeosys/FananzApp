@@ -53,16 +53,16 @@
     <string name="str_close">Close</string>
     <string name="corporate">Corporate</string>
     <string name="freelance">Freelance</string>
-    <string name="str_corporate_fee">Corporate Fees per annum</string>
-    <string name="str_fee">AED 2000</string>
+    <string name="str_corporate_fee">Subscription Fees </string>
+    <string name="str_fee">USD 320</string>
     <string name="str_subscription_acc">Subscription Account</string>
     <string name="str_business_name">Business Name</string>
     <string name="str_name_of_representative">Name of Representative</string>
     <string name="str_user_telephone_hint">Telephone No</string>
     <string name="str_user_web_hint">Website Name</string>
     <string name="str_country_of_residence">Country of Residence</string>
-    <string name="str_freelance_fee">Freelance Fees per annum</string>
-    <string name="str_freelance_fee_aed">AED 1000</string>
+    <string name="str_freelance_fee">Subscription fees per annum</string>
+    <string name="str_freelance_fee_aed">USD 160</string>
     <string name="str_name">Name</string>
     <string name="str_dont_hav_an_acc_hint">Not Registered yet?</string>
     <string name="str_add_new_porfolie">Add Portfolio</string>
@@ -117,7 +117,7 @@
     <string name="str_fname_empty_error">Please enter first name</string>
     <string name="str_msg_empty">Please enter the message</string>
     <string name="str_request_send_success">Request send successfully</string>
-    <string name="str_welcome_to_fananz">Welcome to fananz</string>
+    <string name="str_welcome_to_fananz">Welcome to Fananz</string>
     <string name="str_customer_login">Customer Login</string>
     <string name="str_login_emoty">Please login as user first</string>
     <string name="str_sub_register_success">Registers success</string>
@@ -184,4 +184,5 @@
     <string name="str_err_net_msg">Please connect to the internet</string>
     <string name="str_cannot_delete_cover">You can not delete the cover image</string>
     <string name="str_done">Done</string>
+    <string name="str_add">ADD IMAGE</string>
 </resources>

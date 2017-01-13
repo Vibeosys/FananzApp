@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,10 +66,11 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
     private String selectedPath = "No Pic";
     private ProgressDialog progressDialog;
     private ImageDataReqDTO imgData;
-    private TextView btnDelete, btnChange;//, txtCoverImg;
+    private TextView btnDelete, btnChange, btnAdd;//, txtCoverImg;
     private ImageLoader mImageLoader;
     private long portId;
     private boolean isCoverImg, isNewData;
+    private LinearLayout layAdd, layEdit;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,16 +87,24 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
         img = (NetworkImageView) view.findViewById(R.id.img);
         btnDelete = (TextView) view.findViewById(R.id.btnDelete);
         btnChange = (TextView) view.findViewById(R.id.btnChange);
+        btnAdd = (TextView) view.findViewById(R.id.btnAdd);
+        layAdd = (LinearLayout) view.findViewById(R.id.addLay);
+        layEdit = (LinearLayout) view.findViewById(R.id.editLay);
         btnDelete.setOnClickListener(this);
         btnChange.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
         isNewData = bundle.getBoolean(IS_NEW_DATA);
         if (isNewData) {
             portId = bundle.getLong(PORTFOLIO_ID);
             isCoverImg = bundle.getBoolean(IS_COVER_IMG);
-            img.setImageResource(R.drawable.default_img);
+            img.setImageResource(R.drawable.img_add_icon);
+            layEdit.setVisibility(View.GONE);
+            layAdd.setVisibility(View.VISIBLE);
         } else {
+            layEdit.setVisibility(View.VISIBLE);
+            layAdd.setVisibility(View.GONE);
             portId = bundle.getLong(PORTFOLIO_ID);
             imgData = (ImageDataReqDTO) bundle.getSerializable(IMAGE_DATA);
             if (imgData.isCoverImg() == 0) {
@@ -101,8 +112,8 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
             } else {
                 isCoverImg = true;
             }
-            setupUi();
         }
+        setupUi();
         if (isCoverImg) {
             // txtCoverImg.setVisibility(View.VISIBLE);
         } else {
@@ -112,7 +123,7 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
     }
 
     private void setupUi() {
-        img.setDefaultImageResId(R.drawable.default_img);
+        img.setDefaultImageResId(R.drawable.img_add_icon);
         mImageLoader = CustomVolleyRequestQueue.getInstance(getContext())
                 .getImageLoader();
         String url = "";
@@ -123,19 +134,19 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
         }
 
         if (url == "null" || url == null || url.equals("") || url == "") {
-            img.setDefaultImageResId(R.drawable.default_img);
+            img.setImageUrl(null, mImageLoader);
         } else if (TextUtils.isEmpty(url)) {
-            img.setDefaultImageResId(R.drawable.default_img);
+            img.setImageUrl(null, mImageLoader);
         } else if (url != null && !url.isEmpty()) {
             try {
                 mImageLoader.get(url, ImageLoader.getImageListener(img,
-                        R.drawable.default_img, R.drawable.default_img));
+                        R.drawable.img_add_icon, R.drawable.img_add_icon));
                 img.setImageUrl(url, mImageLoader);
             } catch (Exception e) {
-                img.setDefaultImageResId(R.drawable.default_img);
+                img.setImageUrl(null, mImageLoader);
             }
         } else {
-            img.setDefaultImageResId(R.drawable.default_img);
+            img.setImageUrl(null, mImageLoader);
         }
     }
 
@@ -165,6 +176,9 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
                         }
                     }
                 }
+                break;
+            case R.id.btnAdd:
+                requestGrantPermission();
                 break;
         }
     }
@@ -213,7 +227,7 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
                     Toast.makeText(getContext(), "Image not found", Toast.LENGTH_SHORT).show();
                 }
                 cursor.close();
-                img.setImageURI(selectedImageUri);
+                img.setImageBitmap(BitmapFactory.decodeFile(selectedPath));
                 uploadImage();
             }
         }
@@ -235,7 +249,9 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
         switch (requestToken) {
             case ServerRequestToken.REQUEST_DELETE_PHOTO:
                 Toast.makeText(getContext(), getString(R.string.str_photo_delete_success), Toast.LENGTH_SHORT).show();
-                img.setDefaultImageResId(R.drawable.default_img);
+                img.setImageUrl(null, mImageLoader);
+                layEdit.setVisibility(View.GONE);
+                layAdd.setVisibility(View.VISIBLE);
                 break;
         }
     }
