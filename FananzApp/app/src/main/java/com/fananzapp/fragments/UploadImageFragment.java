@@ -37,6 +37,7 @@ import com.fananzapp.data.responsedata.ImageDataReqDTO;
 import com.fananzapp.utils.CustomVolleyRequestQueue;
 import com.fananzapp.utils.DialogUtils;
 import com.fananzapp.utils.MultipartUtility;
+import com.fananzapp.utils.NetworkUtils;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.UserType;
@@ -63,7 +64,7 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
     private String selectedPath = "No Pic";
     private ProgressDialog progressDialog;
     private ImageDataReqDTO imgData;
-    private TextView btnDelete, btnUpload, txtCoverImg;
+    private TextView btnDelete, btnChange;//, txtCoverImg;
     private ImageLoader mImageLoader;
     private long portId;
     private boolean isCoverImg, isNewData;
@@ -82,12 +83,9 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
         Bundle bundle = this.getArguments();
         img = (NetworkImageView) view.findViewById(R.id.img);
         btnDelete = (TextView) view.findViewById(R.id.btnDelete);
-        btnUpload = (TextView) view.findViewById(R.id.btnUpload);
-        txtCoverImg = (TextView) view.findViewById(R.id.txtCoverImg);
-        txtCoverImg.setVisibility(View.GONE);
-        btnUpload.setOnClickListener(this);
+        btnChange = (TextView) view.findViewById(R.id.btnChange);
         btnDelete.setOnClickListener(this);
-        img.setOnClickListener(this);
+        btnChange.setOnClickListener(this);
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
         isNewData = bundle.getBoolean(IS_NEW_DATA);
@@ -106,14 +104,15 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
             setupUi();
         }
         if (isCoverImg) {
-            txtCoverImg.setVisibility(View.VISIBLE);
+            // txtCoverImg.setVisibility(View.VISIBLE);
         } else {
-            txtCoverImg.setVisibility(View.GONE);
+            // txtCoverImg.setVisibility(View.GONE);
         }
         return view;
     }
 
     private void setupUi() {
+        img.setDefaultImageResId(R.drawable.default_img);
         mImageLoader = CustomVolleyRequestQueue.getInstance(getContext())
                 .getImageLoader();
         String url = "";
@@ -126,17 +125,17 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
         if (url == "null" || url == null || url.equals("") || url == "") {
             img.setDefaultImageResId(R.drawable.default_img);
         } else if (TextUtils.isEmpty(url)) {
-            img.setImageResource(R.drawable.default_img);
+            img.setDefaultImageResId(R.drawable.default_img);
         } else if (url != null && !url.isEmpty()) {
             try {
                 mImageLoader.get(url, ImageLoader.getImageListener(img,
                         R.drawable.default_img, R.drawable.default_img));
                 img.setImageUrl(url, mImageLoader);
             } catch (Exception e) {
-                img.setImageResource(R.drawable.default_img);
+                img.setDefaultImageResId(R.drawable.default_img);
             }
         } else {
-            img.setImageResource(R.drawable.default_img);
+            img.setDefaultImageResId(R.drawable.default_img);
         }
     }
 
@@ -144,38 +143,28 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.img:
+            case R.id.btnChange:
                 requestGrantPermission();
                 break;
-            case R.id.btnUpload:
-                if (isNewData) {
-                    UploadPhotosReqDTO uploadPhotosReqDTO = new UploadPhotosReqDTO(portId,
-                            mSessionManager.getSubId(), mSessionManager.getEmail(),
-                            mSessionManager.getPassword(), isCoverImg);
-                    Gson gson = new Gson();
-                    String serializedJsonString = gson.toJson(uploadPhotosReqDTO);
-                    SendPicVerify sendPic = new SendPicVerify();
-                    sendPic.execute(serializedJsonString, mSessionManager.uploadPhotos());
-                } else {
-                    UpdatePhotosReqDTO signinSubReqDTO = new UpdatePhotosReqDTO(mSessionManager.
-                            getSubId(), mSessionManager.getEmail(), mSessionManager.getPassword(),
-                            imgData.getPhotoId());
-                    Gson gson = new Gson();
-                    String serializedJsonString = gson.toJson(signinSubReqDTO);
-                    SendPicVerify sendPic = new SendPicVerify();
-                    sendPic.execute(serializedJsonString, mSessionManager.changePhotos());
-                }
-
-                break;
             case R.id.btnDelete:
-                progressDialog.show();
-                DeletePhotoReqDTO deletePhotoReqDTO = new DeletePhotoReqDTO(imgData.getPhotoId());
-                Gson gson = new Gson();
-                String serializedJsonString = gson.toJson(deletePhotoReqDTO);
-                BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-                baseRequestDTO.setData(serializedJsonString);
-                mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_DELETE_PHOTO,
-                        mSessionManager.deletePhotoUrl(), baseRequestDTO);
+                if (imgData != null) {
+                    if (isCoverImg) {
+                        Toast.makeText(getContext(), getString(R.string.str_cannot_delete_cover), Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (NetworkUtils.isActiveNetworkAvailable(getContext())) {
+                            progressDialog.show();
+                            DeletePhotoReqDTO deletePhotoReqDTO = new DeletePhotoReqDTO(imgData.getPhotoId());
+                            Gson gson = new Gson();
+                            String serializedJsonString = gson.toJson(deletePhotoReqDTO);
+                            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+                            baseRequestDTO.setData(serializedJsonString);
+                            mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_DELETE_PHOTO,
+                                    mSessionManager.deletePhotoUrl(), baseRequestDTO);
+                        } else {
+                            Toast.makeText(getContext(), getString(R.string.str_err_net_msg), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
                 break;
         }
     }
@@ -225,7 +214,7 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
                 }
                 cursor.close();
                 img.setImageURI(selectedImageUri);
-
+                uploadImage();
             }
         }
     }
@@ -246,7 +235,7 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
         switch (requestToken) {
             case ServerRequestToken.REQUEST_DELETE_PHOTO:
                 Toast.makeText(getContext(), getString(R.string.str_photo_delete_success), Toast.LENGTH_SHORT).show();
-                img.setImageResource(R.drawable.default_img);
+                img.setDefaultImageResId(R.drawable.default_img);
                 break;
         }
     }
@@ -292,5 +281,25 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
             Log.d(TAG, "##" + result);
         }
 
+    }
+
+    private void uploadImage() {
+        if (isNewData) {
+            UploadPhotosReqDTO uploadPhotosReqDTO = new UploadPhotosReqDTO(portId,
+                    mSessionManager.getSubId(), mSessionManager.getEmail(),
+                    mSessionManager.getPassword(), isCoverImg);
+            Gson gson = new Gson();
+            String serializedJsonString = gson.toJson(uploadPhotosReqDTO);
+            SendPicVerify sendPic = new SendPicVerify();
+            sendPic.execute(serializedJsonString, mSessionManager.uploadPhotos());
+        } else {
+            UpdatePhotosReqDTO signinSubReqDTO = new UpdatePhotosReqDTO(mSessionManager.
+                    getSubId(), mSessionManager.getEmail(), mSessionManager.getPassword(),
+                    imgData.getPhotoId());
+            Gson gson = new Gson();
+            String serializedJsonString = gson.toJson(signinSubReqDTO);
+            SendPicVerify sendPic = new SendPicVerify();
+            sendPic.execute(serializedJsonString, mSessionManager.changePhotos());
+        }
     }
 }

@@ -21,12 +21,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="@string/str_category"
+                    android:textColor="@color/primaryText"
+                    android:textSize="14sp" />
+
                 <Spinner
                     android:id="@+id/spnCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:paddingStart="5dp"
+                    android:text="@string/str_sub_category"
+                    android:textColor="@color/primaryText"
+                    android:textSize="14sp" />
 
                 <Spinner
                     android:id="@+id/spnSubCategory"

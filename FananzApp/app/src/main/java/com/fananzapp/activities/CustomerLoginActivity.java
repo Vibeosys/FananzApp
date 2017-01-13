@@ -34,6 +34,7 @@ import com.fananzapp.data.requestdata.SigninUserReqDTO;
 import com.fananzapp.data.responsedata.SigninSubResDTO;
 import com.fananzapp.data.responsedata.SigninUserRespDTO;
 import com.fananzapp.data.responsedata.UserRegReqDTO;
+import com.fananzapp.utils.NetworkUtils;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.UserAuth;
@@ -67,7 +68,10 @@ public class CustomerLoginActivity extends BaseActivity implements View.OnClickL
         edtPass = (EditText) findViewById(R.id.edt_pass);
         btnSignIn = (Button) findViewById(R.id.btn_sign_in);
         txtForgotPass = (TextView) findViewById(R.id.txtForgotPass);
-
+        if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+            createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                    getResources().getString(R.string.str_err_net_msg));
+        }
         btnSignIn.setOnClickListener(this);
         fbImg.setOnClickListener(this);
         txtForgotPass.setOnClickListener(this);

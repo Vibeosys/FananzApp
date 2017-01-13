@@ -16,6 +16,7 @@ import com.fananzapp.data.SubscriberDTO;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.SigninSubReqDTO;
 import com.fananzapp.data.responsedata.SigninSubResDTO;
+import com.fananzapp.utils.NetworkUtils;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.UserAuth;
@@ -44,6 +45,10 @@ public class SubscriberLoginActivity extends BaseActivity implements View.OnClic
         txtForgotPass.setOnClickListener(this);
         mServerSyncManager.setOnStringResultReceived(this);
         mServerSyncManager.setOnStringErrorReceived(this);
+        if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+            createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                    getResources().getString(R.string.str_err_net_msg));
+        }
     }
 
     public void registerNow(View v) {

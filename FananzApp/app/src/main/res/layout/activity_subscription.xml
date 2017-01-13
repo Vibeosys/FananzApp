@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center"
     tools:context="com.fananzapp.activities.SubscriptionActivity">
 
 
@@ -33,17 +35,17 @@
 
             <Button
                 android:id="@+id/btn_subscribe_later"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@drawable/border_show_details"
+                android:layout_weight="1"
+                android:background="@color/divider_colour"
                 android:text="@string/str_subscribe_later" />
 
             <Button
                 android:id="@+id/btn_subscribe"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
+                android:layout_weight="1"
                 android:background="@color/sign_in_btn"
                 android:text="@string/str_subscribe" />
         </LinearLayout>

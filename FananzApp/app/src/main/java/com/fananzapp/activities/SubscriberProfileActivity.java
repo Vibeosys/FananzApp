@@ -14,6 +14,7 @@ import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.SigninUserReqDTO;
 import com.fananzapp.data.requestdata.UpdatePortfolioReqDTO;
 import com.fananzapp.data.requestdata.UpdateProfileReqDTO;
+import com.fananzapp.utils.NetworkUtils;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.SubscriberType;
@@ -114,7 +115,13 @@ public class SubscriberProfileActivity extends BaseActivity implements View.OnCl
         int id = view.getId();
         switch (id) {
             case R.id.btn_save:
-                updateProfile();
+                if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+                    createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                            getResources().getString(R.string.str_err_net_msg));
+                } else {
+                    updateProfile();
+                }
+
                 break;
         }
     }

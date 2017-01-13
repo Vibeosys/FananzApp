@@ -177,4 +177,11 @@
     <string name="str_pay_subscription">Pay Subscription</string>
     <string name="str_url_not_valid">Given url is not valid.</string>
     <string name="str_change">CHANGE</string>
+    <string name="str_slider_images">Slider Images</string>
+    <string name="str_category">Category</string>
+    <string name="str_sub_category">Sub Category</string>
+    <string name="str_net_err">Network Error</string>
+    <string name="str_err_net_msg">Please connect to the internet</string>
+    <string name="str_cannot_delete_cover">You can not delete the cover image</string>
+    <string name="str_done">Done</string>
 </resources>

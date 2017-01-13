@@ -14,13 +14,14 @@
         android:padding="12dp">
 
         <TextView
+            android:id="@+id/txtNoOfPhotos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="@string/str_tap_on_img"
+            android:gravity="start"
             android:textColor="@android:color/white"
             android:textSize="14sp" />
     </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -32,29 +33,44 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/divider_colour1"
+                android:padding="8dp"
+                android:text="@string/str_cover_image"
+                android:textColor="@color/primaryText"
+                android:textSize="16sp" />
+
             <FrameLayout
                 android:id="@+id/frame_cover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
+                android:layout_margin="4dp" />
 
-            <FrameLayout
-                android:id="@+id/frame_img1"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
+                android:background="@color/divider_colour1"
+                android:padding="8dp"
+                android:text="@string/str_slider_images"
+                android:textColor="@color/primaryText"
+                android:textSize="16sp" />
 
-            <FrameLayout
-                android:id="@+id/frame_img2"
+            <LinearLayout
+                android:id="@+id/mainView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:orientation="vertical"></LinearLayout>
+
+            <Button
+                android:id="@+id/btn_done"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
-
-            <FrameLayout
-                android:id="@+id/frame_img3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp" />
+                android:layout_margin="14dp"
+                android:background="@color/sign_in_btn"
+                android:text="@string/str_done" />
         </LinearLayout>
     </ScrollView>
 

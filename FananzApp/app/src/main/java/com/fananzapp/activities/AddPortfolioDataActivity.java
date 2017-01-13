@@ -26,6 +26,7 @@ import com.fananzapp.data.responsedata.AddPortfolioResDTO;
 import com.fananzapp.data.responsedata.CategoryResponseDTO;
 import com.fananzapp.data.responsedata.PortfolioDetailsResDTO;
 import com.fananzapp.data.responsedata.SubcategoryDTO;
+import com.fananzapp.utils.NetworkUtils;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.google.gson.Gson;
@@ -207,7 +208,12 @@ public class AddPortfolioDataActivity extends BaseActivity implements ServerSync
         int id = view.getId();
         switch (id) {
             case R.id.btn_next:
-                addPortfolio();
+                if (NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+                    addPortfolio();
+                } else {
+                    createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                            getResources().getString(R.string.str_err_net_msg));
+                }
                 break;
         }
     }

@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.fananzapp.R;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.ForgotPasswordReqDTO;
+import com.fananzapp.utils.NetworkUtils;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.google.gson.Gson;
@@ -26,6 +27,10 @@ public class ForgotPassUserActivity extends BaseActivity implements
         edtMail = (EditText) findViewById(R.id.edt_email);
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
+        if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+            createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                    getResources().getString(R.string.str_err_net_msg));
+        }
     }
 
     public void sendMailUser(View v) {

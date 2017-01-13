@@ -19,6 +19,7 @@ import com.fananzapp.data.requestdata.UserRequestDTO;
 import com.fananzapp.data.requestdata.VerifyPayReqDTO;
 import com.fananzapp.data.responsedata.InitializePaymentResDTO;
 import com.fananzapp.data.responsedata.PaymentSuccessResDTO;
+import com.fananzapp.utils.NetworkUtils;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.google.gson.Gson;
@@ -50,6 +51,10 @@ public class SubscriberRegisterActivity extends BaseActivity implements
         tab_layout.addTab(tab_layout.newTab().setText(getResources().getString(R.string.corporate)));
         tab_layout.addTab(tab_layout.newTab().setText(getResources().getString(R.string.freelance)));
         setTitle(getResources().getString(R.string.str_subscription_acc));
+        if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+            createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                    getResources().getString(R.string.str_err_net_msg));
+        }
         tab_layout.setTabGravity(TabLayout.GRAVITY_FILL);
         tab_layout.setSelectedTabIndicatorHeight(4);
         mServerSyncManager.setOnStringResultReceived(this);
@@ -90,7 +95,7 @@ public class SubscriberRegisterActivity extends BaseActivity implements
         config = new PayPalConfiguration()
                 // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
                 // or live (ENVIRONMENT_PRODUCTION)
-                .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+                .environment(initializeDTO.getEnvironment())
                 .clientId(this.initializeDTO.getClientId());
 
         Intent intent = new Intent(this, PayPalService.class);

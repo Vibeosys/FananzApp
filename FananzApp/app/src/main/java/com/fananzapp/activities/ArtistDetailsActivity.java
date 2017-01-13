@@ -1,6 +1,7 @@
 package com.fananzapp.activities;
 
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.fananzapp.data.requestdata.GetPortfolioDetailReqDTO;
 import com.fananzapp.data.requestdata.SendMessageReqDTO;
 import com.fananzapp.data.responsedata.PortfolioDetailsResDTO;
 import com.fananzapp.data.responsedata.PortfolioReqResDTO;
+import com.fananzapp.utils.NetworkUtils;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.UserAuth;
@@ -62,14 +64,19 @@ public class ArtistDetailsActivity extends BaseActivity implements
 
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
-        progressDialog.show();
-        GetPortfolioDetailReqDTO getPortfolioReqDTO = new GetPortfolioDetailReqDTO(portfolioId);
-        Gson gson = new Gson();
-        String serializedJsonString = gson.toJson(getPortfolioReqDTO);
-        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-        baseRequestDTO.setData(serializedJsonString);
-        mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_DETAILS_PORTFOLIO,
-                mSessionManager.getPortfolioDetailUrl(), baseRequestDTO);
+        if (NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+            progressDialog.show();
+            GetPortfolioDetailReqDTO getPortfolioReqDTO = new GetPortfolioDetailReqDTO(portfolioId);
+            Gson gson = new Gson();
+            String serializedJsonString = gson.toJson(getPortfolioReqDTO);
+            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+            baseRequestDTO.setData(serializedJsonString);
+            mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_DETAILS_PORTFOLIO,
+                    mSessionManager.getPortfolioDetailUrl(), baseRequestDTO);
+        } else {
+            createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                    getResources().getString(R.string.str_err_net_msg));
+        }
 
     }
 
@@ -224,16 +231,30 @@ public class ArtistDetailsActivity extends BaseActivity implements
         switch (id) {
             case R.id.txtYoutubeLink:
                 if (Validator.isValidUrl(portfolioDetailsResDTO.getYoutubeLink())) {
-                    Intent browserIntent = new Intent(Intent.CATEGORY_APP_BROWSER, Uri.parse(portfolioDetailsResDTO.getYoutubeLink()));
-                    startActivity(browserIntent);
+                    try {
+                        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + portfolioDetailsResDTO.getYoutubeLink()));
+                        startActivity(myIntent);
+                    } catch (ActivityNotFoundException e) {
+                        Toast.makeText(this, "No application can handle this request."
+                                + " Please install a webbrowser", Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.str_url_not_valid), Toast.LENGTH_SHORT).show();
                 }
+
+
                 break;
             case R.id.txtFbLink:
                 if (Validator.isValidUrl(portfolioDetailsResDTO.getFbLink())) {
-                    Intent browserIntent = new Intent(Intent.CATEGORY_APP_BROWSER, Uri.parse(portfolioDetailsResDTO.getFbLink()));
-                    startActivity(browserIntent);
+                    try {
+                        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + portfolioDetailsResDTO.getFbLink()));
+                        startActivity(myIntent);
+                    } catch (ActivityNotFoundException e) {
+                        Toast.makeText(this, "No application can handle this request."
+                                + " Please install a webbrowser", Toast.LENGTH_LONG).show();
+                        e.printStackTrace();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.str_url_not_valid), Toast.LENGTH_SHORT).show();
                 }

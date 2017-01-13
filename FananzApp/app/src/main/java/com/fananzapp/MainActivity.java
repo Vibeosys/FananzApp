@@ -82,8 +82,8 @@ public class MainActivity extends BaseActivity
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment_frame_lay, userListFragment, PORFOLIO_LIST_FRAGMENT).commit();
         } else if (userType == UserType.USER_OTHER) {
-            mNavigationUserEmailId.setText("");
-            mNavigationUserName.setText("");
+            mNavigationUserEmailId.setText("info@fananz.com");
+            mNavigationUserName.setText("www.fananz.com");
             navigationView.getMenu().clear(); //clear old inflated items.
             navigationView.inflateMenu(R.menu.activity_main_drawer);
             PortfolioListFragment userListFragment = new PortfolioListFragment();

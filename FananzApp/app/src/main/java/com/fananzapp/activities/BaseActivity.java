@@ -7,8 +7,10 @@ import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -121,5 +123,20 @@ public class BaseActivity extends AppCompatActivity {
         builder.setPositiveButton(positiveText, onPositiveButtonClickListener);
         builder.setNegativeButton(negativeText, onNegativeButtonClickListener);
         mAlertDialog = builder.show();
+    }
+
+    protected void createNetworkAlertDialog(String title, String message) {
+        new android.app.AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // whatever...
+                        dialog.dismiss();
+                        startActivityForResult(new Intent(Settings.ACTION_SETTINGS), 0);
+                    }
+                }).create().show();
     }
 }

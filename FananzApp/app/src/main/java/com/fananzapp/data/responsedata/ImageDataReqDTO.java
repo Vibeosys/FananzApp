@@ -18,12 +18,12 @@ public class ImageDataReqDTO extends BaseDTO implements Serializable {
     private static final String TAG = ImageDataReqDTO.class.getSimpleName();
     private long photoId;
     private String photoUrl;
-    private int isCoverImg;
+    private int isCoverImage;
 
     public ImageDataReqDTO(long photoId, String photoUrl, int isCoverImg) {
         this.photoId = photoId;
         this.photoUrl = photoUrl;
-        this.isCoverImg = isCoverImg;
+        this.isCoverImage = isCoverImg;
     }
 
     public long getPhotoId() {
@@ -43,11 +43,11 @@ public class ImageDataReqDTO extends BaseDTO implements Serializable {
     }
 
     public int isCoverImg() {
-        return isCoverImg;
+        return isCoverImage;
     }
 
     public void setCoverImg(int coverImg) {
-        isCoverImg = coverImg;
+        isCoverImage = coverImg;
     }
 
     public static ImageDataReqDTO deserializeJson(String serializedString) {

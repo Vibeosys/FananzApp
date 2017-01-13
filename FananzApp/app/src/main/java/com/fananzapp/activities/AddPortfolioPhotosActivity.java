@@ -1,18 +1,28 @@
 package com.fananzapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
+import com.fananzapp.MainActivity;
 import com.fananzapp.R;
 import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.PortfolioPhotosReqDTO;
 import com.fananzapp.data.responsedata.ImageDataReqDTO;
 import com.fananzapp.data.responsedata.PortfolioResponse;
 import com.fananzapp.fragments.UploadImageFragment;
+import com.fananzapp.utils.NetworkUtils;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
+import com.fananzapp.utils.SubscriberType;
 import com.fananzapp.views.ImageUploadView;
 import com.google.gson.Gson;
 
@@ -20,12 +30,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class AddPortfolioPhotosActivity extends BaseActivity implements
-        ServerSyncManager.OnSuccessResultReceived, ServerSyncManager.OnErrorResultReceived {
+        ServerSyncManager.OnSuccessResultReceived, ServerSyncManager.OnErrorResultReceived, View.OnClickListener {
     public static final String TAG = AddPortfolioPhotosActivity.class.getSimpleName();
     public static final String PORTFOLIO_ID = "portfolioId";
     private boolean isPhotoAvail;
-    FrameLayout frameCover, frameImg1, frameImg2, frameImg3;
+    FrameLayout frameCover;
     private long portfolioId;
+    private LinearLayout mainView;
+    private TextView txtTotalImages;
+    private int length = 0;
+    private Button btnDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +47,25 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
         setContentView(R.layout.activity_add_portfolio_photos);
         setTitle(getString(R.string.str_add_portfolio_title));
         frameCover = (FrameLayout) findViewById(R.id.frame_cover);
-        frameImg1 = (FrameLayout) findViewById(R.id.frame_img1);
-        frameImg2 = (FrameLayout) findViewById(R.id.frame_img2);
-        frameImg3 = (FrameLayout) findViewById(R.id.frame_img3);
+        mainView = (LinearLayout) findViewById(R.id.mainView);
+        txtTotalImages = (TextView) findViewById(R.id.txtNoOfPhotos);
+        btnDone = (Button) findViewById(R.id.btn_done);
         portfolioId = getIntent().getExtras().getLong(PORTFOLIO_ID);
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
-        callPhotosFromServer();
-
-        /*UploadImageFragment upl = new UploadImageFragment();
-        getSupportFragmentManager().beginTransaction().
-                replace(R.id.fragment_frame_lay, upl, "Upload").commit();
-        UploadImageFragment upl1 = new UploadImageFragment();
-        getSupportFragmentManager().beginTransaction().
-                replace(R.id.fragment_frame_lay1, upl1, "Upload").commit();*/
+        btnDone.setOnClickListener(this);
+        if (NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+            callPhotosFromServer();
+        } else {
+            createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                    getResources().getString(R.string.str_err_net_msg));
+        }
+        if (mSessionManager.getSType().equals(SubscriberType.TYPE_CORPORATE)) {
+            length = 6;
+        } else {
+            length = 3;
+        }
+        txtTotalImages.setText("You can upload up to " + length + " images");
     }
 
     private void callPhotosFromServer() {
@@ -71,7 +90,7 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
         progressDialog.dismiss();
         switch (requestToken) {
             case ServerRequestToken.REQUEST_PORT_PHOTOS:
-                setUpUi(null);
+                setUpDynamicUi(new ArrayList<ImageDataReqDTO>());
                 break;
         }
     }
@@ -82,118 +101,81 @@ public class AddPortfolioPhotosActivity extends BaseActivity implements
         switch (requestToken) {
             case ServerRequestToken.REQUEST_PORT_PHOTOS:
                 ArrayList<ImageDataReqDTO> images = ImageDataReqDTO.deserializeToArray(data);
-                setUpUi(images);
+                setUpDynamicUi(images);
                 break;
         }
     }
 
-    public void setUpUi(ArrayList<ImageDataReqDTO> images) {
+    public void setUpDynamicUi(ArrayList<ImageDataReqDTO> images) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (images.size() > 0) {
 
-        if (images != null) {
-            Collections.sort(images, Collections.reverseOrder(new ImageDataReqDTO.IsCoverComparator()));
-
-            UploadImageFragment coverImage = new UploadImageFragment();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(UploadImageFragment.IMAGE_DATA, images.get(0));
-            bundle.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
-            coverImage.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.frame_cover, coverImage, "Upload").commit();
-            if (images.size() >= 1) {
-                UploadImageFragment image1 = new UploadImageFragment();
-                Bundle bundleImg1 = new Bundle();
-                bundleImg1.putSerializable(UploadImageFragment.IMAGE_DATA, images.get(1));
+            int position = getCoverImage(images);
+            if (position != -1) {
+                UploadImageFragment coverImage = new UploadImageFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(UploadImageFragment.IMAGE_DATA, images.get(position));
                 bundle.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
-                image1.setArguments(bundleImg1);
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.frame_img1, image1, "img1").commit();
-
-            } else {
-                UploadImageFragment image2 = new UploadImageFragment();
-                Bundle bundleImg2 = new Bundle();
-                bundleImg2.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
-                bundleImg2.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
-                bundleImg2.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
-                image2.setArguments(bundleImg2);
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.frame_img2, image2, "img2").commit();
-
-                UploadImageFragment image3 = new UploadImageFragment();
-                Bundle bundleImg3 = new Bundle();
-                bundleImg3.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
-                bundleImg3.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
-                bundleImg3.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
-                image3.setArguments(bundleImg3);
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.frame_img3, image3, "img3").commit();
+                coverImage.setArguments(bundle);
+                fragmentTransaction.add(R.id.frame_cover, coverImage, "Upload");
+                images.remove(position);
             }
-            if (images.size() >= 2) {
-                UploadImageFragment image2 = new UploadImageFragment();
-                Bundle bundleImg2 = new Bundle();
-                bundleImg2.putSerializable(UploadImageFragment.IMAGE_DATA, images.get(2));
-                bundle.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
-                image2.setArguments(bundleImg2);
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.frame_img2, image2, "img2").commit();
-
-            } else {
-                UploadImageFragment image3 = new UploadImageFragment();
-                Bundle bundleImg3 = new Bundle();
-                bundleImg3.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
-                bundleImg3.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
-                bundleImg3.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
-                image3.setArguments(bundleImg3);
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.frame_img3, image3, "img3").commit();
-            }
-            if (images.size() > 3) {
-                UploadImageFragment image3 = new UploadImageFragment();
-                Bundle bundleImg3 = new Bundle();
-                bundleImg3.putSerializable(UploadImageFragment.IMAGE_DATA, images.get(3));
-                bundle.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
-                image3.setArguments(bundleImg3);
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.frame_img3, image3, "img3").commit();
-            }
-
 
         } else {
-            UploadImageFragment coverImage = new UploadImageFragment();
-            Bundle bundle = new Bundle();
-            bundle.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
-            bundle.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
-            bundle.putBoolean(UploadImageFragment.IS_COVER_IMG, true);
-            coverImage.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.frame_cover, coverImage, "Upload").commit();
-            UploadImageFragment image1 = new UploadImageFragment();
-
-            Bundle bundleImg1 = new Bundle();
-            bundleImg1.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
-            bundleImg1.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
-            bundleImg1.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
-            image1.setArguments(bundleImg1);
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.frame_img1, image1, "img1").commit();
-
-            UploadImageFragment image2 = new UploadImageFragment();
-            Bundle bundleImg2 = new Bundle();
-            bundleImg2.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
-            bundleImg2.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
-            bundleImg2.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
-            image2.setArguments(bundleImg2);
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.frame_img2, image2, "img2").commit();
-
             UploadImageFragment image3 = new UploadImageFragment();
             Bundle bundleImg3 = new Bundle();
             bundleImg3.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
             bundleImg3.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
             bundleImg3.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
             image3.setArguments(bundleImg3);
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.frame_img3, image3, "img3").commit();
+            fragmentTransaction.add(R.id.frame_cover, image3, "Upload");
         }
 
+        for (int i = 0; i <= length; i++) {
+            LinearLayout ll = new LinearLayout(this);
+            ll.setOrientation(LinearLayout.VERTICAL);
+            ll.setId(i);
+            try {
+                UploadImageFragment coverImage = new UploadImageFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(UploadImageFragment.IMAGE_DATA, images.get(i));
+                bundle.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
+                coverImage.setArguments(bundle);
+                fragmentTransaction.add(ll.getId(), coverImage, "" + i);
+            } catch (Exception e) {
+                UploadImageFragment image3 = new UploadImageFragment();
+                Bundle bundleImg3 = new Bundle();
+                bundleImg3.putLong(UploadImageFragment.PORTFOLIO_ID, portfolioId);
+                bundleImg3.putBoolean(UploadImageFragment.IS_NEW_DATA, true);
+                bundleImg3.putBoolean(UploadImageFragment.IS_COVER_IMG, false);
+                image3.setArguments(bundleImg3);
+                fragmentTransaction.add(ll.getId(), image3, "" + i);
+            }
+            mainView.addView(ll);
+        }
+        fragmentTransaction.commit();
+
+    }
+
+    private int getCoverImage(ArrayList<ImageDataReqDTO> images) {
+        int position = -1;
+        for (int i = 0; i < images.size(); i++) {
+            int isCover = images.get(i).isCoverImg();
+            if (isCover == 1) {
+                position = i;
+            }
+        }
+        return position;
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.btn_done:
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+        }
     }
 }

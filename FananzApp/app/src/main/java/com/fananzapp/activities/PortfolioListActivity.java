@@ -15,6 +15,7 @@ import com.fananzapp.data.requestdata.BaseRequestDTO;
 import com.fananzapp.data.requestdata.InactivePortfolioReqSTO;
 import com.fananzapp.data.requestdata.RegisterUserReqDTO;
 import com.fananzapp.data.responsedata.PortfolioResponse;
+import com.fananzapp.utils.NetworkUtils;
 import com.fananzapp.utils.ServerRequestToken;
 import com.fananzapp.utils.ServerSyncManager;
 import com.fananzapp.utils.SubscriberType;
@@ -42,12 +43,18 @@ public class PortfolioListActivity extends BaseActivity implements ServerSyncMan
         progressDialog.show();
         mServerSyncManager.setOnStringErrorReceived(this);
         mServerSyncManager.setOnStringResultReceived(this);
-        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-        if (mSessionManager.getSType().equals(SubscriberType.TYPE_FREELANCER)) {
-            addPortfolioLay.setVisibility(View.GONE);
+        if (NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+            if (mSessionManager.getSType().equals(SubscriberType.TYPE_FREELANCER)) {
+                addPortfolioLay.setVisibility(View.GONE);
+            }
+            mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_SUB_PORTFOLIO_LIST,
+                    mSessionManager.getSubPortfolioListUrl(), baseRequestDTO);
+        } else {
+            createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                    getResources().getString(R.string.str_err_net_msg));
         }
-        mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_SUB_PORTFOLIO_LIST,
-                mSessionManager.getSubPortfolioListUrl(), baseRequestDTO);
+
 
     }
 

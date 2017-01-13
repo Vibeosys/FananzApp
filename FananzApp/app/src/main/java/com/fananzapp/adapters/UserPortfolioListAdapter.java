@@ -77,6 +77,7 @@ public class UserPortfolioListAdapter extends BaseAdapter {
         }
         final PortfolioResponse portfolioResponse = mData.get(position);
         String category = portfolioResponse.getCategory();
+        String subCategory = portfolioResponse.getSubcategory();
         String artistName = portfolioResponse.getSubscriberName();
         double maxPrice = portfolioResponse.getMaxPrice();
         double minPrice = portfolioResponse.getMinPrice();
@@ -85,12 +86,18 @@ public class UserPortfolioListAdapter extends BaseAdapter {
         viewHolder.txtCategory.setText(category);
         viewHolder.txtArtistName.setText(artistName);
         viewHolder.txtMinMaxPrice.setText(maxMinPrice);
-       /* if (portfolioResponse.getSubcategory().isEmpty()) {
+
+        try {
+            if (!subCategory.isEmpty()) {
+                viewHolder.txtSubCategory.setText(" - " + subCategory);
+            }
+        } catch (NullPointerException e) {
+            viewHolder.txtSubCategory.setText("");
             viewHolder.subLay.setVisibility(View.GONE);
-        } else {
-            viewHolder.subLay.setVisibility(View.VISIBLE);
-            viewHolder.txtSubCategory.setText(portfolioResponse.getSubcategory());
-        }*/
+        } catch (Exception e) {
+            viewHolder.txtSubCategory.setText("");
+            viewHolder.subLay.setVisibility(View.GONE);
+        }
         String url = portfolioResponse.getCoverImageUrl();
 
         if (url == "null" || url == null || url.equals("") || url == "") {
