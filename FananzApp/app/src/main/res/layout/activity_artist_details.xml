@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fananzapp.activities.ArtistDetailsActivity">
+    tools:context="com.fananz.activities.ArtistDetailsActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                         android:layout_margin="3dp"
                         android:orientation="vertical">
 
-                        <com.fananzapp.views.LatoBoldTextView
+                        <com.fananz.views.LatoBoldTextView
                             android:id="@+id/txtArtistName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                             android:textColor="@color/primaryText"
                             android:textSize="22sp" />
 
-                        <com.fananzapp.views.LatoTextView
+                        <com.fananz.views.LatoTextView
                             android:id="@+id/txtArtistCategory"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                                 android:src="@drawable/facebook_img" />
                         </LinearLayout>
 
-                        <com.fananzapp.views.LatoTextView
+                        <com.fananz.views.LatoTextView
                             android:id="@+id/txtFbLink"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -199,7 +199,7 @@
                                 android:src="@drawable/youtube_img" />
                         </LinearLayout>
 
-                        <com.fananzapp.views.LatoTextView
+                        <com.fananz.views.LatoTextView
                             android:id="@+id/txtYoutubeLink"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -240,7 +240,7 @@
                             android:layout_marginTop="6dp"
                             android:background="@color/divider_colour1" />
 
-                        <com.fananzapp.views.LatoTextView
+                        <com.fananz.views.LatoTextView
                             android:id="@+id/txtArtistDetails"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

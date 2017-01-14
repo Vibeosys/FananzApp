@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.fananzapp.activities.AddPortfolioActivity">
+    tools:context="com.fananz.activities.AddPortfolioActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                             android:padding="3dp"
                             android:src="@drawable/default_img" />
 
-                        <com.fananzapp.views.CroppedImageView
+                        <com.fananz.views.CroppedImageView
                             android:id="@+id/img1"
                             android:layout_width="100dp"
                             android:layout_height="100dp"

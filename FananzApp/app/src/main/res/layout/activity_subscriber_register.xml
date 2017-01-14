@@ -3,6 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fananzapp.activities.SubscriberRegisterActivity">
+    tools:context="com.fananz.activities.SubscriberRegisterActivity">
     <include layout="@layout/dash_board_view_pager"></include>
 </RelativeLayout>

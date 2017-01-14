@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context="com.fananzapp.activities.CustomerLoginActivity">
+    tools:context="com.fananz.activities.CustomerLoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back_test"
-    tools:context="com.fananzapp.activities.UserRegisterActivity">
+    tools:context="com.fananz.activities.UserRegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fananzapp">
+    package="com.fananz">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".FananzAppApplication"
+        android:name="com.fananz.FananzAppApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.fananz.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,31 +27,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.CustomerLoginActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.fananz.activities.CustomerLoginActivity"
+            android:parentActivityName="com.fananz.MainActivity" />
         <activity
-            android:name=".activities.SubscriberLoginActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.fananz.activities.SubscriberLoginActivity"
+            android:parentActivityName="com.fananz.MainActivity" />
         <activity
-            android:name=".activities.ArtistDetailsActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.fananz.activities.ArtistDetailsActivity"
+            android:parentActivityName="com.fananz.MainActivity" />
         <activity
-            android:name=".activities.UserRegisterActivity"
-            android:parentActivityName=".activities.CustomerLoginActivity" />
+            android:name="com.fananz.activities.UserRegisterActivity"
+            android:parentActivityName="com.fananz.activities.CustomerLoginActivity" />
         <activity
-            android:name=".activities.SubscriberRegisterActivity"
-            android:parentActivityName=".activities.SubscriberLoginActivity" />
+            android:name="com.fananz.activities.SubscriberRegisterActivity"
+            android:parentActivityName="com.fananz.activities.SubscriberLoginActivity" />
         <activity
-            android:name=".activities.PortfolioListActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.fananz.activities.PortfolioListActivity"
+            android:parentActivityName="com.fananz.MainActivity" />
         <activity
-            android:name=".activities.AddPortfolioActivity"
-            android:parentActivityName=".activities.PortfolioListActivity" />
+            android:name="com.fananz.activities.AddPortfolioActivity"
+            android:parentActivityName="com.fananz.activities.PortfolioListActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.SubscriptionActivity" />
+        <activity android:name="com.fananz.activities.SubscriptionActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -63,26 +63,26 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".activities.AddPortfolioDataActivity"
-            android:parentActivityName=".activities.PortfolioListActivity" />
+            android:name="com.fananz.activities.AddPortfolioDataActivity"
+            android:parentActivityName="com.fananz.activities.PortfolioListActivity" />
         <activity
-            android:name=".activities.FilterActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.fananz.activities.FilterActivity"
+            android:parentActivityName="com.fananz.MainActivity" />
         <activity
-            android:name=".activities.AddPortfolioPhotosActivity"
-            android:parentActivityName=".activities.PortfolioListActivity" />
+            android:name="com.fananz.activities.AddPortfolioPhotosActivity"
+            android:parentActivityName="com.fananz.activities.PortfolioListActivity" />
         <activity
-            android:name=".activities.UserProfileActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.fananz.activities.UserProfileActivity"
+            android:parentActivityName="com.fananz.MainActivity" />
         <activity
-            android:name=".activities.SubscriberProfileActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.fananz.activities.SubscriberProfileActivity"
+            android:parentActivityName="com.fananz.MainActivity" />
         <activity
-            android:name=".activities.ForgotPassSubActivity"
-            android:parentActivityName=".activities.SubscriberLoginActivity" />
+            android:name="com.fananz.activities.ForgotPassSubActivity"
+            android:parentActivityName="com.fananz.activities.SubscriberLoginActivity" />
         <activity
-            android:name=".activities.ForgotPassUserActivity"
-            android:parentActivityName=".activities.CustomerLoginActivity"></activity>
+            android:name="com.fananz.activities.ForgotPassUserActivity"
+            android:parentActivityName="com.fananz.activities.CustomerLoginActivity"></activity>
     </application>
 
 </manifest>

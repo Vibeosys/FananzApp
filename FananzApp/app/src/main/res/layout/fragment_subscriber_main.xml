@@ -10,7 +10,7 @@
         android:layout_height="150dp"
         android:src="@drawable/header_icon" />
 
-    <com.fananzapp.views.LatoBoldTextView
+    <com.fananz.views.LatoBoldTextView
         android:id="@+id/txtArtistName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

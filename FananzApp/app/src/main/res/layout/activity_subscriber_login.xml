@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/back_test"
     android:gravity="center"
-    tools:context="com.fananzapp.activities.SubscriberLoginActivity">
+    tools:context="com.fananz.activities.SubscriberLoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

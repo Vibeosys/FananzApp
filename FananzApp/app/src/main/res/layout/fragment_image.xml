@@ -8,10 +8,10 @@
 
     <fragment
         android:id="@+id/fragment_client"
-        android:name="com.fananzapp.fragments.UploadImageFragment"
+        android:name="com.fananz.fragments.UploadImageFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.fananzapp.fragments.UploadImageFragment" />
+        tools:context="com.fananz.fragments.UploadImageFragment" />
 
 
 </android.support.design.widget.CoordinatorLayout>

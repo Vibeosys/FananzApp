@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:gravity="center"
-    tools:context="com.fananzapp.activities.SubscriptionActivity">
+    tools:context="com.fananz.activities.SubscriptionActivity">
 
 
     <LinearLayout
