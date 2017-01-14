@@ -35,7 +35,9 @@ import com.fananzapp.data.requestdata.SigninUserReqDTO;
 import com.fananzapp.data.requestdata.UpdatePhotosReqDTO;
 import com.fananzapp.data.requestdata.UploadPhotosReqDTO;
 import com.fananzapp.data.requestdata.UserRequestDTO;
+import com.fananzapp.data.responsedata.BaseResponseDTO;
 import com.fananzapp.data.responsedata.ImageDataReqDTO;
+import com.fananzapp.data.responsedata.ImageDataResDTO;
 import com.fananzapp.utils.CustomVolleyRequestQueue;
 import com.fananzapp.utils.DialogUtils;
 import com.fananzapp.utils.MultipartUtility;
@@ -48,6 +50,7 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by akshay on 06-01-2017.
@@ -294,8 +297,27 @@ public class UploadImageFragment extends BaseFragment implements View.OnClickLis
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             progressDialog.dismiss();
+            try {
+                BaseResponseDTO base = BaseResponseDTO.deserializeJson(result);
+                ArrayList<ImageDataResDTO> images = ImageDataResDTO.deserializeToArray(base.getData());
+                ImageDataResDTO data = images.get(0);
+                imgData = new ImageDataReqDTO();
+                imgData.setPhotoId(data.getPhotoId());
+                imgData.setPhotoUrl(data.getPhotoUrl());
+                if (data.isCoverImg()) {
+                    imgData.setCoverImg(1);
+                } else {
+                    imgData.setCoverImg(0);
+                }
+                img.setImageUrl(imgData.getPhotoUrl(), mImageLoader);
+                layEdit.setVisibility(View.VISIBLE);
+                layAdd.setVisibility(View.GONE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             Log.d(TAG, "##" + result);
         }
+
 
     }
 

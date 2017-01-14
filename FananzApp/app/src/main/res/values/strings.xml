@@ -54,7 +54,7 @@
     <string name="corporate">Corporate</string>
     <string name="freelance">Freelance</string>
     <string name="str_corporate_fee">Subscription Fees </string>
-    <string name="str_fee">USD 320</string>
+    <string name="str_fee">USD 160</string>
     <string name="str_subscription_acc">Subscription Account</string>
     <string name="str_business_name">Business Name</string>
     <string name="str_name_of_representative">Name of Representative</string>
@@ -62,7 +62,7 @@
     <string name="str_user_web_hint">Website Name</string>
     <string name="str_country_of_residence">Country of Residence</string>
     <string name="str_freelance_fee">Subscription fees per annum</string>
-    <string name="str_freelance_fee_aed">USD 160</string>
+    <string name="str_freelance_fee_aed">USD 80</string>
     <string name="str_name">Name</string>
     <string name="str_dont_hav_an_acc_hint">Not Registered yet?</string>
     <string name="str_add_new_porfolie">Add Portfolio</string>
