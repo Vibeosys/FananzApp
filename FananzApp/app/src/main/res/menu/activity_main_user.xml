@@ -7,6 +7,10 @@
             android:icon="@drawable/ic_user_24_white"
             android:title="@string/my_profile" />
         <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/ic_contact_24_black"
+            android:title="@string/str_contact_us" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_power_settings_new_white_24dp"
             android:title="@string/str_logout" />

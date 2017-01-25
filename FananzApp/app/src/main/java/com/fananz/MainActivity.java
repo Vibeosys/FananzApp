@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.fananz.activities.BaseActivity;
+import com.fananz.activities.ContactUsActivity;
 import com.fananz.activities.CustomerLoginActivity;
 import com.fananz.activities.PortfolioListActivity;
 import com.fananz.activities.SubscriberLoginActivity;
@@ -142,6 +143,9 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_user_profile) {
             Intent iLogin = new Intent(getApplicationContext(), UserProfileActivity.class);
             startActivity(iLogin);
+        } else if (id == R.id.nav_contact_us) {
+            Intent intent = new Intent(getApplicationContext(), ContactUsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_business_login) {
             Intent iLogin = new Intent(getApplicationContext(), SubscriberLoginActivity.class);
             startActivity(iLogin);

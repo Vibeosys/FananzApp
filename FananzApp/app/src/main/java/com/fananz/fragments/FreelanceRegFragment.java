@@ -28,6 +28,7 @@ import com.fananz.R;
 import com.fananz.activities.SubscriberLoginActivity;
 import com.fananz.activities.SubscriberRegisterActivity;
 import com.fananz.data.requestdata.BaseRequestDTO;
+import com.fananz.data.requestdata.PayLaterSubDTO;
 import com.fananz.data.requestdata.RegisterSubscriberReq;
 import com.fananz.data.requestdata.UserRequestDTO;
 import com.fananz.data.responsedata.InitializePaymentResDTO;
@@ -208,6 +209,11 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
             case ServerRequestToken.REQUEST_INITIALIZE_PAYMENT:
                 customSubAlterDialog(getString(R.string.str_server_err_title), getString(R.string.str_server_err_desc));
                 break;
+            case ServerRequestToken.REQUEST_PAY_LATER:
+                Intent iLogin = new Intent(getContext(), SubscriberLoginActivity.class);
+                startActivity(iLogin);
+                getActivity().finish();
+                break;
         }
     }
 
@@ -220,6 +226,11 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
                 break;
             case ServerRequestToken.REQUEST_INITIALIZE_PAYMENT:
                 customSubAlterDialog(getString(R.string.str_subscription_error), getString(R.string.str_subscription_msg));
+                break;
+            case ServerRequestToken.REQUEST_PAY_LATER:
+                Intent iLogin = new Intent(getContext(), SubscriberLoginActivity.class);
+                startActivity(iLogin);
+                getActivity().finish();
                 break;
         }
     }
@@ -239,6 +250,11 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
                 InitializePaymentResDTO paymentResDTO = InitializePaymentResDTO.deserializeJson(data);
                 activity.subscribeNow(paymentResDTO, userRequestDTO);
                 break;
+            case ServerRequestToken.REQUEST_PAY_LATER:
+                Intent iLogin = new Intent(getContext(), SubscriberLoginActivity.class);
+                startActivity(iLogin);
+                getActivity().finish();
+                break;
         }
 
     }
@@ -255,9 +271,14 @@ public class FreelanceRegFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                Intent iLogin = new Intent(getContext(), SubscriberLoginActivity.class);
-                startActivity(iLogin);
-                getActivity().finish();
+                progressDialog.show();
+                PayLaterSubDTO payLaterSubDTO = new PayLaterSubDTO(subId);
+                Gson gson = new Gson();
+                String serializedJsonString = gson.toJson(payLaterSubDTO);
+                BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+                baseRequestDTO.setData(serializedJsonString);
+                mServerSyncManager.uploadSubToServer(ServerRequestToken.REQUEST_PAY_LATER,
+                        mSessionManager.payLater(), baseRequestDTO);
             }
         });
         btnSubscribe.setOnClickListener(new View.OnClickListener() {
