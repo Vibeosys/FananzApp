@@ -2,6 +2,7 @@ package com.fananz.activities;
 
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -43,6 +44,7 @@ public class ArtistDetailsActivity extends BaseActivity implements
     private TextView btnRequestNow;
     private int portfolioId;
     private PortfolioDetailsResDTO portfolioDetailsResDTO;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class ArtistDetailsActivity extends BaseActivity implements
         txtYoutubeLink = (TextView) findViewById(R.id.txtYoutubeLink);
         txtArtistDetails = (TextView) findViewById(R.id.txtArtistDetails);
         btnRequestNow = (TextView) findViewById(R.id.btnRequestNow);
-
+        context = this;
         btnRequestNow.setOnClickListener(this);
         txtFbLink.setOnClickListener(this);
         txtYoutubeLink.setOnClickListener(this);
@@ -176,7 +178,7 @@ public class ArtistDetailsActivity extends BaseActivity implements
 
     public void bookNow() {
         if (UserAuth.isUserLoggedIn()) {
-            final Dialog dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);
+            final Dialog dialog = new Dialog(context, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_request_now);
             TextView txtArtistName = (TextView) dialog.findViewById(R.id.txtArtistName);
