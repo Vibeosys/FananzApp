@@ -47,7 +47,7 @@ public class CorporateRegFragment extends BaseFragment implements View.OnClickLi
     private static final String TAG = CorporateRegFragment.class.getSimpleName();
     private EditText edtBusinessName, edtContactPerson, edtEmail, edtPh, edtMob, edtWeb, edtCountry, edtPass;
     private Button btnSubmit;
-    private CheckBox checkBox;
+    private CheckBox mCheckBox;
     private boolean checkTerms = false;
     private SubscriberRegisterActivity activity;
     private String email, password;
@@ -74,7 +74,7 @@ public class CorporateRegFragment extends BaseFragment implements View.OnClickLi
         edtMob = (EditText) view.findViewById(R.id.edt_mob_no);
         edtWeb = (EditText) view.findViewById(R.id.edt_web_site);
         edtCountry = (EditText) view.findViewById(R.id.edt_country_of_residence);
-        checkBox = (CheckBox) view.findViewById(R.id.chk_terms);
+        mCheckBox = (CheckBox) view.findViewById(R.id.chk_terms);
         btnSubmit = (Button) view.findViewById(R.id.btn_submit);
         btnSubmit.setOnClickListener(this);
         mServerSyncManager.setOnStringResultReceived(this);
@@ -88,12 +88,12 @@ public class CorporateRegFragment extends BaseFragment implements View.OnClickLi
             }
         }, 11, 30, 0);
         mTxtTerms.setText(ssWebsite, TextView.BufferType.SPANNABLE);
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 checkTerms = b;
             }
-        });
+        });*/
         return view;
 
     }
@@ -127,12 +127,41 @@ public class CorporateRegFragment extends BaseFragment implements View.OnClickLi
         int id = view.getId();
         switch (id) {
             case R.id.btn_submit:
-                registerUser();
+                boolean result = registerUser();
+                if (result) {
+                    if (!mCheckBox.isChecked()) {
+                        customAlterDialog(getResources().getString(R.string.str_sub_registration), getResources().getString(R.string.str_terms_condition));
+                    }
+                    else if(mCheckBox.isChecked())
+                    {
+                        callToPrepareJson();
+                    }
+                }
                 break;
         }
     }
 
-    private void registerUser() {
+    private void callToPrepareJson() {
+        String strBusinessName = edtBusinessName.getText().toString();
+        String strContactPerson = edtContactPerson.getText().toString();
+        password = edtPass.getText().toString();
+        email = edtEmail.getText().toString();
+        String strPhone = edtPh.getText().toString();
+        String strMob = edtMob.getText().toString();
+        String strWeb = edtWeb.getText().toString();
+        String strCountry = edtCountry.getText().toString();
+        progressDialog.show();
+        RegisterSubscriberReq subscriberReq = new RegisterSubscriberReq(strBusinessName, email, password, strContactPerson
+                , SubscriberType.TYPE_CORPORATE, strPhone, strMob, strWeb, strCountry, "");
+        Gson gson = new Gson();
+        String serializedJsonString = gson.toJson(subscriberReq);
+        BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+        baseRequestDTO.setData(serializedJsonString);
+        mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_ADD_SUBSCRIBER,
+                mSessionManager.addSubsriberUrl(), baseRequestDTO);
+    }
+
+    private boolean registerUser() {
 
         String strBusinessName = edtBusinessName.getText().toString();
         String strContactPerson = edtContactPerson.getText().toString();
@@ -145,40 +174,51 @@ public class CorporateRegFragment extends BaseFragment implements View.OnClickLi
 
         View focusView = null;
         boolean check = false;
+
+
         if (strBusinessName.isEmpty()) {
+            edtBusinessName.requestFocus();
             edtBusinessName.setError(getString(R.string.str_name_empty_error));
-            focusView = edtBusinessName;
             check = true;
+            return false;
         } else if (email.isEmpty()) {
-            focusView = edtEmail;
+            edtEmail.requestFocus();
             check = true;
             edtEmail.setError(getString(R.string.str_email_empty));
+            return false;
         } else if (!Validator.isValidMail(email)) {
-            focusView = edtEmail;
+            edtEmail.requestFocus();
             check = true;
             edtEmail.setError(getString(R.string.str_email_wrong));
+            return false;
         } else if (password.isEmpty()) {
-            focusView = edtPass;
+            edtPass.requestFocus();
             check = true;
             edtPass.setError(getString(R.string.str_pass_empty));
+            return false;
         } else if (strMob.isEmpty()) {
-            focusView = edtMob;
+            edtMob.requestFocus();
             check = true;
             edtMob.setError(getString(R.string.str_mob_empty));
+            return false;
         } else if (!Validator.isValidPhone(strMob)) {
             focusView = edtMob;
+            edtMob.requestFocus();
             check = true;
             edtMob.setError(getString(R.string.str_mob_wrong));
+            return false;
         } else if (!strPhone.isEmpty()) {
             if (!Validator.isValidTel(strPhone)) {
-                focusView = edtPh;
+                edtPh.requestFocus();
                 check = true;
                 edtPh.setError(getString(R.string.str_ph_invalid));
+                return false;
             }
-        } else if (!checkTerms) {
-            focusView = checkBox;
+        } /*else if (!mCheckBox.isChecked()) {
+            focusView = mCheckBox;
             check = true;
-            checkBox.setError(getString(R.string.str_check_box_not));
+            customAlterDialog(getResources().getString(R.string.str_sub_registration), getResources().getString(R.string.str_terms_condition));
+            return false;
         }
         if (check) {
             focusView.requestFocus();
@@ -192,8 +232,9 @@ public class CorporateRegFragment extends BaseFragment implements View.OnClickLi
             baseRequestDTO.setData(serializedJsonString);
             mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_ADD_SUBSCRIBER,
                     mSessionManager.addSubsriberUrl(), baseRequestDTO);
-        }
+        }*/
 
+        return true;
     }
 
     @Override

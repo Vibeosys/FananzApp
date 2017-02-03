@@ -201,4 +201,7 @@
     <string name="str_contactus_error">Contact us error</string>
     <string name="str_pay_later">Pay later email successfully</string>
     <string name="str_write_abt_urself">Write about yourself</string>
+    <string name="str_user_registration">User Registration</string>
+    <string name="str_sub_registration">Subscriber Registration</string>
+    <string name="str_terms_condition">Please select terms and conditions</string>
 </resources>
