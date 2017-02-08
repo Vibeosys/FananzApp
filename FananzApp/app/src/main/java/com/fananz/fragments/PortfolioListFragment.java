@@ -183,14 +183,13 @@ public class PortfolioListFragment extends BaseFragment implements ServerSyncMan
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MainActivity.FILTER_RESULT) {
             if (resultCode == Activity.RESULT_OK) {
-                if(adapter!=null)
-                {
+                if (adapter != null) {
                     adapter.setData(portfolioResponses);
                     int selectedPrice = data.getIntExtra(FilterActivity.SELECTED_PRICE, 0);
+                    int categoryId = data.getIntExtra(FilterActivity.SELECTED_CATEGORY, 0);
+                    int subcategoryId = data.getIntExtra(FilterActivity.SELECTED_SUBCATEGORY, 0);
                     int selectedSort = data.getIntExtra(FilterActivity.SELECTED_SORT, 0);
-                    if (selectedPrice > 1000) {
-                        adapter.filterAdapter(selectedPrice);
-                    }
+                    adapter.filterAdapter(selectedPrice, categoryId, subcategoryId);
                     adapter.sortAdapter(selectedSort);
                 }
 
