@@ -13,6 +13,7 @@ import com.fananz.R;
 import com.fananz.data.ContactUsReqDTO;
 import com.fananz.data.requestdata.BaseRequestDTO;
 import com.fananz.data.requestdata.RegisterSubscriberReq;
+import com.fananz.utils.NetworkUtils;
 import com.fananz.utils.ServerRequestToken;
 import com.fananz.utils.ServerSyncManager;
 import com.fananz.utils.SubscriberType;
@@ -112,14 +113,20 @@ public class ContactUsActivity extends BaseActivity implements ServerSyncManager
         if (check) {
             focusView.requestFocus();
         } else {
-            progressDialog.show();
-            ContactUsReqDTO contactUsReqDTO = new ContactUsReqDTO(strName, email, strMob, strMsg);
-            Gson gson = new Gson();
-            String serializedJsonString = gson.toJson(contactUsReqDTO);
-            BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
-            baseRequestDTO.setData(serializedJsonString);
-            mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_CONTACT_US,
-                    mSessionManager.contactUsUrl(), baseRequestDTO);
+            if (!NetworkUtils.isActiveNetworkAvailable(getApplicationContext())) {
+                createNetworkAlertDialog(getResources().getString(R.string.str_net_err),
+                        getResources().getString(R.string.str_err_net_msg));
+            } else {
+                progressDialog.show();
+                ContactUsReqDTO contactUsReqDTO = new ContactUsReqDTO(strName, email, strMob, strMsg);
+                Gson gson = new Gson();
+                String serializedJsonString = gson.toJson(contactUsReqDTO);
+                BaseRequestDTO baseRequestDTO = new BaseRequestDTO();
+                baseRequestDTO.setData(serializedJsonString);
+                mServerSyncManager.uploadDataToServer(ServerRequestToken.REQUEST_CONTACT_US,
+                        mSessionManager.contactUsUrl(), baseRequestDTO);
+            }
+
         }
 
     }
